@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Владислав Сурин — игры, архитектура и видео. Автор BRESH, левел-дизайнер города для RCD.">
+  <title>Владислав Сурин — портфолио</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="wrap"><div class="header">
+  <a class="brand" href="#"><span class="mark" aria-hidden="true">ВС</span>Владислав Сурин</a>
+  <nav class="navigation" aria-label="Главное меню"><a href="#works">Работы</a><a href="#about">Обо мне</a></nav>
+</div></header>
+<main class="wrap">
+  <div id="home">
+    <section class="hero" aria-labelledby="intro-title">
+      <p class="eyebrow muted">Архитектура · Игры · Видео</p>
+      <h1 id="intro-title">Пространства.<br>Игры. Истории.</h1>
+      <div class="hero-bottom"><p class="intro">Я Владислав Сурин — архитектор, автор игр и режиссёр. Создаю игровые пространства, работаю с городской средой и рассказываю истории через видео.</p><div class="index-note">Избранные проекты ↓</div></div>
+    </section>
+    <section class="works" id="works" aria-labelledby="works-title">
+      <div class="section-top"><h2 id="works-title">Работы</h2><div class="filters" aria-label="Направления работ">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">Все<span>02</span></button>
+        <button class="filter" type="button" data-filter="games" aria-pressed="false">Игры<span>02</span></button>
+        <button class="filter" type="button" data-filter="architecture" aria-pressed="false">Архитектура<span>00</span></button>
+        <button class="filter" type="button" data-filter="video" aria-pressed="false">Видео<span>00</span></button>
+      </div></div>
+      <div class="grid" id="projects"></div>
+      <p class="empty" id="empty" role="status" hidden></p>
+    </section>
+    <section class="about" id="about" aria-labelledby="about-title"><h2 id="about-title">Обо мне</h2><div><p class="about-copy">Мой опыт объединяет архитектуру, разработку игр и режиссуру. Мне интересно, как устроено пространство, как человек его воспринимает и какие истории в нём возникают.</p><p class="about-small">В BRESH я работаю над игрой целиком, включая геймдизайн, карты и сборку окружения. В RCD отвечал за левел-дизайн всего города. Архитектурные и видеопроекты появятся здесь следующим этапом.</p></div></section>
+  </div>
+  <div id="project-pages"></div>
+</main>
+<footer class="wrap"><div class="footer"><span>Владислав Сурин</span><span>Игры · Архитектура · Видео</span></div></footer>
+<script src="content.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
