@@ -39,20 +39,6 @@
     if (url) img.src = url;
     return img;
   }
-  function arrowIcon() {
-    const wrapper = el('span', 'arrow');
-    wrapper.setAttribute('aria-hidden', 'true');
-    const ns = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(ns, 'svg');
-    svg.setAttribute('viewBox', '0 0 24 24');
-    svg.setAttribute('width', '24'); svg.setAttribute('height', '24');
-    svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor');
-    svg.setAttribute('stroke-width', '1.5'); svg.setAttribute('focusable', 'false');
-    const path = document.createElementNS(ns, 'path');
-    path.setAttribute('d', 'M6 18 18 6M6 6h12v12');
-    svg.append(path); wrapper.append(svg);
-    return wrapper;
-  }
   function figure(item) {
     const node = el('figure', 'project-image');
     node.append(picture(item.src, item.alt));
@@ -121,19 +107,19 @@
   document.querySelector('.index-note').textContent = data.home.note;
   document.querySelector('.about-copy').textContent = data.home.about;
   document.querySelector('.about-small').textContent = data.home.aboutSmall;
-  // Необязательные настройки home.photo и home.photoAlt в content.js.
-  // По умолчанию достаточно положить фото по указанному пути.
-  if (data.home.photo !== false) {
-    const photoColumn = el('div', 'about-person');
-    const heading = document.getElementById('about-title');
-    heading.replaceWith(photoColumn); photoColumn.append(heading);
-    const photo = picture(data.home.photo || 'assets/about/photo.jpg', data.home.photoAlt || data.site.name);
-    photo.loading = 'eager';
-    photo.className = 'about-photo'; photo.width = 750; photo.height = 1000;
-    photo.hidden = true;
-    photo.addEventListener('load', () => { photo.hidden = false; });
-    photoColumn.append(photo);
+  // Фото присутствует в HTML, чтобы оно не зависело от динамической сборки.
+  const photo = document.getElementById('about-photo');
+  if (photo) {
+    photo.hidden = data.home.photo === false;
+    photo.alt = data.home.photoAlt || data.site.name;
+    if (data.home.photo && safeUrl(data.home.photo)) photo.src = safeUrl(data.home.photo);
   }
+  let keyboardNavigation = false;
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Tab' || event.key === 'Enter' || event.key === ' ') keyboardNavigation = true;
+  }, true);
+  document.addEventListener('pointerdown', () => { keyboardNavigation = false; }, true);
+  document.addEventListener('touchstart', () => { keyboardNavigation = false; }, {capture:true, passive:true});
   const cards = [];
   const articles = new Map();
   projects.forEach((project, index) => {
@@ -142,7 +128,7 @@
     const settings = project.cover || {};
     cover.style.background = settings.background || '#e1dfd5'; cover.style.color = settings.color || '#232624';
     const category = (project.categories || []).map(id => categoryNames.get(id) || id).join(' / ');
-    cover.append(el('span', 'cover-count', count(index + 1) + ' / ' + category.toUpperCase()), el('span', 'cover-word', project.coverTitle || project.title), el('span', 'cover-caption', 'Место для обложки проекта'), arrowIcon());
+    cover.append(el('span', 'cover-count', count(index + 1) + ' / ' + category.toUpperCase()), el('span', 'cover-word', project.coverTitle || project.title), el('span', 'cover-caption', 'Место для обложки проекта'));
     if (settings.src) {
       const img = picture(settings.src, settings.alt, () => cover.classList.add('has-image'));
       img.className = 'cover-image'; img.style.objectPosition = settings.position || '50% 50%'; img.style.objectFit = settings.fit || 'cover';
@@ -189,7 +175,7 @@
     home.hidden = Boolean(match);
     articles.forEach(({article}, key) => { article.hidden = key !== id; });
     document.title = match ? match.project.title + ' — ' + data.site.name : data.site.title;
-    if (match) { window.scrollTo(0, 0); match.h1.focus({preventScroll:true}); }
+    if (match) { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
     else if (id === 'works' || id === 'about') requestAnimationFrame(() => document.getElementById(id).scrollIntoView());
     else window.scrollTo(0, 0);
   }
