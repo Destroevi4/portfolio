@@ -7,3 +7,9 @@
   
 /* Настройки изображений; остальной дизайн первого макета сохранён. */
 .cover{aspect-ratio:16/9}.cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.cover.has-image .cover-word,.cover.has-image .cover-caption,.cover.has-image .cover-count{display:none}.cover.has-image .arrow{color:white;text-shadow:0 1px 5px #000}.cover-word{position:relative}.cover-caption,.cover-count,.arrow{z-index:1}.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:24px 0}.project-image{margin:24px 0}.project-image img,.gallery img{display:block;width:100%;height:auto}.project-image figcaption{font-size:12px;line-height:1.6;color:var(--muted);margin-top:10px}.project-video{display:block;width:100%;margin:24px 0}.text-paragraph{white-space:pre-line}@media(max-width:720px){.gallery{grid-template-columns:1fr}}
+/* Safari: заголовок получает фокус для навигации, но не нуждается в рамке. */
+.project h1:focus{outline:none}
+.arrow svg{display:block;filter:drop-shadow(0 1px 2px #0002)}
+.about-person{min-width:0}
+.about-photo{display:block;width:100%;max-width:240px;height:auto;margin-top:26px}
+@media(max-width:720px){.about-photo{max-width:180px;margin-top:22px}.header{gap:14px}.navigation{gap:14px}}
