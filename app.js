@@ -51,19 +51,34 @@
   closeViewer.addEventListener('click', () => viewer.close());
   viewerBar.append(viewerTitle, original, closeViewer);
   const viewerImage = el('img');
-  viewer.append(viewerBar, viewerImage);
+  const viewerComparison = el('div', 'viewer-comparison');
+  viewerComparison.hidden = true;
+  viewer.append(viewerBar, viewerImage, viewerComparison);
   viewer.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
   viewer.addEventListener('close', () => { document.body.classList.remove('viewing-image'); });
   document.body.append(viewer);
   function openImage(src, title) {
     const url = safeUrl(src);
     if (!url) return;
+    viewerComparison.hidden = true;
+    viewerComparison.replaceChildren();
+    viewerImage.hidden = false;
+    original.hidden = false;
     viewerImage.src = url;
     viewerImage.alt = title || '';
     viewerTitle.textContent = title || 'Изображение проекта';
     original.href = url;
     original.target = '_blank';
     original.rel = 'noopener noreferrer';
+    viewer.showModal();
+    document.body.classList.add('viewing-image');
+  }
+  function openComparison(block) {
+    viewerImage.hidden = true;
+    original.hidden = true;
+    viewerTitle.textContent = block.title || 'Сравнение изображений';
+    viewerComparison.replaceChildren(comparisonFrame(block, true));
+    viewerComparison.hidden = false;
     viewer.showModal();
     document.body.classList.add('viewing-image');
   }
@@ -78,46 +93,55 @@
     if (item.caption) node.append(el('figcaption', '', item.caption));
     return node;
   }
+  function comparisonFrame(block, enlarged = false) {
+    const box = el('div', 'slider-comparison');
+    const ratio = block.aspectRatio || '16 / 9';
+    box.style.aspectRatio = ratio;
+    const parts = ratio.split('/').map(Number);
+    box.style.setProperty('--media-ratio', String(parts[1] ? parts[0] / parts[1] : parts[0]));
+    const images = [];
+    [['before', block.before, block.beforeLabel || 'Мир 1'], ['after', block.after, block.afterLabel || 'Мир 2']].forEach(([side, src, label]) => {
+      const layer = el('div', 'slider-layer slider-' + side);
+      const img = picture(src, (block.title || 'Сравнение') + ' — ' + label);
+      if (enlarged) img.loading = 'eager';
+      layer.append(img); box.append(layer); images.push(img);
+      const tag = el('span', 'slider-label slider-label-' + side, label);
+      box.append(tag);
+    });
+    images[0].addEventListener('load', () => { images[1].loading = 'eager'; });
+    const line = el('div', 'slider-divider');
+    line.setAttribute('aria-hidden', 'true');
+    const handle = el('span', 'slider-grip');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('width', '24'); svg.setAttribute('height', '24');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M8 7 3 12l5 5M16 7l5 5-5 5');
+    path.setAttribute('fill', 'none'); path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '1.5'); path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.append(path); handle.append(svg); line.append(handle); box.append(line);
+    const range = el('input', 'comparison-range');
+    range.type = 'range'; range.min = '0'; range.max = '100'; range.step = '1'; range.value = '50';
+    range.setAttribute('aria-label', 'Сравнить: ' + (block.title || 'изображения'));
+    function update() {
+      box.style.setProperty('--split', range.value + '%');
+      range.setAttribute('aria-valuetext', range.value + '% — ' + (block.beforeLabel || 'Мир 1') + ', ' + (100 - Number(range.value)) + '% — ' + (block.afterLabel || 'Мир 2'));
+    }
+    range.addEventListener('input', update); update();
+    box.append(range);
+    return box;
+  }
   function comparison(block) {
     const section = el('section', 'world-switcher');
     const heading = el('div', 'world-heading');
     heading.append(el('h2', '', block.title || 'Два мира'));
-    const controls = el('div', 'world-controls');
-    controls.setAttribute('role', 'group');
-    controls.setAttribute('aria-label', block.title || 'Выбрать мир');
-    const box = el('div', 'world-frame');
-    if (block.aspectRatio) box.style.aspectRatio = block.aspectRatio;
-    const buttons = [];
-    const layers = [];
-    function select(index) {
-      buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
-      layers.forEach((layer, i) => { layer.hidden = i !== index; });
-    }
-    [['before', block.before, block.beforeLabel || 'Мир 1'], ['after', block.after, block.afterLabel || 'Мир 2']].forEach(([side, src, label], index) => {
-      const button = el('button', 'world-button', label);
-      button.type = 'button';
-      button.setAttribute('aria-pressed', String(index === 0));
-      button.addEventListener('click', () => select(index));
-      controls.append(button); buttons.push(button);
-      const layer = el('button', 'image-open world-image');
-      layer.type = 'button'; layer.hidden = index !== 0;
-      layer.setAttribute('aria-label', 'Увеличить: ' + block.title + ', ' + label);
-      const img = picture(src, block.title + ' — ' + label);
-      layer.append(img);
-      layer.addEventListener('click', () => openImage(src, block.title + ' — ' + label));
-      box.append(layer); layers.push(layer);
-    });
-    // Второй мир загружается заранее, когда первый уже появился на экране.
-    layers[0].querySelector('img').addEventListener('load', () => {
-      layers[1].querySelector('img').loading = 'eager';
-    });
-    controls.addEventListener('keydown', event => {
-      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-      event.preventDefault();
-      const index = event.key === 'ArrowLeft' ? 0 : 1;
-      select(index); buttons[index].focus();
-    });
-    heading.append(controls); section.append(heading, box);
+    const enlarge = el('button', 'comparison-enlarge', 'На весь экран');
+    enlarge.type = 'button';
+    enlarge.setAttribute('aria-label', 'Увеличить сравнение: ' + (block.title || 'Два мира'));
+    enlarge.addEventListener('click', () => openComparison(block));
+    heading.append(enlarge);
+    section.append(heading, comparisonFrame(block));
     if (block.caption) section.append(el('p', 'media-note', block.caption));
     if (block.legend) {
       const legend = el('ul', 'scheme-legend');
@@ -137,6 +161,11 @@
     if (block.type === 'gallery') {
       const gallery = el('div', 'gallery');
       (block.images || []).forEach(item => gallery.append(figure(item)));
+      if (block.title) {
+        const section = el('section', 'gallery-section');
+        section.append(el('h2', '', block.title), gallery);
+        return section;
+      }
       return gallery;
     }
     if (block.type === 'collage') {
