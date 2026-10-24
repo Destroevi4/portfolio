@@ -39,37 +39,97 @@
     if (url) img.src = url;
     return img;
   }
+  const viewer = el('dialog', 'image-viewer');
+  viewer.setAttribute('aria-label', 'Просмотр изображения');
+  const viewerBar = el('div', 'image-viewer-bar');
+  const viewerTitle = el('p');
+  viewerTitle.id = 'image-viewer-title';
+  viewer.setAttribute('aria-labelledby', viewerTitle.id);
+  const original = link('Открыть оригинал', '', 'image-original');
+  const closeViewer = el('button', 'viewer-close', 'Закрыть');
+  closeViewer.type = 'button';
+  closeViewer.addEventListener('click', () => viewer.close());
+  viewerBar.append(viewerTitle, original, closeViewer);
+  const viewerImage = el('img');
+  viewer.append(viewerBar, viewerImage);
+  viewer.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
+  viewer.addEventListener('close', () => { document.body.classList.remove('viewing-image'); });
+  document.body.append(viewer);
+  function openImage(src, title) {
+    const url = safeUrl(src);
+    if (!url) return;
+    viewerImage.src = url;
+    viewerImage.alt = title || '';
+    viewerTitle.textContent = title || 'Изображение проекта';
+    original.href = url;
+    original.target = '_blank';
+    original.rel = 'noopener noreferrer';
+    viewer.showModal();
+    document.body.classList.add('viewing-image');
+  }
   function figure(item) {
     const node = el('figure', 'project-image');
-    node.append(picture(item.src, item.alt));
+    const button = el('button', 'image-open');
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Увеличить: ' + (item.alt || item.caption || 'изображение проекта'));
+    button.append(picture(item.src, item.alt));
+    button.addEventListener('click', () => openImage(item.src, item.alt || item.caption));
+    node.append(button);
     if (item.caption) node.append(el('figcaption', '', item.caption));
     return node;
   }
   function comparison(block) {
-    const fragment = document.createDocumentFragment();
-    const heading = el('div', 'media-heading');
-    heading.append(el('span', '', block.title || ''), el('span', 'muted', 'Передвинь границу ↔'));
-    const box = el('div', 'comparison');
-    [['before', block.before, 'Изображение первого мира\nдобавим позже'], ['after', block.after, 'Изображение второго мира\nдобавим позже']].forEach(([side, src, text]) => {
-      const layer = el('div', 'comparison-layer comparison-' + side);
-      const placeholder = el('span', 'text-paragraph', text);
-      layer.append(placeholder);
-      if (src) layer.append(picture(src, block[side + 'Label'], () => { placeholder.hidden = true; }));
-      box.append(layer);
+    const section = el('section', 'world-switcher');
+    const heading = el('div', 'world-heading');
+    heading.append(el('h2', '', block.title || 'Два мира'));
+    const controls = el('div', 'world-controls');
+    controls.setAttribute('role', 'group');
+    controls.setAttribute('aria-label', block.title || 'Выбрать мир');
+    const box = el('div', 'world-frame');
+    if (block.aspectRatio) box.style.aspectRatio = block.aspectRatio;
+    const buttons = [];
+    const layers = [];
+    function select(index) {
+      buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+      layers.forEach((layer, i) => { layer.hidden = i !== index; });
+    }
+    [['before', block.before, block.beforeLabel || 'Мир 1'], ['after', block.after, block.afterLabel || 'Мир 2']].forEach(([side, src, label], index) => {
+      const button = el('button', 'world-button', label);
+      button.type = 'button';
+      button.setAttribute('aria-pressed', String(index === 0));
+      button.addEventListener('click', () => select(index));
+      controls.append(button); buttons.push(button);
+      const layer = el('button', 'image-open world-image');
+      layer.type = 'button'; layer.hidden = index !== 0;
+      layer.setAttribute('aria-label', 'Увеличить: ' + block.title + ', ' + label);
+      const img = picture(src, block.title + ' — ' + label);
+      layer.append(img);
+      layer.addEventListener('click', () => openImage(src, block.title + ' — ' + label));
+      box.append(layer); layers.push(layer);
     });
-    const line = el('div', 'comparison-line');
-    line.append(el('span', 'comparison-handle', '↔')); box.append(line);
-    box.append(el('span', 'comparison-label before', block.beforeLabel || 'ДО'), el('span', 'comparison-label after', block.afterLabel || 'ПОСЛЕ'));
-    const input = el('input'); input.type = 'range'; input.min = '0'; input.max = '100'; input.value = '50';
-    input.setAttribute('aria-label', block.title || 'Граница сравнения изображений');
-    input.setAttribute('aria-valuetext', '50 процентов');
-    input.addEventListener('input', () => {
-      box.style.setProperty('--split', input.value + '%');
-      input.setAttribute('aria-valuetext', input.value + ' процентов');
+    // Второй мир загружается заранее, когда первый уже появился на экране.
+    layers[0].querySelector('img').addEventListener('load', () => {
+      layers[1].querySelector('img').loading = 'eager';
     });
-    box.append(input); fragment.append(heading, box);
-    if (block.caption) fragment.append(el('p', 'media-note', block.caption));
-    return fragment;
+    controls.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      const index = event.key === 'ArrowLeft' ? 0 : 1;
+      select(index); buttons[index].focus();
+    });
+    heading.append(controls); section.append(heading, box);
+    if (block.caption) section.append(el('p', 'media-note', block.caption));
+    if (block.legend) {
+      const legend = el('ul', 'scheme-legend');
+      block.legend.forEach(item => {
+        const entry = el('li');
+        const swatch = el('span', 'legend-swatch ' + (item.kind || ''));
+        swatch.setAttribute('aria-hidden', 'true');
+        entry.append(swatch, document.createTextNode(item.label)); legend.append(entry);
+      });
+      section.append(legend);
+    }
+    return section;
   }
   function renderBlock(block) {
     if (block.type === 'comparison') return comparison(block);
@@ -78,6 +138,15 @@
       const gallery = el('div', 'gallery');
       (block.images || []).forEach(item => gallery.append(figure(item)));
       return gallery;
+    }
+    if (block.type === 'collage') {
+      const section = el('section', 'process-section');
+      section.append(el('h2', '', block.title || 'Рабочие материалы'));
+      const collage = el('div', 'process-collage');
+      (block.images || []).forEach(item => collage.append(figure(item)));
+      section.append(collage);
+      if (block.caption) section.append(el('p', 'media-note', block.caption));
+      return section;
     }
     if (block.type === 'video') {
       const video = el('video', 'project-video'); video.controls = true; video.preload = 'metadata'; video.playsInline = true;
@@ -140,11 +209,17 @@
     card.append(cover, meta); grid.append(card); cards.push({card, project});
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
     article.setAttribute('aria-labelledby', project.id + '-title');
-    article.append(link('← Все работы', '#works', 'back'));
+    article.append(link('Все работы', '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
     h1.id = project.id + '-title'; h1.tabIndex = -1;
     head.append(el('p', 'eyebrow muted', count(index + 1) + ' / ' + (project.eyebrow || category)), h1, el('p', 'project-lead', project.lead || project.summary || ''));
     article.append(head);
+    if (project.links?.length) {
+      const stores = el('nav', 'project-links');
+      stores.setAttribute('aria-label', 'Страницы игры в магазинах');
+      project.links.forEach(item => stores.append(link(item.label, item.url, 'store-link')));
+      article.append(stores);
+    }
     if (project.facts?.length) {
       const facts = el('dl', 'facts');
       project.facts.forEach(item => { const fact = el('div', 'fact'); fact.append(el('dt', '', item.label), el('dd', '', item.value)); facts.append(fact); });
@@ -152,7 +227,7 @@
     }
     (project.blocks || []).forEach(block => article.append(renderBlock(block)));
     const end = el('div', 'project-end'); const next = projects[index + 1];
-    end.append(link(next ? 'Следующий проект — ' + next.title + ' ↗' : '← Вернуться ко всем работам', next ? '#' + next.id : '#works'));
+    end.append(link(next ? 'Следующий проект — ' + next.title : 'Вернуться ко всем работам', next ? '#' + next.id : '#works'));
     article.append(end); pages.append(article); articles.set(project.id, {article, h1, project});
   });
   const filters = document.querySelector('.filters'); filters.replaceChildren();
@@ -171,6 +246,7 @@
     filters.append(button);
   });
   function route() {
+    if (viewer.open) viewer.close();
     const id = location.hash.slice(1); const match = articles.get(id);
     home.hidden = Boolean(match);
     articles.forEach(({article}, key) => { article.hidden = key !== id; });
