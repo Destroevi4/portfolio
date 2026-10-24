@@ -106,18 +106,22 @@ window.PORTFOLIO = {
           "afterLabel": "Мир 2"
         },
         {
-          "type": "gallery",
+          "type": "comparison-group",
           "title": "Одна улица в двух мирах",
-          "images": [
+          "comparisons": [
             {
-              "src": "assets/bresh/2-1.jpg",
-              "alt": "Одна улица в двух мирах — Мир 1",
-              "caption": "Мир 1"
+              "title": "Одна улица в двух мирах — ракурс 1",
+              "before": "assets/bresh/2-1.jpg",
+              "after": "assets/bresh/2.jpg",
+              "beforeLabel": "Мир 1",
+              "afterLabel": "Мир 2"
             },
             {
-              "src": "assets/bresh/2.jpg",
-              "alt": "Одна улица в двух мирах — Мир 2",
-              "caption": "Мир 2"
+              "title": "Одна улица в двух мирах — ракурс 2",
+              "before": "assets/bresh/3-1.jpg",
+              "after": "assets/bresh/3.jpg",
+              "beforeLabel": "Мир 1",
+              "afterLabel": "Мир 2"
             }
           ]
         },
@@ -150,7 +154,8 @@ window.PORTFOLIO = {
               "label": "Зигзаг — путь с переключением миров"
             }
           ],
-          "caption": "Передвигай ползунок для сравнения. Схемы также можно открыть на весь экран."
+          "caption": "Передвигай ползунок для сравнения. Схемы также можно открыть на весь экран.",
+          "layout": "sidebar"
         },
         {
           "type": "collage",
@@ -170,18 +175,22 @@ window.PORTFOLIO = {
           "caption": "Открой любой материал, чтобы рассмотреть его целиком."
         },
         {
-          "type": "gallery",
+          "type": "comparison-group",
           "title": "Другая карта: два устройства пространства",
-          "images": [
+          "comparisons": [
             {
-              "src": "assets/bresh/8-1.jpg",
-              "alt": "Другая карта: два устройства пространства — Мир 1",
-              "caption": "Мир 1"
+              "title": "Другая карта: два устройства пространства — ракурс 1",
+              "before": "assets/bresh/8-1.jpg",
+              "after": "assets/bresh/8.jpg",
+              "beforeLabel": "Мир 1",
+              "afterLabel": "Мир 2"
             },
             {
-              "src": "assets/bresh/8.jpg",
-              "alt": "Другая карта: два устройства пространства — Мир 2",
-              "caption": "Мир 2"
+              "title": "Другая карта: два устройства пространства — ракурс 2",
+              "before": "assets/bresh/7-1.jpg",
+              "after": "assets/bresh/7.jpg",
+              "beforeLabel": "Мир 1",
+              "afterLabel": "Мир 2"
             }
           ]
         }

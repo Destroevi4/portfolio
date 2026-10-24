@@ -132,17 +132,18 @@
     box.append(range);
     return box;
   }
-  function comparison(block) {
+  function comparison(block, hideTitle = false) {
     const section = el('section', 'world-switcher');
     const heading = el('div', 'world-heading');
-    heading.append(el('h2', '', block.title || 'Два мира'));
+    if (!hideTitle) heading.append(el('h2', '', block.title || 'Два мира'));
     const enlarge = el('button', 'comparison-enlarge', 'На весь экран');
     enlarge.type = 'button';
     enlarge.setAttribute('aria-label', 'Увеличить сравнение: ' + (block.title || 'Два мира'));
     enlarge.addEventListener('click', () => openComparison(block));
     heading.append(enlarge);
-    section.append(heading, comparisonFrame(block));
-    if (block.caption) section.append(el('p', 'media-note', block.caption));
+    const frame = comparisonFrame(block);
+    section.append(heading);
+    const details = el('div', 'comparison-details');
     if (block.legend) {
       const legend = el('ul', 'scheme-legend');
       block.legend.forEach(item => {
@@ -151,12 +152,28 @@
         swatch.setAttribute('aria-hidden', 'true');
         entry.append(swatch, document.createTextNode(item.label)); legend.append(entry);
       });
-      section.append(legend);
+      details.append(legend);
+    }
+    if (block.caption) details.append(el('p', 'media-note', block.caption));
+    if (block.layout === 'sidebar') {
+      section.classList.add('scheme-sidebar');
+      const body = el('div', 'scheme-body');
+      body.append(frame, details); section.append(body);
+    } else {
+      section.append(frame, details);
     }
     return section;
   }
   function renderBlock(block) {
     if (block.type === 'comparison') return comparison(block);
+    if (block.type === 'comparison-group') {
+      const section = el('section', 'comparison-grid-section');
+      section.append(el('h2', '', block.title || 'Сравнение миров'));
+      const row = el('div', 'comparison-grid');
+      (block.comparisons || []).forEach(item => row.append(comparison(item, true)));
+      section.append(row);
+      return section;
+    }
     if (block.type === 'image') return figure(block);
     if (block.type === 'gallery') {
       const gallery = el('div', 'gallery');
