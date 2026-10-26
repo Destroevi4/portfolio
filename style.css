@@ -136,3 +136,42 @@
   .scheme-tabs-sidebar .media-note{margin:-8px 0 0}
   .gallery-three,.video-grid{grid-template-columns:1fr}
 }
+
+/* Видео остаются исходными: приглушение фона задаётся только здесь. */
+.hero.hero-video{position:relative;isolation:isolate;overflow:hidden;background:#20251f;color:#fff;padding:48px 44px 58px;margin:28px 0 42px;min-height:390px}
+.hero-film,.hero-shade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-film{object-fit:cover;object-position:50% 45%;filter:saturate(.72) brightness(.92)}
+.hero-shade{background:linear-gradient(90deg,#101710d9 0%,#101710a6 53%,#10171038 100%)}
+.hero-video>.eyebrow,.hero-video>h1,.hero-video>.hero-bottom{position:relative;z-index:1}
+.hero-video h1{font-size:clamp(48px,6vw,72px);margin:20px 0 24px;line-height:1.03}
+.hero-video .eyebrow,.hero-video .index-note{color:#ffffffe0}
+.hero-video .intro{font-size:16px;color:#fffffff0;max-width:560px}
+.hero-video .hero-bottom{align-items:flex-end;gap:24px}
+.hero-video .index-note{padding-bottom:12px}
+.hero-motion-toggle{position:absolute;right:20px;bottom:14px;z-index:2;border:1px solid #ffffff80;border-radius:24px;background:#1116;color:#fff;font-size:11px;line-height:1.3;padding:10px 15px;min-height:36px;cursor:pointer}
+.hero-motion-toggle:hover{background:#111a}
+.motion-clip{position:relative;display:block;width:100%;padding:0;border:0;background:#e5e4dc;cursor:pointer;color:#fff;aspect-ratio:16/9;overflow:hidden}
+.motion-clip>.project-video{display:block;width:100%;height:100%;margin:0;object-fit:contain;pointer-events:none}
+.video-item .motion-clip .project-video{height:100%;width:100%;object-fit:contain;pointer-events:none}
+.motion-state{position:absolute;right:12px;bottom:12px;max-width:calc(100% - 24px);border-radius:22px;padding:9px 13px;font-size:11px;line-height:1.3;background:#151a17d9;color:#fff;opacity:0;transition:opacity .15s}
+.motion-clip:hover .motion-state,.motion-clip:focus-visible .motion-state,.motion-clip[data-state=paused] .motion-state{opacity:1}
+.comparison-range{touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none}
+@media(max-width:720px){
+  .hero.hero-video{margin:22px 0 30px;padding:36px 20px 64px;min-height:420px}
+  .hero-video h1{font-size:clamp(33px,8.6vw,50px);margin:22px 0 24px}
+  .hero-video .intro{font-size:15px;line-height:1.6}
+  .hero-video .index-note{margin-top:22px;padding:0;white-space:normal}
+  .hero-shade{background:linear-gradient(90deg,#101710d9,#1017108c)}
+  .hero-motion-toggle{right:16px;bottom:14px}
+}
+
+/* Подборки графики: пропорции оригиналов сохранены. */
+.gallery-square{align-items:start}
+.gallery-square .image-open{aspect-ratio:1;background:#eeeee7}
+.gallery-square .image-open img{width:100%;height:100%;object-fit:contain}
+.artwork-details{margin-top:14px}
+.artwork-details summary{display:inline-flex;align-items:center;min-height:40px;padding:10px 15px;border:1px solid var(--line);border-radius:24px;list-style:none;font-size:12px;line-height:1.4;cursor:pointer}
+.artwork-details summary::-webkit-details-marker{display:none}
+.artwork-details summary:hover,.artwork-details[open] summary{background:#e8e7df}
+.artwork-details summary:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.artwork-details .motion-clip{margin-top:14px}

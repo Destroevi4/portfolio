@@ -22,7 +22,10 @@ window.PORTFOLIO = {
     "intro": "Я Владислав Сурин — архитектор, автор игр и режиссёр. Создаю игровые пространства, работаю с городской средой и рассказываю истории через видео.",
     "note": "Избранные проекты ↓",
     "about": "Мой опыт объединяет архитектуру, разработку игр и режиссуру. Мне интересно, как устроено пространство, как человек его воспринимает и какие истории в нём возникают.",
-    "aboutSmall": "В BRESH я работаю над игрой целиком, включая геймдизайн, карты и сборку окружения. В RCD отвечал за левел-дизайн всего города. Архитектурные и видеопроекты появятся здесь следующим этапом."
+    "aboutSmall": "В BRESH я работаю над игрой целиком, включая геймдизайн, карты и сборку окружения. В RCD отвечал за левел-дизайн всего города. Архитектурные и видеопроекты появятся здесь следующим этапом.",
+    "video": {
+      "src": "assets/home/frontpage.mp4"
+    }
   },
   "categories": [
     {
@@ -32,6 +35,10 @@ window.PORTFOLIO = {
     {
       "id": "architecture",
       "label": "Архитектура"
+    },
+    {
+      "id": "graphics",
+      "label": "Графика"
     },
     {
       "id": "video",
@@ -326,7 +333,8 @@ window.PORTFOLIO = {
               "caption": "Предлагаемая застройка в окружении города",
               "muted": true,
               "loop": true,
-              "preload": "none"
+              "preload": "none",
+              "motion": true
             },
             {
               "src": "assets/krd/0-0_1.mp4",
@@ -334,7 +342,8 @@ window.PORTFOLIO = {
               "caption": "Переход к предлагаемой планировке",
               "muted": true,
               "loop": true,
-              "preload": "none"
+              "preload": "none",
+              "motion": true
             }
           ]
         },
@@ -394,7 +403,8 @@ window.PORTFOLIO = {
               "caption": "Бульвар и застройка вдоль него",
               "muted": true,
               "loop": true,
-              "preload": "none"
+              "preload": "none",
+              "motion": true
             },
             {
               "src": "assets/krd/3-4_web.mp4",
@@ -402,7 +412,8 @@ window.PORTFOLIO = {
               "caption": "Парк и окружающие кварталы",
               "muted": true,
               "loop": true,
-              "preload": "none"
+              "preload": "none",
+              "motion": true
             },
             {
               "src": "assets/krd/5-2_web.mp4",
@@ -410,7 +421,8 @@ window.PORTFOLIO = {
               "caption": "Новая застройка рядом с частным сектором",
               "muted": true,
               "loop": true,
-              "preload": "none"
+              "preload": "none",
+              "motion": true
             },
             {
               "src": "assets/krd/5-3_web.mp4",
@@ -418,7 +430,131 @@ window.PORTFOLIO = {
               "caption": "Соседство с существующими домами",
               "muted": true,
               "loop": true,
-              "preload": "none"
+              "preload": "none",
+              "motion": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "illustrations",
+      "visible": true,
+      "title": "Иллюстрации",
+      "coverTitle": "Иллюстрации",
+      "summary": "Сюжетные иллюстрации и архитектурная графика.",
+      "categories": [
+        "graphics"
+      ],
+      "tag": "ГРАФИКА",
+      "cover": {
+        "src": "assets/graphics/different/Народные_Гуляния_web.jpg",
+        "alt": "Иллюстрация «Народные гуляния»",
+        "position": "50% 50%",
+        "fit": "contain",
+        "background": "#cbc6be",
+        "color": "#232624"
+      },
+      "eyebrow": "Иллюстрации и графика",
+      "lead": "Подборка сюжетных иллюстраций и рисунков архитектуры.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "shape": "square",
+          "images": [
+            {
+              "src": "assets/graphics/different/Народные_Гуляния_web.jpg",
+              "alt": "Народные гуляния",
+              "caption": "Народные гуляния"
+            },
+            {
+              "src": "assets/graphics/different/EndOfTheDay.jpg",
+              "alt": "В конце дня",
+              "caption": "В конце дня"
+            },
+            {
+              "src": "assets/graphics/different/Townhouses.jpg",
+              "alt": "Блокированные дома",
+              "caption": "Блокированные дома"
+            },
+            {
+              "src": "assets/graphics/different/Rozhicy.jpg",
+              "alt": "Рожицы",
+              "caption": "Рожицы"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "game-concepts",
+      "visible": true,
+      "title": "Игровые концепты",
+      "coverTitle": "Игровые концепты",
+      "summary": "Окружение, игровые сцены и персонажи.",
+      "categories": [
+        "graphics"
+      ],
+      "tag": "КОНЦЕПТ-АРТ",
+      "cover": {
+        "src": "assets/graphics/gameConcepts/field.jpg",
+        "alt": "Концепт игровой сцены с деревенским домом",
+        "position": "50% 50%",
+        "fit": "cover",
+        "background": "#6b7160",
+        "color": "#fff"
+      },
+      "eyebrow": "Концепт-арт",
+      "lead": "Концепты игровых сцен, окружения и персонажей.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "images": [
+            {
+              "src": "assets/graphics/gameConcepts/field.jpg",
+              "alt": "Игровая сцена с деревенским домом и дорогой",
+              "caption": "Поле"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/winter.jpg",
+              "alt": "Зимняя сцена у деревянного дома",
+              "caption": "Зимняя сцена",
+              "animation": "assets/graphics/gameConcepts/game_concept_snow.mp4"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/Drunk-street.jpg",
+              "alt": "Городская улица",
+              "caption": "Городская улица"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
+              "alt": "Персонажи вестерна",
+              "caption": "Персонажи вестерна"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/burglary.jpg",
+              "alt": "Интерьер",
+              "caption": "Интерьер"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/central-crime.jpg",
+              "alt": "Городская сцена",
+              "caption": "Городская сцена"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/deserved-by-new-russian.jpg",
+              "alt": "Ночная сцена",
+              "caption": "Ночная сцена"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/skatf.jpg",
+              "alt": "Уличная сцена",
+              "caption": "Уличная сцена"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/old-men.jpg",
+              "alt": "Персонажи",
+              "caption": "Персонажи"
             }
           ]
         }

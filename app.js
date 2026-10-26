@@ -39,6 +39,63 @@
     if (url) img.src = url;
     return img;
   }
+  const loops = new Map();
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion:reduce)');
+  function loopIsVisible(video, state) {
+    return state.visible && video.getClientRects().length > 0 && !document.hidden;
+  }
+  function syncLoop(video) {
+    const state = loops.get(video);
+    if (!state) return;
+    const active = loopIsVisible(video, state);
+    if (!active || state.userPaused || (reducedMotion.matches && !state.userStarted)) {
+      video.pause(); return;
+    }
+    if (state.pending || state.blocked || !video.paused) return;
+    if (!video.getAttribute('src')) video.src = state.src;
+    state.pending = true;
+    video.play().then(() => {
+      state.blocked = false;
+      if (!loopIsVisible(video, state) || state.userPaused) video.pause();
+    }).catch(() => {
+      state.blocked = true;
+    }).finally(() => { state.pending = false; state.paint(); });
+  }
+  const loopObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const state = loops.get(entry.target);
+      if (!state) return;
+      state.visible = entry.isIntersecting && entry.intersectionRatio >= .15;
+      if (state.visible) state.blocked = false;
+      syncLoop(entry.target);
+    });
+  }, {threshold:[0,.15]});
+  function manageLoop(video, control, label, src, badge) {
+    video.controls = false; video.loop = true; video.muted = true; video.defaultMuted = true;
+    video.playsInline = true; video.preload = 'none';
+    video.setAttribute('muted', ''); video.setAttribute('playsinline', '');
+    video.setAttribute('aria-hidden', 'true');
+    const state = {src:safeUrl(src), visible:false, userPaused:false, userStarted:false, pending:false, blocked:false};
+    state.paint = () => {
+      const playing = !video.paused;
+      control.dataset.state = playing ? 'playing' : 'paused';
+      control.setAttribute('aria-label', (playing ? 'Приостановить: ' : 'Запустить: ') + label);
+      if (badge) badge.textContent = playing ? 'Пауза' : 'Воспроизвести';
+    };
+    control.addEventListener('click', () => {
+      if (!video.paused) { state.userPaused = true; video.pause(); }
+      else {
+        state.userPaused = false; state.userStarted = true; state.blocked = false;
+        state.visible = true; syncLoop(video);
+      }
+      state.paint();
+    });
+    video.addEventListener('play', state.paint);
+    video.addEventListener('pause', state.paint);
+    loops.set(video, state); state.paint(); loopObserver.observe(video);
+  }
+  document.addEventListener('visibilitychange', () => loops.forEach((_, video) => syncLoop(video)));
+  reducedMotion.addEventListener('change', () => loops.forEach((_, video) => syncLoop(video)));
   const viewer = el('dialog', 'image-viewer');
   viewer.setAttribute('aria-label', 'Просмотр изображения');
   const viewerBar = el('div', 'image-viewer-bar');
@@ -91,6 +148,16 @@
     button.addEventListener('click', () => openImage(item.src, item.alt || item.caption));
     node.append(button);
     if (item.caption) node.append(el('figcaption', '', item.caption));
+    if (item.animation) {
+      const details = el('details', 'artwork-details');
+      details.append(el('summary', '', 'Анимированная версия'));
+      const clip = renderBlock({type:'video', motion:true, src:item.animation, poster:item.src, label:'Анимированная версия: ' + (item.caption || item.alt || 'концепт')});
+      details.append(clip);
+      details.addEventListener('toggle', () => {
+        if (!details.open) clip.querySelector('video').pause();
+      });
+      node.append(details);
+    }
     return node;
   }
   function comparisonFrame(block, enlarged = false) {
@@ -129,6 +196,31 @@
       range.setAttribute('aria-valuetext', range.value + '% — ' + (block.beforeLabel || 'Мир 1') + ', ' + (100 - Number(range.value)) + '% — ' + (block.afterLabel || 'Мир 2'));
     }
     range.addEventListener('input', update); update();
+    let activePointer = null;
+    function movePointer(event) {
+      const bounds = range.getBoundingClientRect();
+      if (!bounds.width) return;
+      range.value = String(Math.round(Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))));
+      update();
+    }
+    range.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0) return;
+      event.preventDefault();
+      activePointer = event.pointerId;
+      range.focus({preventScroll:true});
+      range.setPointerCapture(event.pointerId);
+      movePointer(event);
+    });
+    range.addEventListener('pointermove', event => {
+      if (event.pointerId === activePointer) movePointer(event);
+    });
+    range.addEventListener('pointerup', event => {
+      if (event.pointerId !== activePointer) return;
+      movePointer(event); activePointer = null;
+      if (range.hasPointerCapture(event.pointerId)) range.releasePointerCapture(event.pointerId);
+    });
+    range.addEventListener('pointercancel', () => { activePointer = null; });
+    range.addEventListener('lostpointercapture', () => { activePointer = null; });
     box.append(range);
     return box;
   }
@@ -236,6 +328,7 @@
     if (block.type === 'gallery') {
       const gallery = el('div', 'gallery');
       if (block.columns === 3) gallery.classList.add('gallery-three');
+      if (block.shape === 'square') gallery.classList.add('gallery-square');
       (block.images || []).forEach(item => gallery.append(figure(item)));
       if (block.title) {
         const section = el('section', 'gallery-section');
@@ -260,8 +353,8 @@
       (block.videos || []).forEach(item => {
         const itemFigure = el('figure', 'video-item');
         const video = renderBlock({...item, type:'video'});
-        video.addEventListener('play', () => {
-          section.closest('article')?.querySelectorAll('video').forEach(other => { if (other !== video) other.pause(); });
+        if (!item.motion) video.addEventListener('play', () => {
+          section.closest('article')?.querySelectorAll('video').forEach(other => { if (other !== video && !loops.has(other)) other.pause(); });
         });
         itemFigure.append(video);
         if (item.caption) itemFigure.append(el('figcaption', '', item.caption));
@@ -271,6 +364,15 @@
       return section;
     }
     if (block.type === 'video') {
+      if (block.motion) {
+        const control = el('button', 'motion-clip'); control.type = 'button';
+        const video = el('video', 'project-video');
+        if (block.poster) video.poster = safeUrl(block.poster);
+        const badge = el('span', 'motion-state'); badge.setAttribute('aria-hidden', 'true');
+        control.append(video, badge);
+        manageLoop(video, control, block.label || block.caption || 'Анимация проекта', block.src, badge);
+        return control;
+      }
       const video = el('video', 'project-video'); video.controls = true; video.preload = 'metadata'; video.playsInline = true;
       if (block.preload) video.preload = block.preload;
       video.loop = block.loop === true;
@@ -302,6 +404,16 @@
   document.querySelector('.index-note').textContent = data.home.note;
   document.querySelector('.about-copy').textContent = data.home.about;
   document.querySelector('.about-small').textContent = data.home.aboutSmall;
+  if (data.home.video?.src) {
+    const hero = document.querySelector('.hero');
+    hero.classList.add('hero-video');
+    const video = el('video', 'hero-film');
+    const shade = el('div', 'hero-shade'); shade.setAttribute('aria-hidden', 'true');
+    const pause = el('button', 'hero-motion-toggle'); pause.type = 'button';
+    const label = el('span'); pause.append(label);
+    hero.prepend(video, shade); hero.append(pause);
+    manageLoop(video, pause, 'Видео на главной', data.home.video.src, label);
+  }
   // Фото присутствует в HTML, чтобы оно не зависело от динамической сборки.
   const photo = document.getElementById('about-photo');
   if (photo) {
@@ -379,6 +491,7 @@
       article.hidden = key !== id;
       if (article.hidden) article.querySelectorAll('.video-grid video').forEach(video => video.pause());
     });
+    loops.forEach((_, video) => syncLoop(video));
     document.title = match ? match.project.title + ' — ' + data.site.name : data.site.title;
     if (match) { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
     else if (id === 'works' || id === 'about') requestAnimationFrame(() => document.getElementById(id).scrollIntoView());
