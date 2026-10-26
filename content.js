@@ -438,6 +438,116 @@ window.PORTFOLIO = {
       ]
     },
     {
+      "id": "roundabout",
+      "visible": true,
+      "title": "Площадь в Ноябрьске",
+      "coverTitle": "Ноябрьск",
+      "summary": "Переустройство городской площади и кольцевого пересечения.",
+      "categories": [
+        "architecture"
+      ],
+      "tag": "РЕАЛИЗОВАНО",
+      "cover": {
+        "src": "assets/roundabout/cover.jpg",
+        "alt": "Реализованное кольцевое пересечение и пешеходные пространства в Ноябрьске",
+        "position": "50% 50%",
+        "fit": "cover",
+        "background": "#777b6a",
+        "color": "#fff"
+      },
+      "eyebrow": "Городская среда и транспорт",
+      "lead": "Преобразование площади и транспортного узла в центре города.",
+      "facts": [
+        {
+          "label": "Место",
+          "value": "Ноябрьск, Ямало-Ненецкий автономный округ"
+        },
+        {
+          "label": "Статус",
+          "value": "Реализован"
+        },
+        {
+          "label": "Направление",
+          "value": "Городская среда и организация движения"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "video-feature",
+          "title": "Реализация",
+          "src": "assets/roundabout/Video-by-Alexey-Melnov-1_4.mp4",
+          "poster": "assets/roundabout/cover.jpg",
+          "motion": true,
+          "caption": "Видео — Alexey Melnov."
+        },
+        {
+          "type": "comparison",
+          "title": "До и после переустройства",
+          "before": "assets/roundabout/8.jpg",
+          "after": "assets/roundabout/8-1.jpg",
+          "beforeLabel": "До",
+          "afterLabel": "После",
+          "caption": "Сопоставление территории до и после реализации. Подоснова — Google Карты. Сравнение можно открыть на весь экран."
+        },
+        {
+          "type": "text",
+          "title": "Задача",
+          "paragraphs": [
+            "Преобразовать большое асфальтовое пространство в центре города в удобную пешеходную площадь, упорядочить движение и создать условия для снижения скорости транспорта."
+          ]
+        },
+        {
+          "type": "text",
+          "title": "Основа решений",
+          "paragraphs": [
+            "Проектные решения разрабатывались на основе подсчётов пешеходных и транспортных потоков и анализа тепловых карт. Учитывались маршруты автобусов и траектории снегоуборочной техники, а также действующие общие и местные нормы."
+          ]
+        },
+        {
+          "type": "image",
+          "src": "assets/roundabout/7.jpg",
+          "alt": "Проектная схема площади и кольцевого пересечения с авторскими эскизными правками",
+          "caption": "Проектная схема с моими эскизными правками. Нажмите, чтобы рассмотреть детали."
+        },
+        {
+          "type": "media-row",
+          "title": "Расположение и проектные решения",
+          "items": [
+            {
+              "type": "image",
+              "src": "assets/roundabout/Screenshot_22.png",
+              "alt": "Расположение площади в городской структуре Ноябрьска",
+              "caption": "Ситуация в городе. Подоснова — Google Карты."
+            },
+            {
+              "type": "video",
+              "src": "assets/roundabout/Noyabrsk_Sketches.mp4",
+              "poster": "assets/roundabout/7.jpg",
+              "motion": true,
+              "label": "Эскизные проектные решения",
+              "caption": "Эскизные проектные решения"
+            }
+          ]
+        },
+        {
+          "type": "gallery",
+          "title": "На уровне пешехода",
+          "images": [
+            {
+              "src": "assets/roundabout/2026-10-26 16.45.12.jpg",
+              "alt": "Пешеходные пространства и велосипедист у площади в Ноябрьске",
+              "caption": "Пешеходные пространства площади"
+            },
+            {
+              "src": "assets/roundabout/2026-10-26 16.45.26.jpg",
+              "alt": "Тротуар и велодорожка вдоль улицы после переустройства",
+              "caption": "Тротуар и велодорожка"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "illustrations",
       "visible": true,
       "title": "Иллюстрации",
@@ -453,14 +563,14 @@ window.PORTFOLIO = {
         "position": "50% 50%",
         "fit": "contain",
         "background": "#cbc6be",
-        "color": "#232624"
+        "color": "#232624",
+        "aspectRatio": "1 / 1"
       },
       "eyebrow": "Иллюстрации и графика",
       "lead": "Подборка сюжетных иллюстраций и рисунков архитектуры.",
       "blocks": [
         {
           "type": "gallery",
-          "shape": "square",
           "images": [
             {
               "src": "assets/graphics/different/Народные_Гуляния_web.jpg",
@@ -473,16 +583,18 @@ window.PORTFOLIO = {
               "caption": "В конце дня"
             },
             {
-              "src": "assets/graphics/different/Townhouses.jpg",
-              "alt": "Блокированные дома",
-              "caption": "Блокированные дома"
-            },
-            {
               "src": "assets/graphics/different/Rozhicy.jpg",
               "alt": "Рожицы",
               "caption": "Рожицы"
+            },
+            {
+              "src": "assets/graphics/different/Townhouses.jpg",
+              "alt": "Блокированные дома",
+              "caption": "Блокированные дома",
+              "span": 2
             }
-          ]
+          ],
+          "columns": 3
         }
       ]
     },
@@ -497,8 +609,8 @@ window.PORTFOLIO = {
       ],
       "tag": "КОНЦЕПТ-АРТ",
       "cover": {
-        "src": "assets/graphics/gameConcepts/field.jpg",
-        "alt": "Концепт игровой сцены с деревенским домом",
+        "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
+        "alt": "Концепт русского вестерна с персонажами",
         "position": "50% 50%",
         "fit": "cover",
         "background": "#6b7160",
@@ -520,16 +632,32 @@ window.PORTFOLIO = {
               "alt": "Зимняя сцена у деревянного дома",
               "caption": "Зимняя сцена",
               "animation": "assets/graphics/gameConcepts/game_concept_snow.mp4"
-            },
+            }
+          ]
+        },
+        {
+          "type": "artwork-group",
+          "title": "Russian RDR",
+          "main": {
+            "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
+            "alt": "Персонажи вестерна",
+            "caption": "Персонажи вестерна"
+          },
+          "related": [
+            {
+              "src": "assets/graphics/gameConcepts/old-men.jpg",
+              "alt": "Персонажи",
+              "caption": "Персонажи"
+            }
+          ]
+        },
+        {
+          "type": "gallery",
+          "images": [
             {
               "src": "assets/graphics/gameConcepts/Drunk-street.jpg",
               "alt": "Городская улица",
               "caption": "Городская улица"
-            },
-            {
-              "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
-              "alt": "Персонажи вестерна",
-              "caption": "Персонажи вестерна"
             },
             {
               "src": "assets/graphics/gameConcepts/burglary.jpg",
@@ -550,11 +678,6 @@ window.PORTFOLIO = {
               "src": "assets/graphics/gameConcepts/skatf.jpg",
               "alt": "Уличная сцена",
               "caption": "Уличная сцена"
-            },
-            {
-              "src": "assets/graphics/gameConcepts/old-men.jpg",
-              "alt": "Персонажи",
-              "caption": "Персонажи"
             }
           ]
         }

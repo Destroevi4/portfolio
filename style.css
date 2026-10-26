@@ -175,3 +175,47 @@
 .artwork-details summary:hover,.artwork-details[open] summary{background:#e8e7df}
 .artwork-details summary:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 .artwork-details .motion-clip{margin-top:14px}
+
+/* Переключение зимнего концепта в той же рамке. */
+.artwork-media{position:relative;aspect-ratio:16/9;background:#e5e4dc}
+.artwork-media>.image-open,.artwork-media>.motion-clip{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
+.artwork-media>.image-open img{width:100%;height:100%;object-fit:contain}
+.artwork-toggle{position:absolute;right:12px;bottom:12px;z-index:2;min-height:40px;border:1px solid #ffffffb3;border-radius:24px;background:#202624e8;color:#fff;padding:10px 15px;font-size:12px;line-height:1.4;cursor:pointer}
+.artwork-toggle:hover{background:#111}
+.artwork-media .motion-state{left:12px;right:auto}
+.artwork-group{margin:40px 0;border-top:1px solid var(--line);padding-top:28px}
+.artwork-group>h2{font-size:16px;font-weight:500;line-height:1.4;margin:0 0 20px}
+.artwork-group-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:26px;align-items:center}
+.artwork-group .project-image{margin:0}
+.artwork-related{display:grid;gap:20px;min-width:0}
+.gallery-three{align-items:start}
+.gallery-three>.image-span-2{grid-column:span 2}
+
+/* Жест на ручке не прокручивает страницу; остальная картинка остаётся доступна для скролла. */
+.comparison-range{pointer-events:none}
+.comparison-drag-zone{position:absolute;z-index:4;top:0;bottom:0;left:var(--split);width:48px;transform:translateX(-50%);cursor:ew-resize;touch-action:none;user-select:none;-webkit-user-select:none}
+
+/* Навигация проекта. */
+.back{display:inline-flex;align-items:center;min-height:42px;padding:10px 18px;border:1px solid var(--ink);border-radius:24px;color:var(--ink);background:transparent;font-size:13px;line-height:1.4}
+.back:hover{color:var(--paper);background:var(--ink)}
+.to-top{position:fixed;right:22px;bottom:22px;z-index:10;border:1px solid var(--ink);border-radius:24px;background:var(--paper);color:var(--ink);padding:12px 17px;font-size:12px;line-height:1.4;min-height:44px;box-shadow:0 3px 15px #23262418;cursor:pointer}
+.to-top:hover{background:var(--ink);color:var(--paper)}
+
+/* Ноябрьск: видео, чертёж и ситуация в городе. */
+.video-feature,.media-row-section{margin:36px 0 48px}
+.video-feature>h2,.media-row-section>h2{font-size:16px;font-weight:500;line-height:1.4;margin:0 0 18px}
+.project-video-figure{margin:0;min-width:0}
+.project-video-figure>video{margin:0}
+.project-video-figure figcaption{font-size:12px;line-height:1.6;color:var(--muted);margin-top:10px}
+.media-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+.media-row .project-image{margin:0}
+.media-row .image-open{aspect-ratio:16/9;background:#eeeee7}
+.media-row .image-open img{width:100%;height:100%;object-fit:contain}
+@media(max-width:720px){
+  .gallery-three>.image-span-2{grid-column:auto}
+  .artwork-group-row,.media-row{grid-template-columns:1fr;gap:22px}
+  .artwork-related .project-image{max-width:80%;margin:auto}
+  .artwork-toggle{right:9px;bottom:9px;font-size:11px;padding:9px 12px}
+  .artwork-media .motion-state{left:9px;bottom:9px}
+  .to-top{right:14px;bottom:16px}
+}

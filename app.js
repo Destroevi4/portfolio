@@ -141,23 +141,37 @@
   }
   function figure(item) {
     const node = el('figure', 'project-image');
+    if (item.span === 2) node.classList.add('image-span-2');
     const button = el('button', 'image-open');
     button.type = 'button';
     button.setAttribute('aria-label', 'Увеличить: ' + (item.alt || item.caption || 'изображение проекта'));
     button.append(picture(item.src, item.alt));
     button.addEventListener('click', () => openImage(item.src, item.alt || item.caption));
-    node.append(button);
-    if (item.caption) node.append(el('figcaption', '', item.caption));
     if (item.animation) {
-      const details = el('details', 'artwork-details');
-      details.append(el('summary', '', 'Анимированная версия'));
+      const frame = el('div', 'artwork-media');
       const clip = renderBlock({type:'video', motion:true, src:item.animation, poster:item.src, label:'Анимированная версия: ' + (item.caption || item.alt || 'концепт')});
-      details.append(clip);
-      details.addEventListener('toggle', () => {
-        if (!details.open) clip.querySelector('video').pause();
+      clip.hidden = true;
+      const toggle = el('button', 'artwork-toggle', 'Анимация'); toggle.type = 'button';
+      toggle.setAttribute('aria-label', 'Включить анимацию: ' + (item.caption || item.alt || 'концепт'));
+      toggle.setAttribute('aria-pressed', 'false');
+      toggle.addEventListener('click', () => {
+        const animated = clip.hidden;
+        clip.hidden = !animated; button.hidden = animated;
+        toggle.textContent = animated ? 'Картинка' : 'Анимация';
+        toggle.setAttribute('aria-pressed', String(animated));
+        toggle.setAttribute('aria-label', (animated ? 'Показать рисунок: ' : 'Включить анимацию: ') + (item.caption || item.alt || 'концепт'));
+        if (!animated) clip.querySelector('video').pause();
       });
-      node.append(details);
-    }
+      frame.append(button, clip, toggle); node.append(frame);
+    } else node.append(button);
+    if (item.caption) node.append(el('figcaption', '', item.caption));
+    return node;
+  }
+  function mediaFigure(item) {
+    if (item.type !== 'video') return figure(item);
+    const node = el('figure', 'project-video-figure');
+    node.append(renderBlock({...item, caption:undefined}));
+    if (item.caption) node.append(el('figcaption', '', item.caption));
     return node;
   }
   function comparisonFrame(block, enlarged = false) {
@@ -203,25 +217,27 @@
       range.value = String(Math.round(Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))));
       update();
     }
-    range.addEventListener('pointerdown', event => {
+    const dragZone = el('div', 'comparison-drag-zone');
+    dragZone.setAttribute('aria-hidden', 'true');
+    dragZone.addEventListener('pointerdown', event => {
       if (!event.isPrimary || event.button !== 0) return;
       event.preventDefault();
       activePointer = event.pointerId;
       range.focus({preventScroll:true});
-      range.setPointerCapture(event.pointerId);
+      dragZone.setPointerCapture(event.pointerId);
       movePointer(event);
     });
-    range.addEventListener('pointermove', event => {
+    dragZone.addEventListener('pointermove', event => {
       if (event.pointerId === activePointer) movePointer(event);
     });
-    range.addEventListener('pointerup', event => {
+    dragZone.addEventListener('pointerup', event => {
       if (event.pointerId !== activePointer) return;
       movePointer(event); activePointer = null;
-      if (range.hasPointerCapture(event.pointerId)) range.releasePointerCapture(event.pointerId);
+      if (dragZone.hasPointerCapture(event.pointerId)) dragZone.releasePointerCapture(event.pointerId);
     });
-    range.addEventListener('pointercancel', () => { activePointer = null; });
-    range.addEventListener('lostpointercapture', () => { activePointer = null; });
-    box.append(range);
+    dragZone.addEventListener('pointercancel', () => { activePointer = null; });
+    dragZone.addEventListener('lostpointercapture', () => { activePointer = null; });
+    box.append(range, dragZone);
     return box;
   }
   function comparison(block, hideTitle = false) {
@@ -314,6 +330,28 @@
     return section;
   }
   function renderBlock(block) {
+    if (block.type === 'video-feature') {
+      const section = el('section', 'video-feature');
+      if (block.title) section.append(el('h2', '', block.title));
+      section.append(mediaFigure({...block, type:'video', label:block.label || block.title}));
+      return section;
+    }
+    if (block.type === 'media-row') {
+      const section = el('section', 'media-row-section');
+      if (block.title) section.append(el('h2', '', block.title));
+      const row = el('div', 'media-row');
+      (block.items || []).forEach(item => row.append(mediaFigure(item)));
+      section.append(row); return section;
+    }
+    if (block.type === 'artwork-group') {
+      const section = el('section', 'artwork-group');
+      if (block.title) section.append(el('h2', '', block.title));
+      const row = el('div', 'artwork-group-row');
+      row.append(figure(block.main));
+      const related = el('div', 'artwork-related');
+      (block.related || []).forEach(item => related.append(figure(item)));
+      row.append(related); section.append(row); return section;
+    }
     if (block.type === 'scheme-tabs') return schemeTabs(block);
     if (block.type === 'comparison') return comparison(block);
     if (block.type === 'comparison-group') {
@@ -433,6 +471,7 @@
     const card = link('', '#' + project.id, 'card');
     const cover = el('div', 'cover' + (project.id === 'rcd' ? ' cover-rcd' : ''));
     const settings = project.cover || {};
+    if (settings.aspectRatio) cover.style.aspectRatio = settings.aspectRatio;
     cover.style.background = settings.background || '#e1dfd5'; cover.style.color = settings.color || '#232624';
     const category = (project.categories || []).map(id => categoryNames.get(id) || id).join(' / ');
     cover.append(el('span', 'cover-count', count(index + 1) + ' / ' + category.toUpperCase()), el('span', 'cover-word', project.coverTitle || project.title), el('span', 'cover-caption', 'Место для обложки проекта'));
@@ -447,7 +486,7 @@
     card.append(cover, meta); grid.append(card); cards.push({card, project});
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
     article.setAttribute('aria-labelledby', project.id + '-title');
-    article.append(link('Все работы', '#works', 'back'));
+    article.append(link('К работам', '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
     h1.id = project.id + '-title'; h1.tabIndex = -1;
     head.append(el('p', 'eyebrow muted', count(index + 1) + ' / ' + (project.eyebrow || category)), h1, el('p', 'project-lead', project.lead || project.summary || ''));
@@ -483,6 +522,11 @@
     });
     filters.append(button);
   });
+  const toTop = el('button', 'to-top', 'Наверх'); toTop.type = 'button'; toTop.hidden = true;
+  toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:reducedMotion.matches ? 'auto' : 'smooth'}));
+  document.body.append(toTop);
+  function updateToTop() { toTop.hidden = window.scrollY < 500; }
+  window.addEventListener('scroll', updateToTop, {passive:true});
   function route() {
     if (viewer.open) viewer.close();
     const id = location.hash.slice(1); const match = articles.get(id);
@@ -496,6 +540,7 @@
     if (match) { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
     else if (id === 'works' || id === 'about') requestAnimationFrame(() => document.getElementById(id).scrollIntoView());
     else window.scrollTo(0, 0);
+    updateToTop();
   }
   window.addEventListener('hashchange', route); route();
 })();
