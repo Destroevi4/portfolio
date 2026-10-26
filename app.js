@@ -379,6 +379,7 @@
       const section = el('section', 'process-section');
       section.append(el('h2', '', block.title || 'Рабочие материалы'));
       const collage = el('div', 'process-collage');
+      if (['board', 'landscape-portrait', 'pair'].includes(block.layout)) collage.classList.add('process-' + block.layout);
       (block.images || []).forEach(item => collage.append(figure(item)));
       section.append(collage);
       if (block.caption) section.append(el('p', 'media-note', block.caption));
@@ -404,6 +405,7 @@
     if (block.type === 'video') {
       if (block.motion) {
         const control = el('button', 'motion-clip'); control.type = 'button';
+        if (block.aspectRatio) control.style.aspectRatio = block.aspectRatio;
         const video = el('video', 'project-video');
         if (block.poster) video.poster = safeUrl(block.poster);
         const badge = el('span', 'motion-state'); badge.setAttribute('aria-hidden', 'true');
@@ -489,7 +491,13 @@
     article.append(link('К работам', '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
     h1.id = project.id + '-title'; h1.tabIndex = -1;
-    head.append(el('p', 'eyebrow muted', count(index + 1) + ' / ' + (project.eyebrow || category)), h1, el('p', 'project-lead', project.lead || project.summary || ''));
+    const title = project.logo ? el('div', 'project-title-row') : h1;
+    if (project.logo) {
+      const icon = picture(project.logo.src, project.logo.alt || '');
+      icon.className = 'project-icon'; icon.width = 80; icon.height = 80;
+      title.append(icon, h1);
+    }
+    head.append(el('p', 'eyebrow muted', count(index + 1) + ' / ' + (project.eyebrow || category)), title, el('p', 'project-lead', project.lead || project.summary || ''));
     article.append(head);
     if (project.links?.length) {
       const stores = el('nav', 'project-links');
