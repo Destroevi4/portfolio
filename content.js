@@ -215,7 +215,11 @@ window.PORTFOLIO = {
           "label": "Google Play",
           "url": "https://play.google.com/store/apps/details?id=com.vlsurin.bresh"
         }
-      ]
+      ],
+      "logo": {
+        "src": "assets/bresh/logo.jpg",
+        "alt": "Иконка BRESH"
+      }
     },
     {
       "id": "rcd",
@@ -254,24 +258,34 @@ window.PORTFOLIO = {
       ],
       "blocks": [
         {
-          "type": "video-feature",
+          "type": "media-intro",
           "title": "Город в игре",
-          "src": "assets/rcd/preview.mp4",
-          "motion": true,
-          "aspectRatio": "480 / 221",
-          "poster": "assets/rcd/RCD_2.jpg",
-          "label": "Проезд по городу в RCD",
-          "caption": "Запись игрового проезда по городу."
-        },
-        {
-          "type": "image",
-          "src": "assets/rcd/RCD_1.jpg",
-          "alt": "Парк и окружающие его кварталы в RCD",
-          "caption": "Городская среда: парк и окружающая застройка."
+          "media": {
+            "type": "video",
+            "src": "assets/rcd/preview.mp4",
+            "motion": true,
+            "aspectRatio": "480 / 221",
+            "poster": "assets/rcd/RCD_2.jpg",
+            "label": "Проезд по городу в RCD",
+            "caption": "Запись игрового проезда по городу."
+          },
+          "aside": {
+            "title": "Мой вклад",
+            "paragraphs": [
+              "Разработал город как игровое пространство: планировку улиц, маршруты, рельеф и систему ориентиров. Собирал окружение в Unity, работал над зимним состоянием и освещением.",
+              "Также работал над второй картой с деревней и мостом, которая соединялась с городом."
+            ]
+          }
         },
         {
           "type": "gallery",
+          "columns": 4,
           "images": [
+            {
+              "src": "assets/rcd/RCD_1.jpg",
+              "alt": "Парк и окружающие его кварталы в RCD",
+              "caption": "Городская среда: парк и окружающая застройка."
+            },
             {
               "src": "assets/rcd/RCD_2.jpg",
               "alt": "Улица с перекрёстком и малоэтажной застройкой в RCD",
@@ -281,21 +295,18 @@ window.PORTFOLIO = {
               "src": "assets/rcd/RCD_3.jpg",
               "alt": "Широкая городская улица с жилыми домами в RCD",
               "caption": "Жилые кварталы и городские магистрали."
+            },
+            {
+              "src": "assets/rcd/greenery.jpg.jpg",
+              "alt": "Зелёная городская улица с заправкой, вид сверху",
+              "caption": "Озеленение и заправка: вид сверху."
             }
-          ]
-        },
-        {
-          "type": "text",
-          "title": "Мой вклад",
-          "paragraphs": [
-            "Разработал город как игровое пространство: планировку улиц, маршруты, рельеф и систему ориентиров. Собирал окружение в Unity, работал над зимним состоянием и освещением.",
-            "Также работал над второй картой с деревней и мостом, которая соединялась с городом."
           ]
         },
         {
           "type": "collage",
           "title": "Планировка и рабочие материалы",
-          "layout": "board",
+          "layout": "compact",
           "images": [
             {
               "src": "assets/rcd/racingPath.jpg",
@@ -316,6 +327,16 @@ window.PORTFOLIO = {
               "src": "assets/rcd/planningMoscow.jpg",
               "alt": "Рабочая схема расширения карты с сокращённой версией Москвы",
               "caption": "Незавершённое расширение: сокращённая версия Москвы рядом с существующим городом."
+            },
+            {
+              "src": "assets/rcd/delivery.jpg",
+              "alt": "Рабочая расстановка точек доставки вдоль городских улиц",
+              "caption": "Точки доставки для активности «Работы». В разработке."
+            },
+            {
+              "src": "assets/rcd/signs.jpg",
+              "alt": "Набор вариантов дорожных знаков в рабочем проекте",
+              "caption": "Дорожные знаки: варианты через UV-смещение. В разработке."
             }
           ],
           "caption": "Нажмите на отдельное изображение, чтобы рассмотреть его крупнее."
@@ -329,8 +350,8 @@ window.PORTFOLIO = {
         },
         {
           "type": "collage",
-          "title": "Зимой и ночью",
-          "layout": "landscape-portrait",
+          "title": "Зимняя улица и постановочные кадры",
+          "layout": "panorama-posters",
           "images": [
             {
               "src": "assets/rcd/winter3.jpg",
@@ -341,6 +362,11 @@ window.PORTFOLIO = {
               "src": "assets/rcd/winter4.jpg",
               "alt": "Автомобиль на фоне освещённого жилого дома ночью",
               "caption": "Ночное освещение и эмиссия материалов."
+            },
+            {
+              "src": "assets/rcd/poster-green.jpg",
+              "alt": "Зелёный автомобиль с включёнными фарами среди деревьев",
+              "caption": "Постановочный кадр в игровом окружении."
             }
           ]
         },

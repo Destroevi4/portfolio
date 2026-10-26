@@ -330,6 +330,16 @@
     return section;
   }
   function renderBlock(block) {
+    if (block.type === 'media-intro') {
+      const section = el('section', 'media-intro');
+      const media = el('div', 'media-intro-media');
+      if (block.title) media.append(el('h2', '', block.title));
+      media.append(mediaFigure(block.media));
+      const copy = el('div', 'media-intro-copy');
+      if (block.aside?.title) copy.append(el('h2', '', block.aside.title));
+      (block.aside?.paragraphs || []).forEach(text => copy.append(el('p', 'text-paragraph', text)));
+      section.append(media, copy); return section;
+    }
     if (block.type === 'video-feature') {
       const section = el('section', 'video-feature');
       if (block.title) section.append(el('h2', '', block.title));
@@ -366,6 +376,7 @@
     if (block.type === 'gallery') {
       const gallery = el('div', 'gallery');
       if (block.columns === 3) gallery.classList.add('gallery-three');
+      if (block.columns === 4) gallery.classList.add('gallery-four');
       if (block.shape === 'square') gallery.classList.add('gallery-square');
       (block.images || []).forEach(item => gallery.append(figure(item)));
       if (block.title) {
@@ -379,7 +390,7 @@
       const section = el('section', 'process-section');
       section.append(el('h2', '', block.title || 'Рабочие материалы'));
       const collage = el('div', 'process-collage');
-      if (['board', 'landscape-portrait', 'pair'].includes(block.layout)) collage.classList.add('process-' + block.layout);
+      if (['board', 'landscape-portrait', 'pair', 'compact', 'panorama-posters'].includes(block.layout)) collage.classList.add('process-' + block.layout);
       (block.images || []).forEach(item => collage.append(figure(item)));
       section.append(collage);
       if (block.caption) section.append(el('p', 'media-note', block.caption));
