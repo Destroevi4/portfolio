@@ -164,7 +164,65 @@
     }
     return section;
   }
+  let schemeIndex = 0;
+  function schemeTabs(block) {
+    const section = el('section', 'scheme-tabs-section');
+    const prefix = 'scheme-' + (++schemeIndex);
+    const heading = el('h2', '', block.title || 'Схемы');
+    heading.id = prefix + '-title';
+    const layout = el('div', 'scheme-tabs-layout');
+    const media = el('div', 'scheme-tabs-media');
+    const sidebar = el('div', 'scheme-tabs-sidebar');
+    const tabs = el('div', 'scheme-tabs');
+    tabs.setAttribute('role', 'tablist');
+    tabs.setAttribute('aria-labelledby', heading.id);
+    tabs.setAttribute('aria-orientation', 'vertical');
+    const description = el('p', 'scheme-description');
+    description.id = prefix + '-description';
+    const panels = [];
+    const buttons = [];
+    const views = block.views || [];
+    function select(index) {
+      buttons.forEach((button, i) => {
+        button.setAttribute('aria-selected', String(i === index));
+        button.tabIndex = i === index ? 0 : -1;
+        panels[i].hidden = i !== index;
+      });
+      description.textContent = views[index].description || '';
+    }
+    views.forEach((view, index) => {
+      const button = el('button', 'scheme-tab', view.label);
+      button.type = 'button'; button.id = prefix + '-tab-' + index;
+      button.setAttribute('role', 'tab');
+      button.setAttribute('aria-controls', prefix + '-panel-' + index);
+      const panel = el('div', 'scheme-panel');
+      panel.id = prefix + '-panel-' + index;
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', button.id);
+      panel.setAttribute('aria-describedby', description.id);
+      panel.append(figure({src:view.src, alt:view.alt || view.label}));
+      button.addEventListener('click', () => select(index));
+      button.addEventListener('keydown', event => {
+        let next;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % views.length;
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index + views.length - 1) % views.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = views.length - 1;
+        if (next === undefined) return;
+        event.preventDefault(); select(next); buttons[next].focus();
+      });
+      buttons.push(button); panels.push(panel); tabs.append(button); media.append(panel);
+    });
+    const mobile = window.matchMedia('(max-width:720px)');
+    function orientation() { tabs.setAttribute('aria-orientation', mobile.matches ? 'horizontal' : 'vertical'); }
+    mobile.addEventListener('change', orientation); orientation();
+    if (views.length) select(0);
+    sidebar.append(tabs, description, el('p', 'media-note', 'Нажмите на схему, чтобы увеличить.'));
+    layout.append(media, sidebar); section.append(heading, layout);
+    return section;
+  }
   function renderBlock(block) {
+    if (block.type === 'scheme-tabs') return schemeTabs(block);
     if (block.type === 'comparison') return comparison(block);
     if (block.type === 'comparison-group') {
       const section = el('section', 'comparison-grid-section');
@@ -177,6 +235,7 @@
     if (block.type === 'image') return figure(block);
     if (block.type === 'gallery') {
       const gallery = el('div', 'gallery');
+      if (block.columns === 3) gallery.classList.add('gallery-three');
       (block.images || []).forEach(item => gallery.append(figure(item)));
       if (block.title) {
         const section = el('section', 'gallery-section');
@@ -194,8 +253,29 @@
       if (block.caption) section.append(el('p', 'media-note', block.caption));
       return section;
     }
+    if (block.type === 'video-grid') {
+      const section = el('section', 'video-grid-section');
+      section.append(el('h2', '', block.title || 'Видео'));
+      const gallery = el('div', 'video-grid');
+      (block.videos || []).forEach(item => {
+        const itemFigure = el('figure', 'video-item');
+        const video = renderBlock({...item, type:'video'});
+        video.addEventListener('play', () => {
+          section.closest('article')?.querySelectorAll('video').forEach(other => { if (other !== video) other.pause(); });
+        });
+        itemFigure.append(video);
+        if (item.caption) itemFigure.append(el('figcaption', '', item.caption));
+        gallery.append(itemFigure);
+      });
+      section.append(gallery);
+      return section;
+    }
     if (block.type === 'video') {
       const video = el('video', 'project-video'); video.controls = true; video.preload = 'metadata'; video.playsInline = true;
+      if (block.preload) video.preload = block.preload;
+      video.loop = block.loop === true;
+      video.muted = block.muted === true;
+      if (block.label || block.caption) video.setAttribute('aria-label', block.label || block.caption);
       const source = safeUrl(block.src); if (source) video.src = source;
       if (block.poster) video.poster = safeUrl(block.poster);
       return video;
@@ -295,7 +375,10 @@
     if (viewer.open) viewer.close();
     const id = location.hash.slice(1); const match = articles.get(id);
     home.hidden = Boolean(match);
-    articles.forEach(({article}, key) => { article.hidden = key !== id; });
+    articles.forEach(({article}, key) => {
+      article.hidden = key !== id;
+      if (article.hidden) article.querySelectorAll('.video-grid video').forEach(video => video.pause());
+    });
     document.title = match ? match.project.title + ' — ' + data.site.name : data.site.title;
     if (match) { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
     else if (id === 'works' || id === 'about') requestAnimationFrame(() => document.getElementById(id).scrollIntoView());

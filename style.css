@@ -106,3 +106,33 @@
   .about-photo{width:120px;max-width:38%;margin:0 18px 12px 0}
   .about-copy{font-size:18px;line-height:1.55}
 }
+
+/* Краснодар: переключение схем и короткие видео. */
+.scheme-tabs-section,.video-grid-section{margin:38px 0 50px}
+.scheme-tabs-section>h2,.video-grid-section>h2{font-size:16px;line-height:1.4;font-weight:500;margin:0 0 20px}
+.scheme-tabs-layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(230px,1fr);gap:30px;align-items:center}
+.scheme-tabs-media,.scheme-tabs-sidebar{min-width:0}
+.scheme-panel .project-image{margin:0}
+.scheme-panel .image-open{aspect-ratio:16/9;background:#e5e4dc}
+.scheme-panel img{width:100%;height:100%;object-fit:contain}
+.scheme-tabs{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+.scheme-tab{border:1px solid var(--line);background:transparent;border-radius:22px;padding:12px 16px;text-align:left;font-size:13px;line-height:1.4;cursor:pointer;min-height:44px}
+.scheme-tab:hover{background:#e8e7df}
+.scheme-tab[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.scheme-description{font-size:14px;line-height:1.7;margin:20px 0 0;min-height:145px}
+.scheme-tabs-sidebar .media-note{margin:12px 0 0}
+.gallery-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px}
+.video-item{margin:0;min-width:0}
+.video-item .project-video{aspect-ratio:16/9;object-fit:contain;background:#e5e4dc;margin:0}
+.video-item figcaption{font-size:12px;line-height:1.6;color:var(--muted);margin-top:10px}
+@media(max-width:720px){
+  .scheme-tabs-section,.video-grid-section{margin:28px 0 36px}
+  .scheme-tabs-layout{display:flex;flex-direction:column;gap:18px;align-items:stretch}
+  .scheme-tabs-sidebar{display:contents}
+  .scheme-tabs{order:-1;flex-direction:row;flex-wrap:wrap;gap:7px}
+  .scheme-tab{padding:10px 13px;font-size:12px;text-align:center}
+  .scheme-description{font-size:13px;min-height:0;margin:0}
+  .scheme-tabs-sidebar .media-note{margin:-8px 0 0}
+  .gallery-three,.video-grid{grid-template-columns:1fr}
+}
