@@ -719,6 +719,11 @@
       cover.classList.add('has-image', 'cover-channel');
       cover.append(channelCover(settings));
     }
+    if (settings.brandLogo) {
+      const logo = picture(settings.brandLogo, settings.brandLogoAlt || '');
+      logo.className = 'cover-brand-logo';
+      cover.append(logo);
+    }
     const meta = el('div', 'card-meta'); const copy = el('div');
     copy.append(el('h3', '', project.title), el('p', '', project.summary || ''));
     meta.append(copy, el('span', 'card-tag', project.tag || ''));

@@ -365,8 +365,10 @@
 .youtube-mark{display:block;position:relative;overflow:hidden;width:36px;height:25px;flex-shrink:0}
 .youtube-mark img{position:absolute;top:0;left:0;display:block;height:100%;width:auto;max-width:none}
 .cover-channel>.channel-cover{position:absolute;inset:0;width:100%;height:100%}
-.cover-channel .channel-identity{max-width:160px}
-.cover-channel .channel-badge{font-size:14px}
+.cover-channel .channel-identity{position:absolute;left:50%;top:25%;transform:translate(-50%,-50%);width:24%;max-width:120px}
+.cover-channel .channel-badge{left:50%;top:58%;bottom:auto;transform:translate(-50%,-50%);gap:16px;font-size:clamp(24px,3vw,38px);white-space:nowrap}
+.cover-channel .youtube-mark{width:clamp(48px,5vw,72px);height:auto;aspect-ratio:655/457}
+.cover-brand-logo{position:absolute;left:50%;top:32%;transform:translate(-50%,-50%);width:62%;height:auto;z-index:2}
 .project>.channel-cover{margin:32px 0 48px;max-width:900px}
 @media(max-width:720px){
   .blog-band{margin-top:32px;margin-bottom:32px;padding-top:32px;padding-bottom:32px}

@@ -423,6 +423,313 @@ window.PORTFOLIO = {
       "columnOrder": 1
     },
     {
+      "id": "ytchannel",
+      "visible": true,
+      "title": "Авторский видеоблог",
+      "summary": "Личный YouTube-канал: архитектура, города и игры.",
+      "categories": [
+        "video"
+      ],
+      "tag": "YOUTUBE",
+      "column": "left",
+      "columnOrder": 2,
+      "cover": {
+        "type": "channel",
+        "background": "#000",
+        "logo": "assets/branding/logo.jpg",
+        "youtubeLogo": "assets/ytchannel/YouTube_Logo.png",
+        "handle": "@vlSurin"
+      },
+      "eyebrow": "Личный канал · YouTube",
+      "lead": "Рассказываю об архитектуре, городской среде и видеоиграх на своём канале.",
+      "linksLabel": "Личный канал",
+      "links": [
+        {
+          "label": "Перейти на канал · @vlSurin",
+          "url": "https://www.youtube.com/@vlSurin"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "channel-cover",
+          "logo": "assets/branding/logo.jpg",
+          "youtubeLogo": "assets/ytchannel/YouTube_Logo.png",
+          "handle": "@vlSurin"
+        },
+        {
+          "type": "text",
+          "title": "О блоге",
+          "paragraphs": [
+            "В блоге соединяю архитектурный опыт и интерес к играм: разбираю игровые города и реальные пространства, предлагаю изменения улиц и площадей. Форматы разные — от подготовленных выпусков до разговоров и трансляций."
+          ]
+        },
+        {
+          "type": "text",
+          "title": "Связанные проекты",
+          "paragraphs": [
+            "Проекты улиц из рубрики «ПРПР — Простое проектирование» собраны отдельно: с планами, сравнениями до и после и выпусками блога. Разборы для StopGame также представлены отдельной серией."
+          ],
+          "links": [
+            {
+              "label": "ПРПР — Простое проектирование",
+              "url": "#prpr"
+            },
+            {
+              "label": "Архитектура игровых городов · StopGame",
+              "url": "#stopgame"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "game-concepts",
+      "visible": true,
+      "title": "Игровые концепты",
+      "coverTitle": "Игровые концепты",
+      "summary": "Окружение, игровые сцены и персонажи.",
+      "categories": [
+        "graphics"
+      ],
+      "tag": "КОНЦЕПТ-АРТ",
+      "cover": {
+        "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
+        "alt": "Концепт русского вестерна с персонажами",
+        "position": "50% 50%",
+        "fit": "cover",
+        "background": "#6b7160",
+        "color": "#fff"
+      },
+      "eyebrow": "Концепт-арт",
+      "lead": "Концепты игровых сцен, окружения и персонажей.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "images": [
+            {
+              "src": "assets/graphics/gameConcepts/field.jpg",
+              "alt": "Игровая сцена с деревенским домом и дорогой",
+              "caption": "Поле"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/winter.jpg",
+              "alt": "Зимняя сцена у деревянного дома",
+              "caption": "Зимняя сцена",
+              "animation": "assets/graphics/gameConcepts/game_concept_snow.mp4"
+            }
+          ]
+        },
+        {
+          "type": "artwork-group",
+          "title": "Russian RDR",
+          "main": {
+            "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
+            "alt": "Персонажи вестерна",
+            "caption": "Персонажи вестерна"
+          },
+          "related": [
+            {
+              "src": "assets/graphics/gameConcepts/old-men.jpg",
+              "alt": "Персонажи",
+              "caption": "Персонажи"
+            }
+          ]
+        },
+        {
+          "type": "gallery",
+          "images": [
+            {
+              "src": "assets/graphics/gameConcepts/Drunk-street.jpg",
+              "alt": "Городская улица",
+              "caption": "Городская улица"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/burglary.jpg",
+              "alt": "Интерьер",
+              "caption": "Интерьер"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/central-crime.jpg",
+              "alt": "Городская сцена",
+              "caption": "Городская сцена"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/deserved-by-new-russian.jpg",
+              "alt": "Ночная сцена",
+              "caption": "Ночная сцена"
+            },
+            {
+              "src": "assets/graphics/gameConcepts/skatf.jpg",
+              "alt": "Уличная сцена",
+              "caption": "Уличная сцена"
+            }
+          ]
+        }
+      ],
+      "column": "right",
+      "columnOrder": 2
+    },
+    {
+      "id": "stopgame",
+      "visible": true,
+      "title": "Архитектура игровых городов",
+      "summary": "Авторская рубрика для StopGame — «Где я нахуй?»",
+      "categories": [
+        "video"
+      ],
+      "tag": "STOPGAME",
+      "column": "right",
+      "columnOrder": 3,
+      "cover": {
+        "src": "assets/stopgame/cover.jpg",
+        "alt": "Имперский город из Oblivion",
+        "position": "50% 50%",
+        "fit": "cover",
+        "brandLogo": "assets/stopgame/StopGame_logo.png",
+        "brandLogoAlt": "StopGame"
+      },
+      "logo": {
+        "src": "assets/stopgame/StopGame_logo.png",
+        "alt": "StopGame",
+        "wide": true
+      },
+      "eyebrow": "Авторская рубрика · StopGame",
+      "lead": "«Где я нахуй?» — разбираю архитектуру игровых городов, их устройство и связь с реальными местами.",
+      "facts": [
+        {
+          "label": "Роль",
+          "value": "Автор видео"
+        },
+        {
+          "label": "Площадка",
+          "value": "StopGame"
+        },
+        {
+          "label": "Формат",
+          "value": "Архитектура и игровые пространства"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "youtube-group",
+          "eyebrow": "StopGame · Где я нахуй?",
+          "title": "Выпуски рубрики",
+          "description": "От новых к ранним: Oblivion, Forza Horizon 6 и два разбора Лос-Сантоса.",
+          "videos": [
+            {
+              "videoId": "kbN-xusNufY",
+              "title": "Самый халтурный город Oblivion",
+              "description": "Имперский город в Oblivion выглядит грандиозно, но насколько хорошо он работает как город в игре? Разбираемся, удобно ли по нему передвигаться и ориентироваться, как он используется в геймплее и насколько убедительно выглядит как столица империи."
+            },
+            {
+              "videoId": "Hx9dQV2jzDU",
+              "title": "Япония в Forza Horizon 6. Место, где потеряли интересную игру",
+              "description": "Разбор карты Forza Horizon 6: как Токио, горные перевалы и сельская Япония работают в открытом мире для гонок — и где особенности этих территорий упростили ради привычной формулы серии. Найдётся ли для следующей части сеттинг с таким же культурным весом?"
+            },
+            {
+              "videoId": "egYjDGyBrQ8",
+              "title": "Лос-Сантос в игре и в РЕАЛЬНОСТИ. Разбор локаций GTA: San Andreas",
+              "description": "Как улицы стали геймдизайном? Разбор локаций Лос-Сантоса из GTA: San Andreas: почему в San Andreas нельзя переходить дорогу, как устроена карта города и во что Rockstar превратила Лос-Анджелес ради игры."
+            },
+            {
+              "videoId": "w_-TMH1XCt8",
+              "title": "Архитектура Лос-Сантоса — образ Лос-Анджелеса в GTA: San Andreas",
+              "description": "В этом ролике разбираем, как устроен Лос-Сантос из San Andreas: его зонирование, архитектурные стили и образ города в целом. А заодно пытаемся понять, как сильно на его облик повлияли условности игры, ограничения разработки и сам выбранный сеттинг."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prpr",
+      "visible": true,
+      "title": "ПРПР — Простое проектирование",
+      "coverTitle": "ПРПР",
+      "summary": "Проекты улиц и площадей для авторского видеоблога.",
+      "categories": [
+        "architecture",
+        "video"
+      ],
+      "tag": "СЕРИЯ",
+      "cover": {
+        "src": "assets/prpr/kos/square/plan-after2.jpg",
+        "alt": "Второй вариант планировки площади в Костроме",
+        "aspectRatio": "16 / 9",
+        "fit": "cover",
+        "position": "50% 50%"
+      },
+      "eyebrow": "Архитектура и видеоблог",
+      "lead": "Проектные предложения по преобразованию улиц и площадей. Серия «Простое проектирование» для авторского видеоблога.",
+      "blocks": [
+        {
+          "type": "project-list",
+          "title": "Проекты серии",
+          "projects": [
+            "prpr-dzr",
+            "prpr-kos",
+            "prpr-gav",
+            "prpr-bau",
+            "prpr-bez"
+          ]
+        }
+      ],
+      "column": "left",
+      "columnOrder": 3
+    },
+    {
+      "id": "illustrations",
+      "visible": true,
+      "title": "Иллюстрации",
+      "coverTitle": "Иллюстрации",
+      "summary": "Сюжетные иллюстрации и архитектурная графика.",
+      "categories": [
+        "graphics"
+      ],
+      "tag": "ГРАФИКА",
+      "cover": {
+        "src": "assets/graphics/different/EndOfTheDay.jpg",
+        "alt": "Иллюстрация «В конце дня»",
+        "position": "50% 50%",
+        "fit": "contain",
+        "background": "#cbc6be",
+        "color": "#232624",
+        "aspectRatio": "1 / 1"
+      },
+      "eyebrow": "Иллюстрации и графика",
+      "lead": "Подборка сюжетных иллюстраций и рисунков архитектуры.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "images": [
+            {
+              "src": "assets/graphics/different/Народные_Гуляния_web.jpg",
+              "alt": "Народные гуляния",
+              "caption": "Народные гуляния"
+            },
+            {
+              "src": "assets/graphics/different/EndOfTheDay.jpg",
+              "alt": "В конце дня",
+              "caption": "В конце дня"
+            },
+            {
+              "src": "assets/graphics/different/Rozhicy.jpg",
+              "alt": "Рожицы",
+              "caption": "Рожицы"
+            },
+            {
+              "src": "assets/graphics/different/Townhouses.jpg",
+              "alt": "Блокированные дома",
+              "caption": "Блокированные дома",
+              "span": 2
+            }
+          ],
+          "columns": 3
+        }
+      ],
+      "column": "right",
+      "columnOrder": 4
+    },
+    {
       "id": "krd",
       "visible": true,
       "title": "Район в Краснодаре",
@@ -578,7 +885,7 @@ window.PORTFOLIO = {
         }
       ],
       "column": "left",
-      "columnOrder": 2
+      "columnOrder": 4
     },
     {
       "id": "roundabout",
@@ -690,312 +997,7 @@ window.PORTFOLIO = {
         }
       ],
       "column": "right",
-      "columnOrder": 2
-    },
-    {
-      "id": "prpr",
-      "visible": true,
-      "title": "ПРПР — Простое проектирование",
-      "coverTitle": "ПРПР",
-      "summary": "Проекты улиц и площадей для авторского видеоблога.",
-      "categories": [
-        "architecture",
-        "video"
-      ],
-      "tag": "СЕРИЯ",
-      "cover": {
-        "src": "assets/prpr/kos/square/plan-after2.jpg",
-        "alt": "Второй вариант планировки площади в Костроме",
-        "aspectRatio": "16 / 9",
-        "fit": "cover",
-        "position": "50% 50%"
-      },
-      "eyebrow": "Архитектура и видеоблог",
-      "lead": "Проектные предложения по преобразованию улиц и площадей. Серия «Простое проектирование» для авторского видеоблога.",
-      "blocks": [
-        {
-          "type": "project-list",
-          "title": "Проекты серии",
-          "projects": [
-            "prpr-dzr",
-            "prpr-kos",
-            "prpr-gav",
-            "prpr-bau",
-            "prpr-bez"
-          ]
-        }
-      ],
-      "column": "left",
-      "columnOrder": 3
-    },
-    {
-      "id": "illustrations",
-      "visible": true,
-      "title": "Иллюстрации",
-      "coverTitle": "Иллюстрации",
-      "summary": "Сюжетные иллюстрации и архитектурная графика.",
-      "categories": [
-        "graphics"
-      ],
-      "tag": "ГРАФИКА",
-      "cover": {
-        "src": "assets/graphics/different/Народные_Гуляния_web.jpg",
-        "alt": "Иллюстрация «Народные гуляния»",
-        "position": "50% 50%",
-        "fit": "contain",
-        "background": "#cbc6be",
-        "color": "#232624",
-        "aspectRatio": "1 / 1"
-      },
-      "eyebrow": "Иллюстрации и графика",
-      "lead": "Подборка сюжетных иллюстраций и рисунков архитектуры.",
-      "blocks": [
-        {
-          "type": "gallery",
-          "images": [
-            {
-              "src": "assets/graphics/different/Народные_Гуляния_web.jpg",
-              "alt": "Народные гуляния",
-              "caption": "Народные гуляния"
-            },
-            {
-              "src": "assets/graphics/different/EndOfTheDay.jpg",
-              "alt": "В конце дня",
-              "caption": "В конце дня"
-            },
-            {
-              "src": "assets/graphics/different/Rozhicy.jpg",
-              "alt": "Рожицы",
-              "caption": "Рожицы"
-            },
-            {
-              "src": "assets/graphics/different/Townhouses.jpg",
-              "alt": "Блокированные дома",
-              "caption": "Блокированные дома",
-              "span": 2
-            }
-          ],
-          "columns": 3
-        }
-      ],
-      "column": "right",
-      "columnOrder": 3
-    },
-    {
-      "id": "game-concepts",
-      "visible": true,
-      "title": "Игровые концепты",
-      "coverTitle": "Игровые концепты",
-      "summary": "Окружение, игровые сцены и персонажи.",
-      "categories": [
-        "graphics"
-      ],
-      "tag": "КОНЦЕПТ-АРТ",
-      "cover": {
-        "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
-        "alt": "Концепт русского вестерна с персонажами",
-        "position": "50% 50%",
-        "fit": "cover",
-        "background": "#6b7160",
-        "color": "#fff"
-      },
-      "eyebrow": "Концепт-арт",
-      "lead": "Концепты игровых сцен, окружения и персонажей.",
-      "blocks": [
-        {
-          "type": "gallery",
-          "images": [
-            {
-              "src": "assets/graphics/gameConcepts/field.jpg",
-              "alt": "Игровая сцена с деревенским домом и дорогой",
-              "caption": "Поле"
-            },
-            {
-              "src": "assets/graphics/gameConcepts/winter.jpg",
-              "alt": "Зимняя сцена у деревянного дома",
-              "caption": "Зимняя сцена",
-              "animation": "assets/graphics/gameConcepts/game_concept_snow.mp4"
-            }
-          ]
-        },
-        {
-          "type": "artwork-group",
-          "title": "Russian RDR",
-          "main": {
-            "src": "assets/graphics/gameConcepts/Russian-RDR-web.jpg",
-            "alt": "Персонажи вестерна",
-            "caption": "Персонажи вестерна"
-          },
-          "related": [
-            {
-              "src": "assets/graphics/gameConcepts/old-men.jpg",
-              "alt": "Персонажи",
-              "caption": "Персонажи"
-            }
-          ]
-        },
-        {
-          "type": "gallery",
-          "images": [
-            {
-              "src": "assets/graphics/gameConcepts/Drunk-street.jpg",
-              "alt": "Городская улица",
-              "caption": "Городская улица"
-            },
-            {
-              "src": "assets/graphics/gameConcepts/burglary.jpg",
-              "alt": "Интерьер",
-              "caption": "Интерьер"
-            },
-            {
-              "src": "assets/graphics/gameConcepts/central-crime.jpg",
-              "alt": "Городская сцена",
-              "caption": "Городская сцена"
-            },
-            {
-              "src": "assets/graphics/gameConcepts/deserved-by-new-russian.jpg",
-              "alt": "Ночная сцена",
-              "caption": "Ночная сцена"
-            },
-            {
-              "src": "assets/graphics/gameConcepts/skatf.jpg",
-              "alt": "Уличная сцена",
-              "caption": "Уличная сцена"
-            }
-          ]
-        }
-      ],
-      "column": "left",
-      "columnOrder": 4
-    },
-    {
-      "id": "stopgame",
-      "visible": true,
-      "title": "Архитектура игровых городов",
-      "summary": "Авторская рубрика для StopGame — «Где я нахуй?»",
-      "categories": [
-        "video"
-      ],
-      "tag": "STOPGAME",
-      "column": "left",
-      "columnOrder": 5,
-      "cover": {
-        "src": "assets/stopgame/cover.jpg",
-        "alt": "Имперский город из Oblivion",
-        "position": "50% 50%",
-        "fit": "cover"
-      },
-      "logo": {
-        "src": "assets/stopgame/StopGame_logo.png",
-        "alt": "StopGame",
-        "wide": true
-      },
-      "eyebrow": "Авторская рубрика · StopGame",
-      "lead": "«Где я нахуй?» — разбираю архитектуру игровых городов, их устройство и связь с реальными местами.",
-      "facts": [
-        {
-          "label": "Роль",
-          "value": "Автор видео"
-        },
-        {
-          "label": "Площадка",
-          "value": "StopGame"
-        },
-        {
-          "label": "Формат",
-          "value": "Архитектура и игровые пространства"
-        }
-      ],
-      "blocks": [
-        {
-          "type": "youtube-group",
-          "eyebrow": "StopGame · Где я нахуй?",
-          "title": "Выпуски рубрики",
-          "description": "От новых к ранним: Oblivion, Forza Horizon 6 и два разбора Лос-Сантоса.",
-          "videos": [
-            {
-              "videoId": "kbN-xusNufY",
-              "title": "Самый халтурный город Oblivion",
-              "description": "Имперский город в Oblivion выглядит грандиозно, но насколько хорошо он работает как город в игре? Разбираемся, удобно ли по нему передвигаться и ориентироваться, как он используется в геймплее и насколько убедительно выглядит как столица империи."
-            },
-            {
-              "videoId": "Hx9dQV2jzDU",
-              "title": "Япония в Forza Horizon 6. Место, где потеряли интересную игру",
-              "description": "Разбор карты Forza Horizon 6: как Токио, горные перевалы и сельская Япония работают в открытом мире для гонок — и где особенности этих территорий упростили ради привычной формулы серии. Найдётся ли для следующей части сеттинг с таким же культурным весом?"
-            },
-            {
-              "videoId": "egYjDGyBrQ8",
-              "title": "Лос-Сантос в игре и в РЕАЛЬНОСТИ. Разбор локаций GTA: San Andreas",
-              "description": "Как улицы стали геймдизайном? Разбор локаций Лос-Сантоса из GTA: San Andreas: почему в San Andreas нельзя переходить дорогу, как устроена карта города и во что Rockstar превратила Лос-Анджелес ради игры."
-            },
-            {
-              "videoId": "w_-TMH1XCt8",
-              "title": "Архитектура Лос-Сантоса — образ Лос-Анджелеса в GTA: San Andreas",
-              "description": "В этом ролике разбираем, как устроен Лос-Сантос из San Andreas: его зонирование, архитектурные стили и образ города в целом. А заодно пытаемся понять, как сильно на его облик повлияли условности игры, ограничения разработки и сам выбранный сеттинг."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ytchannel",
-      "visible": true,
-      "title": "Авторский видеоблог",
-      "summary": "Личный YouTube-канал: архитектура, города и игры.",
-      "categories": [
-        "video"
-      ],
-      "tag": "YOUTUBE",
-      "column": "right",
-      "columnOrder": 4,
-      "cover": {
-        "type": "channel",
-        "background": "#000",
-        "logo": "assets/branding/logo.jpg",
-        "youtubeLogo": "assets/ytchannel/YouTube_Logo.png",
-        "handle": "@vlSurin"
-      },
-      "eyebrow": "Личный канал · YouTube",
-      "lead": "Рассказываю об архитектуре, городской среде и видеоиграх на своём канале.",
-      "linksLabel": "Личный канал",
-      "links": [
-        {
-          "label": "Перейти на канал · @vlSurin",
-          "url": "https://www.youtube.com/@vlSurin"
-        }
-      ],
-      "blocks": [
-        {
-          "type": "channel-cover",
-          "logo": "assets/branding/logo.jpg",
-          "youtubeLogo": "assets/ytchannel/YouTube_Logo.png",
-          "handle": "@vlSurin"
-        },
-        {
-          "type": "text",
-          "title": "О блоге",
-          "paragraphs": [
-            "В блоге соединяю архитектурный опыт и интерес к играм: разбираю игровые города и реальные пространства, предлагаю изменения улиц и площадей. Форматы разные — от подготовленных выпусков до разговоров и трансляций."
-          ]
-        },
-        {
-          "type": "text",
-          "title": "Связанные проекты",
-          "paragraphs": [
-            "Проекты улиц из рубрики «ПРПР — Простое проектирование» собраны отдельно: с планами, сравнениями до и после и выпусками блога. Разборы для StopGame также представлены отдельной серией."
-          ],
-          "links": [
-            {
-              "label": "ПРПР — Простое проектирование",
-              "url": "#prpr"
-            },
-            {
-              "label": "Архитектура игровых городов · StopGame",
-              "url": "#stopgame"
-            }
-          ]
-        }
-      ]
+      "columnOrder": 5
     }
   ],
   "caseStudies": [
