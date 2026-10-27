@@ -867,6 +867,135 @@ window.PORTFOLIO = {
       ],
       "column": "left",
       "columnOrder": 4
+    },
+    {
+      "id": "stopgame",
+      "visible": true,
+      "title": "Архитектура игровых городов",
+      "summary": "Авторская рубрика для StopGame — «Где я нахуй?»",
+      "categories": [
+        "video"
+      ],
+      "tag": "STOPGAME",
+      "column": "left",
+      "columnOrder": 5,
+      "cover": {
+        "src": "assets/stopgame/cover.jpg",
+        "alt": "Имперский город из Oblivion",
+        "position": "50% 50%",
+        "fit": "cover"
+      },
+      "logo": {
+        "src": "assets/stopgame/StopGame_logo.png",
+        "alt": "StopGame",
+        "wide": true
+      },
+      "eyebrow": "Авторская рубрика · StopGame",
+      "lead": "«Где я нахуй?» — разбираю архитектуру игровых городов, их устройство и связь с реальными местами.",
+      "facts": [
+        {
+          "label": "Роль",
+          "value": "Автор видео"
+        },
+        {
+          "label": "Площадка",
+          "value": "StopGame"
+        },
+        {
+          "label": "Формат",
+          "value": "Архитектура и игровые пространства"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "youtube-group",
+          "eyebrow": "StopGame · Где я нахуй?",
+          "title": "Выпуски рубрики",
+          "description": "От новых к ранним: Oblivion, Forza Horizon 6 и два разбора Лос-Сантоса.",
+          "videos": [
+            {
+              "videoId": "kbN-xusNufY",
+              "title": "Самый халтурный город Oblivion",
+              "description": "Имперский город в Oblivion выглядит грандиозно, но насколько хорошо он работает как город в игре? Разбираемся, удобно ли по нему передвигаться и ориентироваться, как он используется в геймплее и насколько убедительно выглядит как столица империи."
+            },
+            {
+              "videoId": "Hx9dQV2jzDU",
+              "title": "Япония в Forza Horizon 6. Место, где потеряли интересную игру",
+              "description": "Разбор карты Forza Horizon 6: как Токио, горные перевалы и сельская Япония работают в открытом мире для гонок — и где особенности этих территорий упростили ради привычной формулы серии. Найдётся ли для следующей части сеттинг с таким же культурным весом?"
+            },
+            {
+              "videoId": "egYjDGyBrQ8",
+              "title": "Лос-Сантос в игре и в РЕАЛЬНОСТИ. Разбор локаций GTA: San Andreas",
+              "description": "Как улицы стали геймдизайном? Разбор локаций Лос-Сантоса из GTA: San Andreas: почему в San Andreas нельзя переходить дорогу, как устроена карта города и во что Rockstar превратила Лос-Анджелес ради игры."
+            },
+            {
+              "videoId": "w_-TMH1XCt8",
+              "title": "Архитектура Лос-Сантоса — образ Лос-Анджелеса в GTA: San Andreas",
+              "description": "В этом ролике разбираем, как устроен Лос-Сантос из San Andreas: его зонирование, архитектурные стили и образ города в целом. А заодно пытаемся понять, как сильно на его облик повлияли условности игры, ограничения разработки и сам выбранный сеттинг."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ytchannel",
+      "visible": true,
+      "title": "Авторский видеоблог",
+      "summary": "Личный YouTube-канал: архитектура, города и игры.",
+      "categories": [
+        "video"
+      ],
+      "tag": "YOUTUBE",
+      "column": "right",
+      "columnOrder": 4,
+      "cover": {
+        "type": "channel",
+        "background": "#000",
+        "logo": "assets/branding/logo.jpg",
+        "youtubeLogo": "assets/ytchannel/YouTube_Logo.png",
+        "handle": "@vlSurin"
+      },
+      "eyebrow": "Личный канал · YouTube",
+      "lead": "Рассказываю об архитектуре, городской среде и видеоиграх на своём канале.",
+      "linksLabel": "Личный канал",
+      "links": [
+        {
+          "label": "Перейти на канал · @vlSurin",
+          "url": "https://www.youtube.com/@vlSurin"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "channel-cover",
+          "logo": "assets/branding/logo.jpg",
+          "youtubeLogo": "assets/ytchannel/YouTube_Logo.png",
+          "handle": "@vlSurin"
+        },
+        {
+          "type": "text",
+          "title": "О блоге",
+          "paragraphs": [
+            "В блоге соединяю архитектурный опыт и интерес к играм: разбираю игровые города и реальные пространства, предлагаю изменения улиц и площадей. Форматы разные — от подготовленных выпусков до разговоров и трансляций."
+          ]
+        },
+        {
+          "type": "text",
+          "title": "Связанные проекты",
+          "paragraphs": [
+            "Проекты улиц из рубрики «ПРПР — Простое проектирование» собраны отдельно: с планами, сравнениями до и после и выпусками блога. Разборы для StopGame также представлены отдельной серией."
+          ],
+          "links": [
+            {
+              "label": "ПРПР — Простое проектирование",
+              "url": "#prpr"
+            },
+            {
+              "label": "Архитектура игровых городов · StopGame",
+              "url": "#stopgame"
+            }
+          ]
+        }
+      ]
     }
   ],
   "caseStudies": [

@@ -354,6 +354,20 @@
 .blog-band .blog-frame{width:100%;min-width:0;background:#090b09;min-height:200px}
 .blog-band .blog-external{color:#dce2d8;font-size:12px;line-height:1.5}
 .blog-band .blog-external:hover{color:white}
+.episode-description{font-size:14px;line-height:1.7;color:#c8cec5;margin:16px 0 0}
+
+/* Новые видеопроекты: исходные логотипы, без отдельных файлов обложки канала. */
+.project-wide-logo .project-title-row{flex-direction:column;align-items:flex-start;gap:24px}
+.project-wide-logo .project-icon{width:190px;height:auto;border-radius:0;object-fit:contain}
+.channel-cover{position:relative;display:grid;place-items:center;aspect-ratio:16/9;background:#000;overflow:hidden;color:#fff}
+.channel-identity{display:block;width:32%;height:auto;max-width:220px}
+.channel-badge{position:absolute;left:6%;bottom:9%;display:flex;align-items:center;gap:12px;font-size:clamp(12px,1.5vw,18px);line-height:1.4}
+.youtube-mark{display:block;position:relative;overflow:hidden;width:36px;height:25px;flex-shrink:0}
+.youtube-mark img{position:absolute;top:0;left:0;display:block;height:100%;width:auto;max-width:none}
+.cover-channel>.channel-cover{position:absolute;inset:0;width:100%;height:100%}
+.cover-channel .channel-identity{max-width:160px}
+.cover-channel .channel-badge{font-size:14px}
+.project>.channel-cover{margin:32px 0 48px;max-width:900px}
 @media(max-width:720px){
   .blog-band{margin-top:32px;margin-bottom:32px;padding-top:32px;padding-bottom:32px}
   .blog-intro{font-size:14px;margin-bottom:22px}

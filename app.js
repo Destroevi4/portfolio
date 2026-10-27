@@ -465,7 +465,18 @@
     layout.append(media, sidebar); section.append(heading, layout);
     return section;
   }
+  function channelCover(settings) {
+    const cover = el('div', 'channel-cover');
+    const identity = picture(settings.logo, ''); identity.className = 'channel-identity';
+    const badge = el('div', 'channel-badge');
+    const mark = el('span', 'youtube-mark');
+    mark.append(picture(settings.youtubeLogo, 'YouTube'));
+    badge.append(mark, el('span', '', settings.handle || '@vlSurin'));
+    cover.append(identity, badge);
+    return cover;
+  }
   function renderBlock(block) {
+    if (block.type === 'channel-cover') return channelCover(block);
     if (block.type === 'youtube') {
       const grouped = block.grouped === true;
       const section = el('section', grouped ? 'blog-video' : 'blog-band');
@@ -493,15 +504,17 @@
       };
       const unmount = () => { if (frame.firstChild) frame.replaceChildren(); };
       blogPlayers.set(frame, {mount, unmount});
-      body.append(frame, link('Открыть на YouTube', 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
+      body.append(frame);
+      if (grouped && block.description) body.append(el('p', 'episode-description', block.description));
+      body.append(link('Открыть на YouTube', 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
       if (!grouped) section.append(body);
       return section;
     }
     if (block.type === 'youtube-group') {
       const section = el('section', 'blog-band blog-band-group');
       const body = el('div', 'blog-band-content');
-      body.append(el('p', 'eyebrow blog-eyebrow', 'Видеоблог · ПРПР'));
-      body.append(el('h2', '', 'Разбор проекта в блоге'));
+      body.append(el('p', 'eyebrow blog-eyebrow', block.eyebrow || 'Видеоблог · ПРПР'));
+      body.append(el('h2', '', block.title || 'Разбор проекта в блоге'));
       body.append(el('p', 'blog-intro', block.description || 'Отдельные выпуски о площади и примыкающей улице.'));
       const row = el('div', 'blog-grid');
       (block.videos || []).forEach(item => row.append(renderBlock({...item, type:'youtube', grouped:true})));
@@ -702,12 +715,17 @@
       img.className = 'cover-image'; img.style.objectPosition = settings.position || '50% 50%'; img.style.objectFit = settings.fit || 'cover';
       cover.prepend(img);
     }
+    if (settings.type === 'channel') {
+      cover.classList.add('has-image', 'cover-channel');
+      cover.append(channelCover(settings));
+    }
     const meta = el('div', 'card-meta'); const copy = el('div');
     copy.append(el('h3', '', project.title), el('p', '', project.summary || ''));
     meta.append(copy, el('span', 'card-tag', project.tag || ''));
     card.append(cover, meta); cards.push({card, project, index});
     }
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
+    if (project.logo?.wide) article.classList.add('project-wide-logo');
     article.setAttribute('aria-labelledby', project.id + '-title');
     article.append(link(project.parent ? 'К проектам ПРПР' : 'К работам', project.parent ? '#' + project.parent : '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
@@ -722,7 +740,7 @@
     article.append(head);
     if (project.links?.length) {
       const stores = el('nav', 'project-links');
-      stores.setAttribute('aria-label', 'Страницы игры в магазинах');
+      stores.setAttribute('aria-label', project.linksLabel || 'Страницы игры в магазинах');
       project.links.forEach(item => stores.append(link(item.label, item.url, 'store-link')));
       article.append(stores);
     }
