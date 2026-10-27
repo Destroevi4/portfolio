@@ -683,6 +683,36 @@ window.PORTFOLIO = {
       ]
     },
     {
+      "id": "prpr",
+      "visible": true,
+      "title": "ПРПР — Простое проектирование",
+      "coverTitle": "ПРПР",
+      "summary": "Проекты улиц и площадей для авторского видеоблога.",
+      "categories": [
+        "architecture",
+        "video"
+      ],
+      "tag": "СЕРИЯ",
+      "cover": {
+        "src": "assets/prpr/dzr/03-after.jpg",
+        "alt": "Предложение по преобразованию улицы — ДЗР",
+        "aspectRatio": "16 / 9",
+        "fit": "cover",
+        "position": "50% 50%"
+      },
+      "eyebrow": "Архитектура и видеоблог",
+      "lead": "Проектные предложения по преобразованию улиц и площадей. Серия «Простое проектирование» для авторского видеоблога.",
+      "blocks": [
+        {
+          "type": "project-list",
+          "title": "Проекты серии",
+          "projects": [
+            "prpr-dzr"
+          ]
+        }
+      ]
+    },
+    {
       "id": "illustrations",
       "visible": true,
       "title": "Иллюстрации",
@@ -813,6 +843,82 @@ window.PORTFOLIO = {
               "src": "assets/graphics/gameConcepts/skatf.jpg",
               "alt": "Уличная сцена",
               "caption": "Уличная сцена"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "caseStudies": [
+    {
+      "id": "prpr-dzr",
+      "parent": "prpr",
+      "visible": true,
+      "title": "ДЗР",
+      "summary": "Проект улицы: план и виды до/после.",
+      "categories": [
+        "architecture",
+        "video"
+      ],
+      "cover": {
+        "src": "assets/prpr/dzr/03-after.jpg",
+        "alt": "Предложение по преобразованию улицы — ДЗР",
+        "aspectRatio": "16 / 9",
+        "fit": "cover",
+        "position": "50% 50%"
+      },
+      "eyebrow": "Проект улицы",
+      "lead": "Предложение по преобразованию уличного пространства, подготовленное для авторского видеоблога.",
+      "blocks": [
+        {
+          "type": "street-plan",
+          "title": "План улицы",
+          "before": "assets/prpr/dzr/plan-before.jpg",
+          "after": "assets/prpr/dzr/plan-after.jpg",
+          "beforeLabel": "До",
+          "afterLabel": "Проект"
+        },
+        {
+          "type": "comparison-group",
+          "title": "Основные виды",
+          "comparisons": [
+            {
+              "title": "Ракурс 1",
+              "before": "assets/prpr/dzr/01-before.jpg",
+              "after": "assets/prpr/dzr/01-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "16 / 9"
+            },
+            {
+              "title": "Ракурс 2",
+              "before": "assets/prpr/dzr/02-before.jpg",
+              "after": "assets/prpr/dzr/02-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "16 / 9"
+            }
+          ]
+        },
+        {
+          "type": "comparison-cards",
+          "title": "Другие ракурсы",
+          "comparisons": [
+            {
+              "title": "Ракурс 3",
+              "before": "assets/prpr/dzr/03-before.jpg",
+              "after": "assets/prpr/dzr/03-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "16 / 9"
+            },
+            {
+              "title": "Ракурс 4",
+              "before": "assets/prpr/dzr/04-before.jpg",
+              "after": "assets/prpr/dzr/04-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "16 / 9"
             }
           ]
         }

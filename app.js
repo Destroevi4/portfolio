@@ -7,6 +7,7 @@
   const grid = document.getElementById('projects');
   const pages = document.getElementById('project-pages');
   const projects = data.projects.filter(project => project.visible !== false);
+  const caseStudies = (data.caseStudies || []).filter(project => project.visible !== false);
   const categoryNames = new Map(data.categories.map(category => [category.id, category.label]));
   const count = value => String(value).padStart(2, '0');
   function el(tag, className, text) {
@@ -114,6 +115,139 @@
   viewer.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
   viewer.addEventListener('close', () => { document.body.classList.remove('viewing-image'); });
   document.body.append(viewer);
+  const planViewer = el('dialog', 'plan-viewer');
+  planViewer.setAttribute('aria-label', 'Просмотр плана');
+  const planBar = el('div', 'plan-viewer-bar');
+  const planTitle = el('p', '', 'План'); planTitle.id = 'plan-viewer-title';
+  planViewer.setAttribute('aria-labelledby', planTitle.id);
+  const planVersions = el('div', 'plan-versions');
+  planVersions.setAttribute('role', 'group'); planVersions.setAttribute('aria-label', 'Версия большого плана');
+  const zoomOut = el('button', '', '−'), zoomIn = el('button', '', '+');
+  zoomOut.setAttribute('aria-label', 'Уменьшить план'); zoomIn.setAttribute('aria-label', 'Увеличить план');
+  const resetPlan = el('button', '', 'Целиком');
+  const planScale = el('span', 'plan-scale', '×1'); planScale.setAttribute('aria-live', 'polite');
+  const closePlan = el('button', 'viewer-close', 'Закрыть план');
+  [zoomOut, zoomIn, resetPlan, closePlan].forEach(button => { button.type = 'button'; });
+  closePlan.addEventListener('click', () => planViewer.close());
+  planBar.append(planTitle, planVersions, zoomOut, planScale, zoomIn, resetPlan, closePlan);
+  const planViewport = el('div', 'plan-viewport'); planViewport.tabIndex = 0;
+  planViewport.setAttribute('aria-label', 'План: перетаскивайте для перемещения; плюс и минус меняют масштаб');
+  const largePlan = el('img'); largePlan.draggable = false;
+  planViewport.append(largePlan);
+  planViewer.append(planBar, planViewport, el('p', 'plan-help', 'Масштаб: + / −, колесо мыши или два пальца. Перетаскивание — перемещение.'));
+  document.body.append(planViewer);
+  let planZoom = 1, planX = 0, planY = 0, basePlanWidth = 0, basePlanHeight = 0;
+  let planRatio = 0;
+  const planPointers = new Map();
+  function paintPlan() {
+    if (!basePlanWidth) return;
+    const w = planViewport.clientWidth, h = planViewport.clientHeight;
+    const sw = basePlanWidth * planZoom, sh = basePlanHeight * planZoom;
+    planX = sw <= w ? (w - sw) / 2 : Math.max(w - sw, Math.min(0, planX));
+    planY = sh <= h ? (h - sh) / 2 : Math.max(h - sh, Math.min(0, planY));
+    largePlan.style.width = basePlanWidth + 'px';
+    largePlan.style.transform = `translate(${planX}px,${planY}px) scale(${planZoom})`;
+    planScale.textContent = '×' + planZoom.toFixed(1);
+    zoomOut.disabled = planZoom <= 1;
+    zoomIn.disabled = planZoom >= maxPlanZoom() - .01;
+  }
+  function maxPlanZoom() { return Math.max(8, Math.min(32, largePlan.naturalWidth / (basePlanWidth || 1))); }
+  function fitPlan(reset = true) {
+    if (!largePlan.naturalWidth || !planViewport.clientWidth) return;
+    const scale = Math.min(planViewport.clientWidth / largePlan.naturalWidth, planViewport.clientHeight / largePlan.naturalHeight, 1);
+    basePlanWidth = largePlan.naturalWidth * scale; basePlanHeight = largePlan.naturalHeight * scale;
+    if (reset) { planZoom = 1; planX = 0; planY = 0; }
+    paintPlan();
+  }
+  function zoomPlan(value, x = planViewport.clientWidth / 2, y = planViewport.clientHeight / 2) {
+    if (!basePlanWidth) return;
+    const next = Math.max(1, Math.min(maxPlanZoom(), value)), factor = next / planZoom;
+    planX = x - (x - planX) * factor; planY = y - (y - planY) * factor;
+    planZoom = next; paintPlan();
+  }
+  largePlan.addEventListener('load', () => {
+    const ratio = largePlan.naturalWidth / largePlan.naturalHeight;
+    fitPlan(!planRatio || Math.abs(ratio - planRatio) > .001); planRatio = ratio;
+  });
+  zoomIn.addEventListener('click', () => zoomPlan(planZoom * 1.5));
+  zoomOut.addEventListener('click', () => zoomPlan(planZoom / 1.5));
+  resetPlan.addEventListener('click', () => fitPlan());
+  planViewport.addEventListener('wheel', event => {
+    event.preventDefault(); const bounds = planViewport.getBoundingClientRect();
+    zoomPlan(planZoom * Math.exp(-event.deltaY * .002), event.clientX - bounds.left, event.clientY - bounds.top);
+  }, {passive:false});
+  planViewport.addEventListener('keydown', event => {
+    if (['+', '=', '-', '0', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) event.preventDefault();
+    if (event.key === '+' || event.key === '=') zoomPlan(planZoom * 1.5);
+    if (event.key === '-') zoomPlan(planZoom / 1.5);
+    if (event.key === '0') fitPlan();
+    if (event.key === 'ArrowLeft') planX += 60;
+    if (event.key === 'ArrowRight') planX -= 60;
+    if (event.key === 'ArrowUp') planY += 60;
+    if (event.key === 'ArrowDown') planY -= 60;
+    paintPlan();
+  });
+  function planGesture() {
+    const points = [...planPointers.values()].slice(0, 2);
+    if (!points.length) return null;
+    if (points.length === 1) return {...points[0], distance:0};
+    return {x:(points[0].x + points[1].x) / 2, y:(points[0].y + points[1].y) / 2, distance:Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y)};
+  }
+  planViewport.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    event.preventDefault(); planViewport.setPointerCapture(event.pointerId);
+    planPointers.set(event.pointerId, {x:event.clientX, y:event.clientY});
+  });
+  planViewport.addEventListener('pointermove', event => {
+    if (!planPointers.has(event.pointerId)) return;
+    const old = planGesture();
+    planPointers.set(event.pointerId, {x:event.clientX, y:event.clientY}); const next = planGesture();
+    if (old.distance > 0 && next.distance > 0) {
+      const bounds = planViewport.getBoundingClientRect();
+      zoomPlan(planZoom * next.distance / old.distance, old.x - bounds.left, old.y - bounds.top);
+    }
+    planX += next.x - old.x; planY += next.y - old.y; paintPlan();
+  });
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => planViewport.addEventListener(type, event => { planPointers.delete(event.pointerId); }));
+  planViewer.addEventListener('click', event => { if (event.target === planViewer) planViewer.close(); });
+  planViewer.addEventListener('close', () => { planPointers.clear(); document.body.classList.remove('viewing-image'); });
+  window.addEventListener('resize', () => { if (planViewer.open) fitPlan(); });
+  function versionButtons(parent, labels, select) {
+    const buttons = labels.map((label, index) => {
+      const button = el('button', 'plan-version', label); button.type = 'button';
+      button.addEventListener('click', () => select(index)); parent.append(button); return button;
+    });
+    return index => buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+  }
+  function openPlan(block, initial, onSelect) {
+    if (viewer.open) viewer.close();
+    const labels = [block.beforeLabel || 'До', block.afterLabel || 'Проект'];
+    planVersions.replaceChildren(); planTitle.textContent = block.title || 'План';
+    planRatio = 0; basePlanWidth = 0; planZoom = 1; planPointers.clear();
+    const paintVersions = versionButtons(planVersions, labels, select);
+    function select(index) {
+      paintVersions(index); onSelect(index);
+      largePlan.alt = (block.title || 'План') + ' — ' + labels[index];
+      largePlan.src = safeUrl(index ? block.after : block.before);
+    }
+    planViewer.showModal(); document.body.classList.add('viewing-image'); select(initial);
+  }
+  function streetPlan(block) {
+    const section = el('section', 'street-plan'); section.append(el('h2', '', block.title || 'План'));
+    const toolbar = el('div', 'plan-toolbar'), versions = el('div', 'plan-versions');
+    versions.setAttribute('role', 'group'); versions.setAttribute('aria-label', 'Версия плана');
+    const open = el('button', 'image-open plan-open'); open.type = 'button'; open.setAttribute('aria-label', 'Открыть план крупно');
+    const img = picture('', ''); open.append(img);
+    const enlarge = el('button', 'comparison-enlarge', 'Увеличить план'); enlarge.type = 'button';
+    let selected = 1;
+    const paint = versionButtons(versions, [block.beforeLabel || 'До', block.afterLabel || 'Проект'], select);
+    function select(index) { selected = index; paint(index); img.alt = (block.title || 'План') + ' — ' + (index ? block.afterLabel || 'Проект' : block.beforeLabel || 'До'); img.src = safeUrl(index ? block.after : block.before); }
+    const show = () => openPlan(block, selected, select);
+    open.addEventListener('click', show); enlarge.addEventListener('click', show);
+    toolbar.append(versions, enlarge); select(selected); section.append(toolbar, open);
+    section.append(el('p', 'media-note', 'В большом просмотре доступны обе версии, увеличение и перемещение плана.'));
+    return section;
+  }
   function openImage(src, title) {
     const url = safeUrl(src);
     if (!url) return;
@@ -330,6 +464,30 @@
     return section;
   }
   function renderBlock(block) {
+    if (block.type === 'street-plan') return streetPlan(block);
+    if (block.type === 'project-list') {
+      const section = el('section', 'case-section');
+      if (block.title) section.append(el('h2', '', block.title));
+      const row = el('div', 'case-grid');
+      (block.projects || []).forEach(id => {
+        const project = caseStudies.find(item => item.id === id); if (!project) return;
+        const card = link('', '#' + id, 'case-card');
+        card.append(picture(project.cover?.src, project.cover?.alt), el('h3', '', project.title), el('p', '', project.summary || ''));
+        row.append(card);
+      });
+      section.append(row); return section;
+    }
+    if (block.type === 'comparison-cards') {
+      const section = el('section', 'comparison-cards'); section.append(el('h2', '', block.title || 'Другие ракурсы'));
+      const row = el('div', 'comparison-cards-grid');
+      (block.comparisons || []).forEach(item => {
+        const button = el('button', 'comparison-card'); button.type = 'button';
+        button.setAttribute('aria-label', 'Сравнить: ' + item.title);
+        button.append(picture(item.after, item.title + ' — проект'), el('span', '', item.title + ' · До / Проект'));
+        button.addEventListener('click', () => openComparison(item)); row.append(button);
+      });
+      section.append(row); return section;
+    }
     if (block.type === 'media-intro') {
       const section = el('section', 'media-intro');
       const media = el('div', 'media-intro-media');
@@ -480,13 +638,14 @@
   document.addEventListener('touchstart', () => { keyboardNavigation = false; }, {capture:true, passive:true});
   const cards = [];
   const articles = new Map();
-  projects.forEach((project, index) => {
+  [...projects, ...caseStudies].forEach((project, index) => {
+    const category = (project.categories || []).map(id => categoryNames.get(id) || id).join(' / ');
+    if (!project.parent) {
     const card = link('', '#' + project.id, 'card');
     const cover = el('div', 'cover' + (project.id === 'rcd' ? ' cover-rcd' : ''));
     const settings = project.cover || {};
     if (settings.aspectRatio) cover.style.aspectRatio = settings.aspectRatio;
     cover.style.background = settings.background || '#e1dfd5'; cover.style.color = settings.color || '#232624';
-    const category = (project.categories || []).map(id => categoryNames.get(id) || id).join(' / ');
     cover.append(el('span', 'cover-count', count(index + 1) + ' / ' + category.toUpperCase()), el('span', 'cover-word', project.coverTitle || project.title), el('span', 'cover-caption', 'Место для обложки проекта'));
     if (settings.src) {
       const img = picture(settings.src, settings.alt, () => cover.classList.add('has-image'));
@@ -497,9 +656,10 @@
     copy.append(el('h3', '', project.title), el('p', '', project.summary || ''));
     meta.append(copy, el('span', 'card-tag', project.tag || ''));
     card.append(cover, meta); grid.append(card); cards.push({card, project});
+    }
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
     article.setAttribute('aria-labelledby', project.id + '-title');
-    article.append(link('К работам', '#works', 'back'));
+    article.append(link(project.parent ? 'К проектам ПРПР' : 'К работам', project.parent ? '#' + project.parent : '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
     h1.id = project.id + '-title'; h1.tabIndex = -1;
     const title = project.logo ? el('div', 'project-title-row') : h1;
@@ -508,7 +668,7 @@
       icon.className = 'project-icon'; icon.width = 80; icon.height = 80;
       title.append(icon, h1);
     }
-    head.append(el('p', 'eyebrow muted', count(index + 1) + ' / ' + (project.eyebrow || category)), title, el('p', 'project-lead', project.lead || project.summary || ''));
+    head.append(el('p', 'eyebrow muted', (project.parent ? 'ПРПР' : count(index + 1)) + ' / ' + (project.eyebrow || category)), title, el('p', 'project-lead', project.lead || project.summary || ''));
     article.append(head);
     if (project.links?.length) {
       const stores = el('nav', 'project-links');
@@ -523,7 +683,7 @@
     }
     (project.blocks || []).forEach(block => article.append(renderBlock(block)));
     const end = el('div', 'project-end'); const next = projects[index + 1];
-    end.append(link(next ? 'Следующий проект — ' + next.title : 'Вернуться ко всем работам', next ? '#' + next.id : '#works'));
+    end.append(project.parent ? link('К проектам ПРПР', '#' + project.parent) : link(next ? 'Следующий проект — ' + next.title : 'Вернуться ко всем работам', next ? '#' + next.id : '#works'));
     article.append(end); pages.append(article); articles.set(project.id, {article, h1, project});
   });
   const filters = document.querySelector('.filters'); filters.replaceChildren();
@@ -548,6 +708,7 @@
   window.addEventListener('scroll', updateToTop, {passive:true});
   function route() {
     if (viewer.open) viewer.close();
+    if (planViewer.open) planViewer.close();
     const id = location.hash.slice(1); const match = articles.get(id);
     home.hidden = Boolean(match);
     articles.forEach(({article}, key) => {

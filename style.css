@@ -268,3 +268,50 @@
   .artwork-media .motion-state{left:9px;bottom:9px}
   .to-top{right:14px;bottom:16px}
 }
+
+/* ПРПР: вложенные проекты и планы в исходных пропорциях. */
+.case-section,.street-plan,.comparison-cards{margin:36px 0 48px}
+.case-section>h2,.street-plan>h2,.comparison-cards>h2{font-size:16px;font-weight:500;line-height:1.5;margin:0 0 20px}
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.case-card{display:block;text-decoration:none;min-width:0}
+.case-card>img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.case-card h3{font-size:20px;font-weight:500;margin:16px 0 8px}
+.case-card p{font-size:13px;line-height:1.6;color:var(--muted);margin:0}
+.case-card:hover h3{text-decoration:underline;text-underline-offset:4px}
+.plan-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.plan-versions{display:flex;gap:6px}
+.plan-version{border:1px solid var(--line);background:transparent;border-radius:24px;padding:10px 18px;min-height:42px;cursor:pointer;font-size:13px}
+.plan-version[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.plan-open{background:#eeeee7;min-height:60px}
+.plan-open img{width:100%;height:auto}
+.comparison-cards{border-top:1px solid var(--line);padding-top:28px}
+.comparison-cards-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.comparison-card{display:block;min-width:0;border:0;padding:0;text-align:left;background:transparent;cursor:pointer}
+.comparison-card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.comparison-card span{display:block;font-size:12px;line-height:1.5;margin-top:10px}
+.comparison-card:hover span{text-decoration:underline;text-underline-offset:4px}
+.plan-viewer{width:96vw;max-width:1500px;height:90dvh;max-height:94dvh;border:0;padding:16px;background:var(--paper);color:var(--ink);overflow:hidden}
+.plan-viewer[open]{display:flex;flex-direction:column}
+.plan-viewer::backdrop{background:#111c}
+.plan-viewer-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;flex-shrink:0}
+.plan-viewer-bar>p{flex:1;min-width:100px;margin:0;font-size:14px}
+.plan-viewer-bar>button{border:1px solid var(--line);border-radius:22px;min-width:42px;min-height:42px;padding:10px 14px;background:transparent;cursor:pointer;font-size:13px}
+.plan-viewer-bar>button:disabled{opacity:.35;cursor:default}
+.plan-scale{min-width:34px;text-align:center;font-size:12px;font-variant-numeric:tabular-nums}
+.plan-viewport{position:relative;flex:1;min-height:0;overflow:hidden;background:#e7e7e0;touch-action:none;overscroll-behavior:contain;cursor:grab;user-select:none;-webkit-user-select:none}
+.plan-viewport:active{cursor:grabbing}
+.plan-viewport>img{position:absolute;left:0;top:0;height:auto;max-width:none;max-height:none;transform-origin:0 0;pointer-events:none}
+.plan-help{font-size:11px;line-height:1.5;color:var(--muted);margin:10px 0 0;flex-shrink:0}
+@media(max-width:1000px) and (min-width:721px){.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.comparison-cards-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){
+  .case-grid{grid-template-columns:minmax(0,1fr)}
+  .case-section,.street-plan,.comparison-cards{margin:28px 0 36px}
+  .case-section>h2,.street-plan>h2,.comparison-cards>h2{font-size:15px}
+  .comparison-cards-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}
+  .plan-viewer{width:96vw;height:94dvh;padding:10px}
+  .plan-viewer-bar{gap:6px;margin-bottom:10px}
+  .plan-viewer-bar>p{flex-basis:100%;font-size:13px}
+  .plan-viewer-bar>button{padding:9px 11px}
+  .plan-viewer-bar .plan-version{padding:9px 13px}
+  .plan-help{font-size:10px}
+}
