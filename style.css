@@ -315,3 +315,29 @@
   .plan-viewer-bar .plan-version{padding:9px 13px}
   .plan-help{font-size:10px}
 }
+
+/* Главная: независимые столбцы; очередь каждого задаётся в content.js. */
+#projects{grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);align-items:start}
+.portfolio-column{display:flex;flex-direction:column;gap:30px;min-width:0}
+#projects .card{padding-top:0}
+
+/* Варианты планов и выпуски авторского блога. */
+.plan-group,.blog-group{margin:36px 0 48px}
+.plan-group>h2,.blog-group>h2,.blog-video>h2,.blog-video>h3,.street-plan>h3{font-size:16px;font-weight:500;line-height:1.5;margin:0 0 18px}
+.plan-group-grid,.blog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
+.plan-group-grid>.street-plan{margin:0;min-width:0}
+.blog-video{max-width:900px;margin:40px 0 48px;min-width:0}
+.blog-grid>.blog-video{margin:0;max-width:none}
+.blog-frame{position:relative;aspect-ratio:16/9;background:#252b28;overflow:hidden}
+.blog-frame iframe{display:block;border:0;width:100%;height:100%}
+.blog-play{position:relative;display:block;border:0;padding:0;width:100%;height:100%;cursor:pointer;background:#252b28;color:white}
+.blog-play img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.72)}
+.blog-play span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:13px 20px;background:#202624ed;border:1px solid #ffffffb3;border-radius:28px;white-space:nowrap;font-size:13px}
+.blog-play:hover img{filter:brightness(.85)}
+.blog-external{display:inline-block;margin-top:12px;font-size:12px;line-height:1.5}
+@media(max-width:720px){
+  #projects{grid-template-columns:minmax(0,1fr)}
+  .plan-group-grid,.blog-grid{grid-template-columns:minmax(0,1fr);gap:26px}
+  .plan-group,.blog-group,.blog-video{margin:28px 0 36px}
+  .plan-group>h2,.blog-group>h2,.blog-video>h2,.blog-video>h3,.street-plan>h3{font-size:15px}
+}

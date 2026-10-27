@@ -3,6 +3,8 @@
 // Копируй проект целиком для добавления нового. id должен быть уникальным и постоянным.
 // categories — список категорий проекта: можно несколько, например ["games", "video"].
 // visible: false — скрывает проект; true — показывает.
+// column: "left" / "right" — столбец на ПК; columnOrder — порядок внутри столбца.
+// На телефоне порядок карточек определяется очередностью projects.
 // cover.src — путь к картинке. Папки можно называть как угодно.
 // cover.position — положение при обрезке: "50% 50%" = центр, "50% 20%" = ближе к верху.
 // cover.fit: "cover" заполняет обложку; "contain" показывает картинку целиком с полями.
@@ -219,7 +221,9 @@ window.PORTFOLIO = {
       "logo": {
         "src": "assets/bresh/logo.jpg",
         "alt": "Иконка BRESH"
-      }
+      },
+      "column": "left",
+      "columnOrder": 1
     },
     {
       "id": "rcd",
@@ -414,7 +418,9 @@ window.PORTFOLIO = {
           "label": "Google Play",
           "url": "https://play.google.com/store/apps/details?id=com.carlovers.ladadrift"
         }
-      ]
+      ],
+      "column": "right",
+      "columnOrder": 1
     },
     {
       "id": "krd",
@@ -570,7 +576,9 @@ window.PORTFOLIO = {
             }
           ]
         }
-      ]
+      ],
+      "column": "left",
+      "columnOrder": 2
     },
     {
       "id": "roundabout",
@@ -680,7 +688,9 @@ window.PORTFOLIO = {
             }
           ]
         }
-      ]
+      ],
+      "column": "right",
+      "columnOrder": 2
     },
     {
       "id": "prpr",
@@ -694,8 +704,8 @@ window.PORTFOLIO = {
       ],
       "tag": "СЕРИЯ",
       "cover": {
-        "src": "assets/prpr/dzr/03-after.jpg",
-        "alt": "Предложение по преобразованию улицы — ДЗР",
+        "src": "assets/prpr/kos/square/plan-after2.jpg",
+        "alt": "Второй вариант планировки площади в Костроме",
         "aspectRatio": "16 / 9",
         "fit": "cover",
         "position": "50% 50%"
@@ -707,10 +717,16 @@ window.PORTFOLIO = {
           "type": "project-list",
           "title": "Проекты серии",
           "projects": [
-            "prpr-dzr"
+            "prpr-dzr",
+            "prpr-kos",
+            "prpr-gav",
+            "prpr-bau",
+            "prpr-bez"
           ]
         }
-      ]
+      ],
+      "column": "left",
+      "columnOrder": 3
     },
     {
       "id": "illustrations",
@@ -761,7 +777,9 @@ window.PORTFOLIO = {
           ],
           "columns": 3
         }
-      ]
+      ],
+      "column": "right",
+      "columnOrder": 3
     },
     {
       "id": "game-concepts",
@@ -846,7 +864,9 @@ window.PORTFOLIO = {
             }
           ]
         }
-      ]
+      ],
+      "column": "left",
+      "columnOrder": 4
     }
   ],
   "caseStudies": [
@@ -854,21 +874,21 @@ window.PORTFOLIO = {
       "id": "prpr-dzr",
       "parent": "prpr",
       "visible": true,
-      "title": "ДЗР",
-      "summary": "Проект улицы: план и виды до/после.",
+      "title": "Улица в Дзержинском",
+      "summary": "Проект улицы в Дзержинском, Московская область.",
       "categories": [
         "architecture",
         "video"
       ],
       "cover": {
-        "src": "assets/prpr/dzr/03-after.jpg",
-        "alt": "Предложение по преобразованию улицы — ДЗР",
+        "src": "assets/prpr/dzr/01-after.jpg",
+        "alt": "Улица в Дзержинском — проект",
         "aspectRatio": "16 / 9",
         "fit": "cover",
         "position": "50% 50%"
       },
       "eyebrow": "Проект улицы",
-      "lead": "Предложение по преобразованию уличного пространства, подготовленное для авторского видеоблога.",
+      "lead": "Предложение по преобразованию улицы в городе Дзержинском Московской области, подготовленное для авторского видеоблога.",
       "blocks": [
         {
           "type": "street-plan",
@@ -888,7 +908,7 @@ window.PORTFOLIO = {
               "after": "assets/prpr/dzr/01-after.jpg",
               "beforeLabel": "До",
               "afterLabel": "Проект",
-              "aspectRatio": "16 / 9"
+              "aspectRatio": "1919 / 1079"
             },
             {
               "title": "Ракурс 2",
@@ -896,7 +916,7 @@ window.PORTFOLIO = {
               "after": "assets/prpr/dzr/02-after.jpg",
               "beforeLabel": "До",
               "afterLabel": "Проект",
-              "aspectRatio": "16 / 9"
+              "aspectRatio": "1920 / 1080"
             }
           ]
         },
@@ -910,7 +930,7 @@ window.PORTFOLIO = {
               "after": "assets/prpr/dzr/03-after.jpg",
               "beforeLabel": "До",
               "afterLabel": "Проект",
-              "aspectRatio": "16 / 9"
+              "aspectRatio": "1920 / 1080"
             },
             {
               "title": "Ракурс 4",
@@ -918,9 +938,443 @@ window.PORTFOLIO = {
               "after": "assets/prpr/dzr/04-after.jpg",
               "beforeLabel": "До",
               "afterLabel": "Проект",
-              "aspectRatio": "16 / 9"
+              "aspectRatio": "1919 / 1079"
             }
           ]
+        },
+        {
+          "type": "youtube",
+          "title": "Выпуск блога",
+          "videoId": "Iu5oW3HtoOU",
+          "poster": "assets/prpr/dzr/01-after.jpg"
+        }
+      ]
+    },
+    {
+      "id": "prpr-kos",
+      "parent": "prpr",
+      "visible": true,
+      "title": "Площадь и улица в Костроме",
+      "summary": "Два варианта площади и проект примыкающей улицы.",
+      "categories": [
+        "architecture",
+        "video"
+      ],
+      "cover": {
+        "src": "assets/prpr/kos/square/01-after.jpg",
+        "alt": "Площадь и улица в Костроме — проект",
+        "aspectRatio": "16 / 9",
+        "fit": "cover",
+        "position": "50% 50%"
+      },
+      "eyebrow": "Площадь и улица",
+      "lead": "Проектные предложения для площади в Костроме и примыкающей к ней улицы.",
+      "blocks": [
+        {
+          "type": "text",
+          "title": "Площадь",
+          "paragraphs": [
+            "Два варианта проектного предложения для площади. Для каждого можно сравнить существующее состояние и проект."
+          ]
+        },
+        {
+          "type": "plan-group",
+          "title": "Варианты планировки площади",
+          "plans": [
+            {
+              "type": "street-plan",
+              "title": "Площадь — вариант 1",
+              "before": "assets/prpr/kos/square/plan-before.jpg",
+              "after": "assets/prpr/kos/square/plan-after1.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Вариант 1"
+            },
+            {
+              "type": "street-plan",
+              "title": "Площадь — вариант 2",
+              "before": "assets/prpr/kos/square/plan-before.jpg",
+              "after": "assets/prpr/kos/square/plan-after2.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Вариант 2"
+            }
+          ]
+        },
+        {
+          "type": "comparison-group",
+          "title": "Виды площади",
+          "comparisons": [
+            {
+              "title": "Ракурс 1",
+              "before": "assets/prpr/kos/square/01-before.jpg",
+              "after": "assets/prpr/kos/square/01-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 2",
+              "before": "assets/prpr/kos/square/02-before.jpg",
+              "after": "assets/prpr/kos/square/02-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "comparison-cards",
+          "title": "Другие ракурсы",
+          "comparisons": [
+            {
+              "title": "Ракурс 3",
+              "before": "assets/prpr/kos/square/03-before.jpg",
+              "after": "assets/prpr/kos/square/03-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 4",
+              "before": "assets/prpr/kos/square/04-before.jpg",
+              "after": "assets/prpr/kos/square/04-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 5",
+              "before": "assets/prpr/kos/square/05-before.jpg",
+              "after": "assets/prpr/kos/square/05-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 6",
+              "before": "assets/prpr/kos/square/06-before.jpg",
+              "after": "assets/prpr/kos/square/06-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "title": "Примыкающая улица",
+          "paragraphs": [
+            "Отдельное проектное предложение для улицы рядом с площадью."
+          ]
+        },
+        {
+          "type": "street-plan",
+          "title": "План улицы",
+          "before": "assets/prpr/kos/street/plan-before.jpg",
+          "after": "assets/prpr/kos/street/plan-after.jpg",
+          "beforeLabel": "До",
+          "afterLabel": "Проект"
+        },
+        {
+          "type": "comparison-group",
+          "title": "Виды улицы",
+          "comparisons": [
+            {
+              "title": "Ракурс 1",
+              "before": "assets/prpr/kos/street/01-before.jpg",
+              "after": "assets/prpr/kos/street/01-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 2",
+              "before": "assets/prpr/kos/street/02-before.jpg",
+              "after": "assets/prpr/kos/street/02-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "comparison-cards",
+          "title": "Другие ракурсы",
+          "comparisons": [
+            {
+              "title": "Ракурс 3",
+              "before": "assets/prpr/kos/street/03-before.jpg",
+              "after": "assets/prpr/kos/street/03-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "youtube-group",
+          "title": "Выпуски блога",
+          "videos": [
+            {
+              "type": "youtube",
+              "title": "Площадь в Костроме",
+              "videoId": "gWOd14WgvCE",
+              "poster": "assets/prpr/kos/square/01-after.jpg"
+            },
+            {
+              "type": "youtube",
+              "title": "Улица в Костроме",
+              "videoId": "99AdST3FsV0",
+              "poster": "assets/prpr/kos/street/01-after.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prpr-gav",
+      "parent": "prpr",
+      "visible": true,
+      "title": "Улица Гаврилова",
+      "summary": "Проект преобразования улицы в Краснодаре.",
+      "categories": [
+        "architecture",
+        "video"
+      ],
+      "cover": {
+        "src": "assets/prpr/gav/01-after.jpg",
+        "alt": "Улица Гаврилова — проект",
+        "aspectRatio": "16 / 9",
+        "fit": "cover",
+        "position": "50% 50%"
+      },
+      "eyebrow": "Проект улицы",
+      "lead": "Проектное предложение для улицы Гаврилова в Краснодаре, подготовленное для авторского видеоблога.",
+      "blocks": [
+        {
+          "type": "street-plan",
+          "title": "План улицы",
+          "before": "assets/prpr/gav/plan-before.jpg",
+          "after": "assets/prpr/gav/plan-after.jpg",
+          "beforeLabel": "До",
+          "afterLabel": "Проект"
+        },
+        {
+          "type": "comparison-group",
+          "title": "Основные виды",
+          "comparisons": [
+            {
+              "title": "Ракурс 1",
+              "before": "assets/prpr/gav/01-before.jpg",
+              "after": "assets/prpr/gav/01-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 2",
+              "before": "assets/prpr/gav/02-before.jpg",
+              "after": "assets/prpr/gav/02-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "comparison-cards",
+          "title": "Другие ракурсы",
+          "comparisons": [
+            {
+              "title": "Ракурс 3",
+              "before": "assets/prpr/gav/03-before.jpg",
+              "after": "assets/prpr/gav/03-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "youtube",
+          "title": "Выпуск блога",
+          "videoId": "WprqRP6m0y0",
+          "poster": "assets/prpr/gav/01-after.jpg"
+        }
+      ]
+    },
+    {
+      "id": "prpr-bau",
+      "parent": "prpr",
+      "visible": true,
+      "title": "БАУ — проект улицы",
+      "summary": "План и проектные виды улицы.",
+      "categories": [
+        "architecture",
+        "video"
+      ],
+      "cover": {
+        "src": "assets/prpr/bau/01-after.jpg",
+        "alt": "БАУ — проект улицы — проект",
+        "aspectRatio": "16 / 9",
+        "fit": "cover",
+        "position": "50% 50%"
+      },
+      "eyebrow": "Проект улицы",
+      "lead": "Предложение по преобразованию уличного пространства, подготовленное для авторского видеоблога.",
+      "blocks": [
+        {
+          "type": "street-plan",
+          "title": "План улицы",
+          "before": "assets/prpr/bau/plan-before.jpg",
+          "after": "assets/prpr/bau/plan-after.jpg",
+          "beforeLabel": "До",
+          "afterLabel": "Проект"
+        },
+        {
+          "type": "comparison-group",
+          "title": "Основные виды",
+          "comparisons": [
+            {
+              "title": "Ракурс 1",
+              "before": "assets/prpr/bau/01-before.jpg",
+              "after": "assets/prpr/bau/01-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 2",
+              "before": "assets/prpr/bau/02-before.jpg",
+              "after": "assets/prpr/bau/02-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "comparison-cards",
+          "title": "Другие ракурсы",
+          "comparisons": [
+            {
+              "title": "Ракурс 3",
+              "before": "assets/prpr/bau/03-before.jpg",
+              "after": "assets/prpr/bau/03-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 4",
+              "before": "assets/prpr/bau/04-before.jpg",
+              "after": "assets/prpr/bau/04-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "youtube",
+          "title": "Выпуск блога",
+          "videoId": "duZLHTXF6dQ",
+          "poster": "assets/prpr/bau/01-after.jpg"
+        }
+      ]
+    },
+    {
+      "id": "prpr-bez",
+      "parent": "prpr",
+      "visible": true,
+      "title": "Улица в Дубне",
+      "summary": "Проект преобразования улицы в Дубне.",
+      "categories": [
+        "architecture",
+        "video"
+      ],
+      "cover": {
+        "src": "assets/prpr/bez/01-after.jpg",
+        "alt": "Улица в Дубне — проект",
+        "aspectRatio": "16 / 9",
+        "fit": "cover",
+        "position": "50% 50%"
+      },
+      "eyebrow": "Проект улицы",
+      "lead": "Проектное предложение для улицы в Дубне, подготовленное для авторского видеоблога.",
+      "blocks": [
+        {
+          "type": "street-plan",
+          "title": "План улицы",
+          "before": "assets/prpr/bez/plan-before.jpg",
+          "after": "assets/prpr/bez/plan-after.jpg",
+          "beforeLabel": "До",
+          "afterLabel": "Проект"
+        },
+        {
+          "type": "comparison-group",
+          "title": "Основные виды",
+          "comparisons": [
+            {
+              "title": "Ракурс 1",
+              "before": "assets/prpr/bez/01-before.jpg",
+              "after": "assets/prpr/bez/01-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 2",
+              "before": "assets/prpr/bez/02-before.jpg",
+              "after": "assets/prpr/bez/02-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "comparison-cards",
+          "title": "Другие ракурсы",
+          "comparisons": [
+            {
+              "title": "Ракурс 3",
+              "before": "assets/prpr/bez/03-before.jpg",
+              "after": "assets/prpr/bez/03-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 4",
+              "before": "assets/prpr/bez/04-before.jpg",
+              "after": "assets/prpr/bez/04-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 5",
+              "before": "assets/prpr/bez/05-before.jpg",
+              "after": "assets/prpr/bez/05-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            },
+            {
+              "title": "Ракурс 6",
+              "before": "assets/prpr/bez/06-before.jpg",
+              "after": "assets/prpr/bez/06-after.jpg",
+              "beforeLabel": "До",
+              "afterLabel": "Проект",
+              "aspectRatio": "1920 / 1080"
+            }
+          ]
+        },
+        {
+          "type": "youtube",
+          "title": "Выпуск блога",
+          "videoId": "7PMtWXX83yU",
+          "poster": "assets/prpr/bez/01-after.jpg"
         }
       ]
     }

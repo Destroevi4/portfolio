@@ -8,6 +8,7 @@
   const pages = document.getElementById('project-pages');
   const projects = data.projects.filter(project => project.visible !== false);
   const caseStudies = (data.caseStudies || []).filter(project => project.visible !== false);
+  const blogPlayers = new Map();
   const categoryNames = new Map(data.categories.map(category => [category.id, category.label]));
   const count = value => String(value).padStart(2, '0');
   function el(tag, className, text) {
@@ -232,13 +233,14 @@
     }
     planViewer.showModal(); document.body.classList.add('viewing-image'); select(initial);
   }
-  function streetPlan(block) {
-    const section = el('section', 'street-plan'); section.append(el('h2', '', block.title || 'План'));
+  function streetPlan(block, heading = 'h2') {
+    const section = el('section', 'street-plan'); section.append(el(heading, '', block.title || 'План'));
     const toolbar = el('div', 'plan-toolbar'), versions = el('div', 'plan-versions');
     versions.setAttribute('role', 'group'); versions.setAttribute('aria-label', 'Версия плана');
     const open = el('button', 'image-open plan-open'); open.type = 'button'; open.setAttribute('aria-label', 'Открыть план крупно');
     const img = picture('', ''); open.append(img);
     const enlarge = el('button', 'comparison-enlarge', 'Увеличить план'); enlarge.type = 'button';
+    enlarge.setAttribute('aria-label', 'Увеличить: ' + (block.title || 'План'));
     let selected = 1;
     const paint = versionButtons(versions, [block.beforeLabel || 'До', block.afterLabel || 'Проект'], select);
     function select(index) { selected = index; paint(index); img.alt = (block.title || 'План') + ' — ' + (index ? block.afterLabel || 'Проект' : block.beforeLabel || 'До'); img.src = safeUrl(index ? block.after : block.before); }
@@ -464,6 +466,47 @@
     return section;
   }
   function renderBlock(block) {
+    if (block.type === 'youtube') {
+      const section = el('section', 'blog-video');
+      const title = block.title || 'Выпуск блога';
+      section.append(el(block.heading || 'h2', '', title));
+      const videoId = String(block.videoId || '');
+      if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) return section;
+      const frame = el('div', 'blog-frame');
+      const play = el('button', 'blog-play'); play.type = 'button';
+      play.setAttribute('aria-label', 'Смотреть выпуск: ' + title);
+      if (block.poster) play.append(picture(block.poster, ''));
+      play.append(el('span', '', 'Смотреть выпуск'));
+      const reset = () => frame.replaceChildren(play);
+      blogPlayers.set(frame, {reset});
+      play.addEventListener('click', () => {
+        blogPlayers.forEach((player, other) => { if (other !== frame) player.reset(); });
+        const iframe = el('iframe');
+        iframe.title = title;
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0';
+        iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        frame.replaceChildren(iframe);
+      });
+      reset();
+      section.append(frame, link('Открыть на YouTube', 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
+      return section;
+    }
+    if (block.type === 'youtube-group') {
+      const section = el('section', 'blog-group');
+      if (block.title) section.append(el('h2', '', block.title));
+      const row = el('div', 'blog-grid');
+      (block.videos || []).forEach(item => row.append(renderBlock({...item, type:'youtube', heading:'h3'})));
+      section.append(row); return section;
+    }
+    if (block.type === 'plan-group') {
+      const section = el('section', 'plan-group');
+      if (block.title) section.append(el('h2', '', block.title));
+      const row = el('div', 'plan-group-grid');
+      (block.plans || []).forEach(item => row.append(streetPlan(item, 'h3')));
+      section.append(row); return section;
+    }
     if (block.type === 'street-plan') return streetPlan(block);
     if (block.type === 'project-list') {
       const section = el('section', 'case-section');
@@ -655,7 +698,7 @@
     const meta = el('div', 'card-meta'); const copy = el('div');
     copy.append(el('h3', '', project.title), el('p', '', project.summary || ''));
     meta.append(copy, el('span', 'card-tag', project.tag || ''));
-    card.append(cover, meta); grid.append(card); cards.push({card, project});
+    card.append(cover, meta); cards.push({card, project, index});
     }
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
     article.setAttribute('aria-labelledby', project.id + '-title');
@@ -686,6 +729,23 @@
     end.append(project.parent ? link('К проектам ПРПР', '#' + project.parent) : link(next ? 'Следующий проект — ' + next.title : 'Вернуться ко всем работам', next ? '#' + next.id : '#works'));
     article.append(end); pages.append(article); articles.set(project.id, {article, h1, project});
   });
+  const desktopColumns = window.matchMedia('(min-width:721px)');
+  const leftColumn = el('div', 'portfolio-column');
+  const rightColumn = el('div', 'portfolio-column');
+  leftColumn.dataset.column = 'left'; rightColumn.dataset.column = 'right';
+  function arrangeCards() {
+    if (!desktopColumns.matches) {
+      grid.replaceChildren(...cards.map(item => item.card)); return;
+    }
+    grid.replaceChildren(leftColumn, rightColumn);
+    ['left', 'right'].forEach((side, sideIndex) => {
+      const column = sideIndex ? rightColumn : leftColumn;
+      const selected = cards.filter(({project, index}) => (project.column || (index % 2 ? 'right' : 'left')) === side);
+      selected.sort((a, b) => (a.project.columnOrder ?? a.index) - (b.project.columnOrder ?? b.index) || a.index - b.index);
+      column.replaceChildren(...selected.map(item => item.card));
+    });
+  }
+  desktopColumns.addEventListener('change', arrangeCards); arrangeCards();
   const filters = document.querySelector('.filters'); filters.replaceChildren();
   const options = [{id:'all', label:'Все'}, ...data.categories];
   options.forEach(option => {
@@ -715,6 +775,7 @@
       article.hidden = key !== id;
       if (article.hidden) article.querySelectorAll('.video-grid video').forEach(video => video.pause());
     });
+    blogPlayers.forEach((player, frame) => { if (!frame.getClientRects().length) player.reset(); });
     loops.forEach((_, video) => syncLoop(video));
     document.title = match ? match.project.title + ' — ' + data.site.name : data.site.title;
     if (match) { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
