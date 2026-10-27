@@ -467,38 +467,45 @@
   }
   function renderBlock(block) {
     if (block.type === 'youtube') {
-      const section = el('section', 'blog-video');
+      const grouped = block.grouped === true;
+      const section = el('section', grouped ? 'blog-video' : 'blog-band');
+      const body = grouped ? section : el('div', 'blog-band-content');
       const title = block.title || 'Выпуск блога';
-      section.append(el(block.heading || 'h2', '', title));
+      if (grouped) body.append(el('h3', '', title));
+      else {
+        body.append(el('p', 'eyebrow blog-eyebrow', 'Видеоблог · ПРПР'));
+        body.append(el('h2', '', 'Разбор проекта в блоге'));
+        body.append(el('p', 'blog-intro', block.description || 'Видео с объяснением предложенных изменений.'));
+      }
       const videoId = String(block.videoId || '');
       if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) return section;
       const frame = el('div', 'blog-frame');
-      const play = el('button', 'blog-play'); play.type = 'button';
-      play.setAttribute('aria-label', 'Смотреть выпуск: ' + title);
-      if (block.poster) play.append(picture(block.poster, ''));
-      play.append(el('span', '', 'Смотреть выпуск'));
-      const reset = () => frame.replaceChildren(play);
-      blogPlayers.set(frame, {reset});
-      play.addEventListener('click', () => {
-        blogPlayers.forEach((player, other) => { if (other !== frame) player.reset(); });
+      const mount = () => {
+        if (frame.querySelector('iframe')) return;
         const iframe = el('iframe');
         iframe.title = title;
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0';
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId;
+        iframe.loading = 'lazy';
         iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen';
         iframe.allowFullscreen = true;
         iframe.referrerPolicy = 'strict-origin-when-cross-origin';
         frame.replaceChildren(iframe);
-      });
-      reset();
-      section.append(frame, link('Открыть на YouTube', 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
+      };
+      const unmount = () => { if (frame.firstChild) frame.replaceChildren(); };
+      blogPlayers.set(frame, {mount, unmount});
+      body.append(frame, link('Открыть на YouTube', 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
+      if (!grouped) section.append(body);
       return section;
     }
     if (block.type === 'youtube-group') {
-      const section = el('section', 'blog-group');
-      if (block.title) section.append(el('h2', '', block.title));
+      const section = el('section', 'blog-band blog-band-group');
+      const body = el('div', 'blog-band-content');
+      body.append(el('p', 'eyebrow blog-eyebrow', 'Видеоблог · ПРПР'));
+      body.append(el('h2', '', 'Разбор проекта в блоге'));
+      body.append(el('p', 'blog-intro', block.description || 'Отдельные выпуски о площади и примыкающей улице.'));
       const row = el('div', 'blog-grid');
-      (block.videos || []).forEach(item => row.append(renderBlock({...item, type:'youtube', heading:'h3'})));
-      section.append(row); return section;
+      (block.videos || []).forEach(item => row.append(renderBlock({...item, type:'youtube', grouped:true})));
+      body.append(row); section.append(body); return section;
     }
     if (block.type === 'plan-group') {
       const section = el('section', 'plan-group');
@@ -775,7 +782,9 @@
       article.hidden = key !== id;
       if (article.hidden) article.querySelectorAll('.video-grid video').forEach(video => video.pause());
     });
-    blogPlayers.forEach((player, frame) => { if (!frame.getClientRects().length) player.reset(); });
+    blogPlayers.forEach((player, frame) => {
+      if (frame.getClientRects().length) player.mount(); else player.unmount();
+    });
     loops.forEach((_, video) => syncLoop(video));
     document.title = match ? match.project.title + ' — ' + data.site.name : data.site.title;
     if (match) { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
@@ -783,5 +792,14 @@
     else window.scrollTo(0, 0);
     updateToTop();
   }
+  const mainWrap = pages.closest('main.wrap');
+  function updatePageGutter() {
+    if (!mainWrap) return;
+    const left = mainWrap.getBoundingClientRect().left + parseFloat(getComputedStyle(mainWrap).paddingLeft);
+    const value = Math.max(0, left) + 'px';
+    if (mainWrap.style.getPropertyValue('--page-gutter') !== value) mainWrap.style.setProperty('--page-gutter', value);
+  }
+  updatePageGutter();
+  new ResizeObserver(updatePageGutter).observe(document.documentElement);
   window.addEventListener('hashchange', route); route();
 })();

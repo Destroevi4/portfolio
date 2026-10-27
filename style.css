@@ -330,14 +330,32 @@
 .blog-grid>.blog-video{margin:0;max-width:none}
 .blog-frame{position:relative;aspect-ratio:16/9;background:#252b28;overflow:hidden}
 .blog-frame iframe{display:block;border:0;width:100%;height:100%}
-.blog-play{position:relative;display:block;border:0;padding:0;width:100%;height:100%;cursor:pointer;background:#252b28;color:white}
-.blog-play img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.72)}
-.blog-play span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:13px 20px;background:#202624ed;border:1px solid #ffffffb3;border-radius:28px;white-space:nowrap;font-size:13px}
-.blog-play:hover img{filter:brightness(.85)}
 .blog-external{display:inline-block;margin-top:12px;font-size:12px;line-height:1.5}
 @media(max-width:720px){
   #projects{grid-template-columns:minmax(0,1fr)}
   .plan-group-grid,.blog-grid{grid-template-columns:minmax(0,1fr);gap:26px}
   .plan-group,.blog-group,.blog-video{margin:28px 0 36px}
   .plan-group>h2,.blog-group>h2,.blog-video>h2,.blog-video>h3,.street-plan>h3{font-size:15px}
+}
+
+/* Видео на главной занимает ширину экрана; текст остаётся на линиях сетки. */
+.hero.hero-video{width:calc(100% + 2 * var(--page-gutter,0px));margin-left:calc(0px - var(--page-gutter,0px));margin-right:calc(0px - var(--page-gutter,0px));padding-left:var(--page-gutter,44px);padding-right:var(--page-gutter,44px)}
+.hero-video .hero-motion-toggle{right:var(--page-gutter,20px)}
+
+/* Самостоятельный выпуск блога: тёмная полоса и обычный плеер YouTube. */
+.blog-band{width:calc(100% + 2 * var(--page-gutter,0px));max-width:none;margin:48px calc(0px - var(--page-gutter,0px));padding:48px var(--page-gutter,44px);background:#141716;color:#f5f4ef}
+.blog-band-content{max-width:900px;margin:0 auto;min-width:0}
+.blog-band-group .blog-band-content{max-width:none}
+.blog-eyebrow{color:#b8c0b7;margin:0 0 12px}
+.blog-band-content>h2{font-size:clamp(24px,2.6vw,34px);font-weight:500;line-height:1.25;letter-spacing:-.025em;margin:0 0 14px}
+.blog-intro{font-size:15px;line-height:1.65;color:#c8cec5;max-width:650px;margin:0 0 26px}
+.blog-band .blog-video{margin:0;max-width:none}
+.blog-band .blog-video>h3{font-size:18px;font-weight:500;line-height:1.5;margin:0 0 14px}
+.blog-band .blog-frame{width:100%;min-width:0;background:#090b09;min-height:200px}
+.blog-band .blog-external{color:#dce2d8;font-size:12px;line-height:1.5}
+.blog-band .blog-external:hover{color:white}
+@media(max-width:720px){
+  .blog-band{margin-top:32px;margin-bottom:32px;padding-top:32px;padding-bottom:32px}
+  .blog-intro{font-size:14px;margin-bottom:22px}
+  .blog-band .blog-video>h3{font-size:16px}
 }
