@@ -547,7 +547,10 @@
       const section = el('section', grouped ? 'blog-video' : 'blog-band');
       const body = grouped ? section : el('div', 'blog-band-content');
       const title = block.title || 'Выпуск блога';
-      if (grouped) body.append(el('h3', '', title));
+      if (grouped) {
+        if (block.kind) body.append(el('p', 'eyebrow blog-eyebrow', block.kind));
+        body.append(el('h3', '', title));
+      }
       else {
         body.append(el('p', 'eyebrow blog-eyebrow', 'Видеоблог · ПРПР'));
         body.append(el('h2', '', 'Разбор проекта в блоге'));
@@ -643,6 +646,7 @@
       const section = el('section', 'media-row-section');
       if (block.title) section.append(el('h2', '', block.title));
       const row = el('div', 'media-row');
+      if (block.layout === 'sketch-pair') row.classList.add('media-row-sketch-pair');
       (block.items || []).forEach(item => row.append(mediaFigure(item)));
       section.append(row); return section;
     }
@@ -740,6 +744,9 @@
   }
   document.querySelector('.brand').lastChild.textContent = data.site.name;
   document.querySelector('.footer span').textContent = data.site.name;
+  const footerLinks = el('nav', 'footer-links'); footerLinks.setAttribute('aria-label', 'Контакты');
+  (data.site.footerLinks || []).forEach(item => footerLinks.append(link(item.label, item.url)));
+  document.querySelector('.footer').lastElementChild.replaceWith(footerLinks);
   document.querySelector('meta[name="description"]').content = data.site.description || '';
   document.querySelector('.hero .eyebrow').textContent = data.home.eyebrow;
   const title = document.getElementById('intro-title'); title.replaceChildren();
@@ -748,6 +755,11 @@
   document.querySelector('.index-note').textContent = data.home.note;
   document.querySelector('.about-copy').textContent = data.home.about;
   document.querySelector('.about-small').textContent = data.home.aboutSmall;
+  if (data.home.aboutLinks?.length) {
+    const actions = el('div', 'about-actions');
+    data.home.aboutLinks.forEach(item => actions.append(link(item.label, item.url)));
+    document.querySelector('.about-text').append(actions);
+  }
   if (data.home.video?.src) {
     const hero = document.querySelector('.hero');
     hero.classList.add('hero-video');
@@ -803,10 +815,12 @@
     }
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
     if (project.presentation === 'channel') article.classList.add('project-channel');
+    if (project.headerTheme === 'dark') article.classList.add('project-dark-header');
     if (project.logo?.wide) article.classList.add('project-wide-logo');
     article.setAttribute('aria-labelledby', project.id + '-title');
     article.append(link(project.parent ? 'К проектам ПРПР' : 'К работам', project.parent ? '#' + project.parent : '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
+    if (project.headerTheme === 'dark') head.append(article.querySelector('.back'));
     if (project.hero?.src) {
       article.classList.add('project-with-hero');
       head.classList.add('project-art-hero');
@@ -924,6 +938,7 @@
     pages.append(article); articles.set('cv', {article, h1, project:{title:'Резюме'}});
   }
   const desktopColumns = window.matchMedia('(min-width:721px)');
+  let activeFilter = 'all';
   const leftColumn = el('div', 'portfolio-column');
   const rightColumn = el('div', 'portfolio-column');
   leftColumn.dataset.column = 'left'; rightColumn.dataset.column = 'right';
@@ -932,6 +947,12 @@
       grid.replaceChildren(...cards.map(item => item.card)); return;
     }
     grid.replaceChildren(leftColumn, rightColumn);
+    if (activeFilter !== 'all') {
+      const selected = cards.filter(item => !item.card.hidden);
+      leftColumn.replaceChildren(...selected.filter((_, index) => index % 2 === 0).map(item => item.card));
+      rightColumn.replaceChildren(...selected.filter((_, index) => index % 2 === 1).map(item => item.card));
+      return;
+    }
     ['left', 'right'].forEach((side, sideIndex) => {
       const column = sideIndex ? rightColumn : leftColumn;
       const selected = cards.filter(({project, index}) => (project.column || (index % 2 ? 'right' : 'left')) === side);
@@ -947,9 +968,11 @@
     button.setAttribute('aria-pressed', String(option.id === 'all'));
     button.append(el('span', '', count(projects.filter(project => option.id === 'all' || (project.categories || []).includes(option.id)).length)));
     button.addEventListener('click', () => {
+      activeFilter = option.id;
       filters.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
       let visible = 0;
       cards.forEach(({card, project}) => { card.hidden = option.id !== 'all' && !(project.categories || []).includes(option.id); if (!card.hidden) visible++; });
+      arrangeCards();
       const empty = document.getElementById('empty'); empty.hidden = visible > 0;
       empty.textContent = 'Проекты этой категории пока не добавлены.';
     });

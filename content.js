@@ -2,7 +2,17 @@ window.PORTFOLIO = {
   "site": {
     "name": "Владислав Сурин",
     "title": "Владислав Сурин — портфолио",
-    "description": "Владислав Сурин — игры, архитектура и видео. Автор BRESH, левел-дизайнер города для RCD."
+    "description": "Владислав Сурин — игры, архитектура и видео. Автор BRESH, левел-дизайнер города для RCD.",
+    "footerLinks": [
+      {
+        "label": "iwannabetheonewho@gmail.com",
+        "url": "mailto:iwannabetheonewho@gmail.com"
+      },
+      {
+        "label": "Telegram",
+        "url": "https://t.me/iwannabethe1who"
+      }
+    ]
   },
   "home": {
     "eyebrow": "Архитектура · Игры · Видео",
@@ -12,11 +22,21 @@ window.PORTFOLIO = {
     ],
     "intro": "Разрабатываю собственную игру BRESH, проектирую города и снимаю видео об архитектуре и играх.",
     "note": "Избранные проекты",
-    "about": "Мой опыт объединяет архитектуру, разработку игр и режиссуру. Мне интересно, как устроено пространство, как человек его воспринимает и какие истории в нём возникают.",
-    "aboutSmall": "В BRESH я работаю над игрой целиком, включая геймдизайн, карты и сборку окружения. В RCD отвечал за левел-дизайн всего города. Архитектурные и видеопроекты появятся здесь следующим этапом.",
+    "about": "Я Владислав Сурин, левел-дизайнер и архитектор. В RCD спроектировал игровой город, в собственной BRESH работаю над геймдизайном, картами и интерфейсом.",
+    "aboutSmall": "По образованию — архитектор и режиссёр. Работал над проектами улиц и площадей, включая реализованную площадь в Ноябрьске. Для StopGame делаю видео об архитектуре игровых городов.",
     "video": {
       "src": "assets/home/frontpage.mp4"
-    }
+    },
+    "aboutLinks": [
+      {
+        "label": "Резюме и опыт работы",
+        "url": "#cv"
+      },
+      {
+        "label": "Связаться в Telegram",
+        "url": "https://t.me/iwannabethe1who"
+      }
+    ]
   },
   "categories": [
     {
@@ -86,7 +106,7 @@ window.PORTFOLIO = {
           "aside": {
             "title": "Мой вклад",
             "paragraphs": [
-              "Автор игры: геймдизайн, все карты, сборка окружения, интерфейс и внутриигровые системы. Веду проект от идеи до выпуска.",
+              "Автор игры: геймдизайн, все карты, сборка окружения, интерфейс и внутриигровые системы.",
               "Развиваю версии для PC, iOS и Android, включая мобильное управление. Кроссплатформенность и общение игроков — важные направления работы."
             ],
             "notes": [
@@ -485,13 +505,6 @@ window.PORTFOLIO = {
           "caption": "Нажмите на отдельное изображение, чтобы рассмотреть его крупнее."
         },
         {
-          "type": "text",
-          "title": "Зимнее состояние",
-          "paragraphs": [
-            "Для города прорабатывал зимнее окружение, ночное освещение и эмиссию материалов."
-          ]
-        },
-        {
           "type": "collage",
           "title": "Зимняя улица и постановочные кадры",
           "layout": "panorama-posters",
@@ -594,24 +607,28 @@ window.PORTFOLIO = {
         {
           "type": "youtube-group",
           "eyebrow": "Авторский канал · YouTube",
-          "title": "Рубрики и выпуски",
+          "title": "Рубрики: плейлисты и отдельные выпуски",
           "description": "Архитектура, города и игры — выбирайте рубрику или отдельный выпуск.",
           "videos": [
             {
               "title": "Тебя никто не спрашивает",
-              "playlistId": "PLifYKO6pxu9OMVDRYorzj4m-Z47X2DpIr"
+              "playlistId": "PLifYKO6pxu9OMVDRYorzj4m-Z47X2DpIr",
+              "kind": "Плейлист"
             },
             {
               "title": "ПРПР — Простое проектирование",
-              "playlistId": "PLifYKO6pxu9OopZJ_DG-vdUHy06uVRTd7"
+              "playlistId": "PLifYKO6pxu9OopZJ_DG-vdUHy06uVRTd7",
+              "kind": "Плейлист"
             },
             {
               "title": "Игры",
-              "playlistId": "PLifYKO6pxu9PpS_nHZFHDgtpGjJ0dNXCe"
+              "playlistId": "PLifYKO6pxu9PpS_nHZFHDgtpGjJ0dNXCe",
+              "kind": "Плейлист"
             },
             {
               "title": "Образовательное",
-              "videoId": "FUUpvbfNqjM"
+              "videoId": "FUUpvbfNqjM",
+              "kind": "Отдельный выпуск"
             }
           ]
         },
@@ -717,9 +734,10 @@ window.PORTFOLIO = {
       "id": "stopgame",
       "visible": true,
       "title": "Архитектура игровых городов",
-      "summary": "Авторская рубрика для StopGame — «Где я нахуй?»",
+      "summary": "Авторская рубрика для StopGame — «Где я *****?»",
       "categories": [
-        "video"
+        "video",
+        "games"
       ],
       "tag": "STOPGAME",
       "column": "right",
@@ -738,7 +756,7 @@ window.PORTFOLIO = {
         "wide": true
       },
       "eyebrow": "Авторская рубрика · StopGame",
-      "lead": "«Где я нахуй?» — разбираю архитектуру игровых городов, их устройство и связь с реальными местами.",
+      "lead": "«Где я *****?» — разбираю архитектуру игровых городов, их устройство и связь с реальными местами.",
       "facts": [
         {
           "label": "Роль",
@@ -756,7 +774,7 @@ window.PORTFOLIO = {
       "blocks": [
         {
           "type": "youtube-group",
-          "eyebrow": "StopGame · Где я нахуй?",
+          "eyebrow": "StopGame · Где я *****?",
           "title": "Выпуски рубрики",
           "description": "От новых к ранним: Oblivion, Forza Horizon 6 и два разбора Лос-Сантоса.",
           "videos": [
@@ -782,7 +800,8 @@ window.PORTFOLIO = {
             }
           ]
         }
-      ]
+      ],
+      "headerTheme": "dark"
     },
     {
       "id": "prpr",
@@ -947,20 +966,14 @@ window.PORTFOLIO = {
           ]
         },
         {
-          "type": "image",
-          "src": "assets/roundabout/7.jpg",
-          "alt": "Проектная схема площади и кольцевого пересечения с авторскими эскизными правками",
-          "caption": "Проектная схема с моими эскизными правками. Нажмите, чтобы рассмотреть детали."
-        },
-        {
           "type": "media-row",
-          "title": "Расположение и проектные решения",
+          "title": "Схема и эскизные решения",
           "items": [
             {
               "type": "image",
-              "src": "assets/roundabout/Screenshot_22.png",
-              "alt": "Расположение площади в городской структуре Ноябрьска",
-              "caption": "Ситуация в городе. Подоснова — Google Карты."
+              "src": "assets/roundabout/7.jpg",
+              "alt": "Проектная схема площади и кольцевого пересечения с авторскими эскизными правками",
+              "caption": "Проектная схема с моими эскизными правками."
             },
             {
               "type": "video",
@@ -968,9 +981,10 @@ window.PORTFOLIO = {
               "poster": "assets/roundabout/7.jpg",
               "motion": true,
               "label": "Эскизные проектные решения",
-              "caption": "Эскизные проектные решения"
+              "caption": "Эскизные проектные решения · анимация"
             }
-          ]
+          ],
+          "layout": "sketch-pair"
         },
         {
           "type": "gallery",
