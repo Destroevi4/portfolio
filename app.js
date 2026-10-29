@@ -555,13 +555,17 @@
         body.append(el('p', 'blog-intro', block.description || 'Видео с объяснением предложенных изменений.'));
       }
       const videoId = String(block.videoId || '');
-      if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) return section;
+      const playlistId = String(block.playlistId || '');
+      const playlist = /^PL[a-zA-Z0-9_-]{16,}$/.test(playlistId);
+      if (!playlist && !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) return section;
       const frame = el('div', 'blog-frame');
       const mount = () => {
         if (frame.querySelector('iframe')) return;
         const iframe = el('iframe');
         iframe.title = title;
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId;
+        iframe.src = playlist
+          ? 'https://www.youtube-nocookie.com/embed/videoseries?listType=playlist&list=' + encodeURIComponent(playlistId)
+          : 'https://www.youtube-nocookie.com/embed/' + videoId;
         iframe.loading = 'lazy';
         iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen';
         iframe.allowFullscreen = true;
@@ -572,7 +576,9 @@
       blogPlayers.set(frame, {mount, unmount});
       body.append(frame);
       if (grouped && block.description) body.append(el('p', 'episode-description', block.description));
-      body.append(link('Открыть на YouTube', 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
+      body.append(link(playlist ? 'Открыть плейлист на YouTube' : 'Открыть на YouTube', playlist
+        ? 'https://www.youtube.com/playlist?list=' + encodeURIComponent(playlistId)
+        : 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
       if (!grouped) section.append(body);
       return section;
     }
@@ -625,6 +631,7 @@
       const copy = el('div', 'media-intro-copy');
       if (block.aside?.title) copy.append(el('h2', '', block.aside.title));
       (block.aside?.paragraphs || []).forEach(text => copy.append(el('p', 'text-paragraph', text)));
+      (block.aside?.notes || []).forEach(text => copy.append(el('p', 'media-intro-note', text)));
       section.append(media, copy); return section;
     }
     if (block.type === 'video-feature') {
@@ -677,7 +684,7 @@
       const section = el('section', 'process-section');
       section.append(el('h2', '', block.title || 'Рабочие материалы'));
       const collage = el('div', 'process-collage');
-      if (['board', 'landscape-portrait', 'pair', 'compact', 'panorama-posters', 'bresh-ui', 'bresh-identity', 'bresh-level'].includes(block.layout)) collage.classList.add('process-' + block.layout);
+      if (['board', 'landscape-portrait', 'pair', 'compact', 'panorama-posters', 'bresh-ui', 'bresh-identity', 'bresh-level', 'bresh-sketches'].includes(block.layout)) collage.classList.add('process-' + block.layout);
       (block.images || []).forEach(item => collage.append(figure(item)));
       section.append(collage);
       if (block.caption) section.append(el('p', 'media-note', block.caption));
@@ -749,7 +756,7 @@
     const shade = el('div', 'hero-shade'); shade.setAttribute('aria-hidden', 'true');
     const pause = el('button', 'hero-motion-toggle'); pause.type = 'button';
     const label = el('span'); pause.append(label);
-    hero.prepend(video, shade); hero.append(pause);
+    hero.prepend(video, shade); hero.append(pause, hero.querySelector('.index-note'));
     manageLoop(video, pause, 'Видео на главной', data.home.video.src, label);
   }
   // Фото присутствует в HTML, чтобы оно не зависело от динамической сборки.
