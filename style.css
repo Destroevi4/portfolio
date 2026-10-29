@@ -1,20 +1,19 @@
-
     :root{--paper:#f5f4ef;--ink:#232624;--muted:#73766f;--line:#d6d8cf;--accent:#6050b5;--white:#fff;--max:1280px}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}button{color:inherit}a{color:inherit;text-decoration-thickness:1px;text-underline-offset:5px}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:5px}[hidden]{display:none!important}.wrap{max-width:var(--max);margin:auto;padding:0 44px}.header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:28px;padding-bottom:25px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:15px;font-weight:700}.mark{display:grid;place-items:center;width:29px;height:29px;border:1px solid currentColor;border-radius:50%;font-size:11px}.navigation{display:flex;gap:28px}.navigation a{font-size:13px;text-decoration:none}.navigation a:hover{color:var(--accent)}.eyebrow{margin:0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;line-height:1.7}.muted{color:var(--muted)}.hero{padding-top:83px;padding-bottom:69px}.hero h1{margin:26px 0 30px;max-width:1000px;font-size:clamp(48px,6.8vw,88px);font-weight:500;line-height:1.02;letter-spacing:-.065em}.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}.intro{max-width:520px;margin:0;font-size:18px;line-height:1.55;color:#555a52}.index-note{font-size:12px;color:var(--muted);white-space:nowrap}.works{padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:24px}.section-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px}.section-top h2{font-size:14px;font-weight:500;margin:0}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid transparent;background:none;padding:9px 14px;border-radius:30px;font-size:12px;cursor:pointer}.filter[aria-pressed=true]{background:var(--ink);color:var(--paper)}.filter:hover{border-color:var(--line)}.filter span{margin-left:7px;opacity:.6;font-size:10px}.grid{display:grid;grid-template-columns:1.17fr 1fr;gap:30px}.card{display:block;text-decoration:none}.cover{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:1.4;overflow:hidden;transition:filter .2s}.card:hover .cover{filter:brightness(.96)}.cover-bresh{background:#252b28;color:#e8ece3}.cover-rcd{background:#e1dfd5;color:#575e54}.cover-word{font-size:clamp(40px,6.5vw,86px);font-weight:700;letter-spacing:-.07em}.cover-rcd .cover-word{font-weight:400;letter-spacing:.02em}.cover-caption{position:absolute;left:22px;bottom:20px;font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.08em;opacity:.6;text-transform:uppercase}.cover-count{position:absolute;top:22px;left:22px;font-family:ui-monospace,monospace;font-size:11px;opacity:.65}.arrow{position:absolute;right:22px;bottom:18px;font-size:23px;font-weight:400}.card-meta{display:flex;justify-content:space-between;gap:20px;padding-top:17px}.card h3{font-size:21px;letter-spacing:-.025em;margin:0 0 7px;font-weight:500}.card p{font-size:13px;line-height:1.5;color:var(--muted);margin:0}.card-tag{padding-top:5px;font-size:10px;white-space:nowrap;color:var(--muted);font-family:ui-monospace,monospace}.empty{padding:65px 24px;border:1px dashed var(--line);text-align:center;margin:0;color:var(--muted);font-size:14px;line-height:1.6}.about{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;border-top:1px solid var(--line);margin-top:95px;padding:36px 0 68px;scroll-margin-top:30px}.about h2{font-size:14px;font-weight:500;margin:0}.about-copy{font-size:23px;line-height:1.5;letter-spacing:-.02em;margin:0;max-width:690px}.about-small{font-size:14px;line-height:1.7;color:var(--muted);margin:22px 0 0;max-width:650px}.footer{border-top:1px solid var(--line);padding-top:22px;padding-bottom:26px;display:flex;justify-content:space-between;gap:20px;font-size:11px;color:var(--muted)}.project{padding-top:40px}.back{font-size:13px;color:var(--muted);text-decoration:none;display:inline-block}.back:hover{color:var(--ink)}.project-head{padding:54px 0 45px}.project h1{font-weight:500;letter-spacing:-.065em;font-size:clamp(54px,8vw,100px);line-height:1;margin:18px 0 23px}.project-lead{font-size:21px;line-height:1.5;letter-spacing:-.02em;max-width:760px;margin:0}.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 52px;padding:23px 0;gap:22px}.fact dt{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.09em;color:var(--muted);text-transform:uppercase;margin:0 0 9px}.fact dd{font-size:13px;line-height:1.5;margin:0}.project-section{display:grid;grid-template-columns:1fr 2fr;gap:50px;padding:36px 0;border-top:1px solid var(--line)}.project-section h2{font-size:14px;font-weight:500;margin:0}.project-section p{font-size:16px;line-height:1.75;margin:0 0 15px;max-width:760px}.project-section ul{padding-left:19px;margin:0 0 18px;line-height:1.8;font-size:15px}.project-section .aside{font-size:13px;color:var(--muted);line-height:1.7}.project-section a{font-size:14px}.media-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:30px 0 15px;font-size:12px}.placeholder{min-height:270px;border:1px dashed #b9beb1;display:flex;align-items:center;justify-content:center;text-align:center;background:#eeeee7;padding:30px;color:var(--muted);font-size:14px;line-height:1.7}.comparison{--split:50%;height:clamp(250px,44vw,510px);position:relative;overflow:hidden;background:#e7e5dc}.comparison-layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;line-height:1.8;font-size:14px}.comparison-before{background:#e5e4dc;color:#686b61}.comparison-after{background:#d8d4e5;color:#5a536c;clip-path:inset(0 0 0 var(--split))}.comparison-layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.comparison-line{pointer-events:none;position:absolute;left:var(--split);top:0;bottom:0;width:2px;background:var(--white);transform:translateX(-50%)}.comparison-handle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:48px;height:48px;border:1px solid white;border-radius:50%;background:var(--ink);color:white;font-size:21px}.comparison input{position:absolute;inset:0;opacity:0;cursor:ew-resize;width:100%;height:100%;margin:0;touch-action:pan-y}.comparison:focus-within{outline:3px solid var(--accent);outline-offset:4px}.comparison-label{position:absolute;top:19px;padding:7px 10px;background:#ffffffc9;font-family:ui-monospace,monospace;font-size:10px;border-radius:2px;pointer-events:none}.comparison-label.before{left:18px}.comparison-label.after{right:18px}.media-note{font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 30px}.project-end{margin:45px 0 70px;padding-top:25px;border-top:1px solid var(--line)}
     @media(min-width:1000px){.card:nth-child(2){padding-top:75px}.hero{padding-top:94px;padding-bottom:85px}}
     @media(max-width:720px){.wrap{padding:0 22px}.header{padding-top:20px;padding-bottom:20px}.brand{font-size:13px}.mark{width:25px;height:25px}.navigation{gap:18px}.navigation a{font-size:12px}.hero{padding-top:52px;padding-bottom:48px}.hero h1{font-size:clamp(43px,10vw,68px);margin-top:23px;margin-bottom:25px}.hero-bottom{display:block}.intro{font-size:16px}.index-note{margin-top:27px}.section-top{align-items:flex-start;margin-bottom:20px}.filters{gap:2px}.filter{padding:8px 10px}.grid{grid-template-columns:1fr;gap:35px}.cover{aspect-ratio:1.4}.cover-word{font-size:64px}.about{grid-template-columns:1fr;gap:24px;margin-top:60px;padding:27px 0 43px}.about-copy{font-size:20px}.about-small{font-size:13px}.footer{font-size:10px}.project{padding-top:27px}.project-head{padding:38px 0 29px}.project-lead{font-size:18px}.facts{grid-template-columns:1fr;gap:19px;margin-bottom:30px}.project-section{grid-template-columns:1fr;gap:22px;padding:28px 0}.project-section p{font-size:15px}.project-section ul{font-size:14px}.comparison{height:290px}.comparison-layer{font-size:12px}.placeholder{min-height:230px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
   
-/* Настройки изображений; остальной дизайн первого макета сохранён. */
+
 .cover{aspect-ratio:16/9}.cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.cover.has-image .cover-word,.cover.has-image .cover-caption,.cover.has-image .cover-count{display:none}.cover.has-image .arrow{color:white;text-shadow:0 1px 5px #000}.cover-word{position:relative}.cover-caption,.cover-count,.arrow{z-index:1}.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:24px 0}.project-image{margin:24px 0}.project-image img,.gallery img{display:block;width:100%;height:auto}.project-image figcaption{font-size:12px;line-height:1.6;color:var(--muted);margin-top:10px}.project-video{display:block;width:100%;margin:24px 0}.text-paragraph{white-space:pre-line}@media(max-width:720px){.gallery{grid-template-columns:1fr}}
-/* Safari: заголовок получает фокус для навигации, но не нуждается в рамке. */
+
 .project h1:focus{outline:none}
 .arrow svg{display:block;filter:drop-shadow(0 1px 2px #0002)}
 .about-person{min-width:0}
 .about-photo{display:block;width:100%;max-width:240px;height:auto;margin-top:26px}
 @media(max-width:720px){.about-photo{max-width:180px;margin-top:22px}.header{gap:14px}.navigation{gap:14px}}
 
-/* Материалы проекта: сравнение миров, схемы и рабочие эскизы. */
+
 .project-links{display:flex;flex-wrap:wrap;gap:10px;margin:-15px 0 35px}
 .store-link{display:inline-flex;align-items:center;min-height:42px;padding:10px 18px;border:1px solid var(--line);border-radius:24px;text-decoration:none;font-size:13px;transition:background .15s}
 .store-link:hover{background:#e8e7df}
@@ -95,7 +94,7 @@
   .image-viewer>img{max-height:calc(94dvh - 145px)}
 }
 
-/* Фото и текст образуют один блок; круг сохраняется на любой ширине. */
+
 .about{display:block}
 .about>h2{margin-bottom:28px}
 .about-body{display:flow-root}
@@ -107,7 +106,7 @@
   .about-copy{font-size:18px;line-height:1.55}
 }
 
-/* Краснодар: переключение схем и короткие видео. */
+
 .scheme-tabs-section,.video-grid-section{margin:38px 0 50px}
 .scheme-tabs-section>h2,.video-grid-section>h2{font-size:16px;line-height:1.4;font-weight:500;margin:0 0 20px}
 .scheme-tabs-layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(230px,1fr);gap:30px;align-items:center}
@@ -137,7 +136,7 @@
   .gallery-three,.video-grid{grid-template-columns:1fr}
 }
 
-/* Видео остаются исходными: приглушение фона задаётся только здесь. */
+
 .hero.hero-video{position:relative;isolation:isolate;overflow:hidden;background:#20251f;color:#fff;padding:48px 44px 58px;margin:28px 0 42px;min-height:390px}
 .hero-film,.hero-shade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero-film{object-fit:cover;object-position:50% 45%;filter:saturate(.72) brightness(.92)}
@@ -165,7 +164,7 @@
   .hero-motion-toggle{right:16px;bottom:14px}
 }
 
-/* Подборки графики: пропорции оригиналов сохранены. */
+
 .gallery-square{align-items:start}
 .gallery-square .image-open{aspect-ratio:1;background:#eeeee7}
 .gallery-square .image-open img{width:100%;height:100%;object-fit:contain}
@@ -176,7 +175,7 @@
 .artwork-details summary:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 .artwork-details .motion-clip{margin-top:14px}
 
-/* Переключение зимнего концепта в той же рамке. */
+
 .artwork-media{position:relative;aspect-ratio:16/9;background:#e5e4dc}
 .artwork-media>.image-open,.artwork-media>.motion-clip{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
 .artwork-media>.image-open img{width:100%;height:100%;object-fit:contain}
@@ -191,17 +190,17 @@
 .gallery-three{align-items:start}
 .gallery-three>.image-span-2{grid-column:span 2}
 
-/* Жест на ручке не прокручивает страницу; остальная картинка остаётся доступна для скролла. */
+
 .comparison-range{pointer-events:none}
 .comparison-drag-zone{position:absolute;z-index:4;top:0;bottom:0;left:var(--split);width:48px;transform:translateX(-50%);cursor:ew-resize;touch-action:none;user-select:none;-webkit-user-select:none}
 
-/* Навигация проекта. */
+
 .back{display:inline-flex;align-items:center;min-height:42px;padding:10px 18px;border:1px solid var(--ink);border-radius:24px;color:var(--ink);background:transparent;font-size:13px;line-height:1.4}
 .back:hover{color:var(--paper);background:var(--ink)}
 .to-top{position:fixed;right:22px;bottom:22px;z-index:10;border:1px solid var(--ink);border-radius:24px;background:var(--paper);color:var(--ink);padding:12px 17px;font-size:12px;line-height:1.4;min-height:44px;box-shadow:0 3px 15px #23262418;cursor:pointer}
 .to-top:hover{background:var(--ink);color:var(--paper)}
 
-/* Ноябрьск: видео, чертёж и ситуация в городе. */
+
 .video-feature,.media-row-section{margin:36px 0 48px}
 .video-feature>h2,.media-row-section>h2{font-size:16px;font-weight:500;line-height:1.4;margin:0 0 18px}
 .project-video-figure{margin:0;min-width:0}
@@ -212,7 +211,7 @@
 .media-row .image-open{aspect-ratio:16/9;background:#eeeee7}
 .media-row .image-open img{width:100%;height:100%;object-fit:contain}
 
-/* RCD: иконка игры и группы связанных рабочих материалов. */
+
 .project-title-row{display:flex;align-items:center;gap:24px;margin:18px 0 23px}
 .project-title-row h1{margin:0;min-width:0}
 .project-icon{display:block;width:80px;height:80px;flex-shrink:0;border-radius:19px;object-fit:cover}
@@ -223,7 +222,7 @@
 .process-pair{grid-template-columns:repeat(2,minmax(0,1fr))}
 .process-board .project-image:hover,.process-landscape-portrait .project-image:hover,.process-pair .project-image:hover{z-index:2}
 
-/* Компактная подача RCD: видео с описанием и подборки рабочего процесса. */
+
 .media-intro{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:34px;margin:36px 0 28px;align-items:start}
 .media-intro-media,.media-intro-copy{min-width:0}
 .media-intro h2{font-size:16px;font-weight:500;line-height:1.4;margin:0 0 18px}
@@ -269,7 +268,7 @@
   .to-top{right:14px;bottom:16px}
 }
 
-/* ПРПР: вложенные проекты и планы в исходных пропорциях. */
+
 .case-section,.street-plan,.comparison-cards{margin:36px 0 48px}
 .case-section>h2,.street-plan>h2,.comparison-cards>h2{font-size:16px;font-weight:500;line-height:1.5;margin:0 0 20px}
 .case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
@@ -316,12 +315,12 @@
   .plan-help{font-size:10px}
 }
 
-/* Главная: независимые столбцы; очередь каждого задаётся в content.js. */
+
 #projects{grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);align-items:start}
 .portfolio-column{display:flex;flex-direction:column;gap:30px;min-width:0}
 #projects .card{padding-top:0}
 
-/* Варианты планов и выпуски авторского блога. */
+
 .plan-group,.blog-group{margin:36px 0 48px}
 .plan-group>h2,.blog-group>h2,.blog-video>h2,.blog-video>h3,.street-plan>h3{font-size:16px;font-weight:500;line-height:1.5;margin:0 0 18px}
 .plan-group-grid,.blog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
@@ -338,11 +337,11 @@
   .plan-group>h2,.blog-group>h2,.blog-video>h2,.blog-video>h3,.street-plan>h3{font-size:15px}
 }
 
-/* Видео на главной занимает ширину экрана; текст остаётся на линиях сетки. */
+
 .hero.hero-video{width:calc(100% + 2 * var(--page-gutter,0px));margin-left:calc(0px - var(--page-gutter,0px));margin-right:calc(0px - var(--page-gutter,0px));padding-left:var(--page-gutter,44px);padding-right:var(--page-gutter,44px)}
 .hero-video .hero-motion-toggle{right:var(--page-gutter,20px)}
 
-/* Самостоятельный выпуск блога: тёмная полоса и обычный плеер YouTube. */
+
 .blog-band{width:calc(100% + 2 * var(--page-gutter,0px));max-width:none;margin:48px calc(0px - var(--page-gutter,0px));padding:48px var(--page-gutter,44px);background:#141716;color:#f5f4ef}
 .blog-band-content{max-width:900px;margin:0 auto;min-width:0}
 .blog-band-group .blog-band-content{max-width:none}
@@ -356,7 +355,7 @@
 .blog-band .blog-external:hover{color:white}
 .episode-description{font-size:14px;line-height:1.7;color:#c8cec5;margin:16px 0 0}
 
-/* Новые видеопроекты: исходные логотипы, без отдельных файлов обложки канала. */
+
 .project-wide-logo .project-title-row{flex-direction:column;align-items:flex-start;gap:24px}
 .project-wide-logo .project-icon{width:190px;height:auto;border-radius:0;object-fit:contain}
 .channel-cover{position:relative;display:grid;place-items:center;aspect-ratio:16/9;background:#000;overflow:hidden;color:#fff}
@@ -379,7 +378,7 @@
   .blog-band .blog-video>h3{font-size:16px}
 }
 
-/* Резюме: Ubuntu, единый ритм и заметные конкретные проекты. */
+
 @font-face{font-family:Ubuntu;src:url('assets/fonts/Ubuntu-Regular.woff') format('woff');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:Ubuntu;src:url('assets/fonts/Ubuntu-Bold.woff') format('woff');font-style:normal;font-weight:700;font-display:swap}
 .resume-page{font-family:Ubuntu,Arial,sans-serif;max-width:1020px;margin:0 auto;padding-top:35px}
@@ -432,7 +431,7 @@
  .resume-paragraph,.resume-job-compact .resume-paragraph{font-size:16px;line-height:1.65}
 }
 
-/* BRESH: шапка игры и отдельные части авторского проекта. */
+
 .project-art-hero{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:440px;width:calc(100% + 2 * var(--page-gutter,0px));margin:28px calc(0px - var(--page-gutter,0px)) 38px;padding:42px var(--page-gutter,44px);background:#073e30;color:#fff}
 .project-hero-art,.project-hero-shade{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 .project-hero-art{object-fit:cover}
@@ -498,7 +497,7 @@
  .process-bresh-identity .project-image:nth-child(3){align-self:start}
 }
 
-/* Общая линия и высота шапок; возврат располагается внутри шапки игры. */
+
 .project.project-with-hero{padding-top:0}
 .hero.hero-video,.project-art-hero{min-height:440px;margin-top:28px}
 .hero.hero-video{padding-top:42px;padding-bottom:42px}
@@ -519,7 +518,7 @@
 .comparison-plan-aside>h3{font-size:16px;font-weight:500;line-height:1.4;margin:0 0 18px}
 .comparison-plan-aside .project-image{margin:0}
 
-/* Авторский блог: компактная шапка, рубрики и связанные проекты. */
+
 .project-channel .project-head{padding-bottom:30px}
 .project-channel h1{font-size:clamp(42px,5.8vw,76px);line-height:1.08;max-width:1050px}
 .project-channel .project-lead{max-width:800px;font-size:20px}
@@ -575,7 +574,7 @@
 }
 @media(max-width:360px){.channel-overview-logo{width:58px;height:58px}.channel-overview{gap:14px;padding:25px 16px}.channel-overview-name{font-size:25px}.channel-overview-name .youtube-mark{width:36px}}
 
-/* BRESH: вклад рядом с видео, плотный текст и единая подборка эскизов. */
+
 #bresh .facts{margin-bottom:22px}
 #bresh .project-jump-nav{margin:0 0 18px;padding-bottom:12px}
 #bresh .media-intro{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:30px;margin:20px 0 24px;padding-bottom:0}
@@ -626,11 +625,11 @@
  #ytchannel .blog-band{margin-top:22px;padding-top:26px;padding-bottom:28px}
 }
 
-/* Переход к работам закреплён у нижнего края, отдельно от описания. */
+
 .hero-video>.index-note{position:absolute;left:var(--page-gutter,44px);bottom:24px;z-index:2;margin:0;padding:10px 0;color:#fff;line-height:1.4;text-decoration:underline;text-underline-offset:5px;white-space:normal}
 @media(max-width:720px){.hero-video>.index-note{left:var(--page-gutter,22px);bottom:22px;max-width:calc(100% - 145px)}}
 
-/* Четыре небольших игровых экрана под мобильным видео BRESH. */
+
 #bresh-mobile-screens{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 26px}
 #bresh-mobile-screens .project-image{margin:0;min-width:0}
 #bresh-mobile-screens .image-open{aspect-ratio:960/442;background:#e5e8e2;overflow:hidden}

@@ -1,4 +1,3 @@
-/* Механика сайта. Для обычных обновлений редактируй только content.js. */
 (() => {
   'use strict';
   const data = window.PORTFOLIO;
@@ -759,7 +758,7 @@
     hero.prepend(video, shade); hero.append(pause, hero.querySelector('.index-note'));
     manageLoop(video, pause, 'Видео на главной', data.home.video.src, label);
   }
-  // Фото присутствует в HTML, чтобы оно не зависело от динамической сборки.
+
   const photo = document.getElementById('about-photo');
   if (photo) {
     photo.hidden = data.home.photo === false;
