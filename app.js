@@ -484,6 +484,14 @@
       plan.append(el('h3', '', block.planTitle || 'Эскиз планировки'), figure(block.plan));
       section.append(plan); return section;
     }
+    if (block.type === 'brand-overview') {
+      const section = el('section', 'channel-overview brand-overview');
+      const logo = picture(block.logo, block.logoAlt || '');
+      logo.className = 'brand-overview-logo';
+      const copy = el('div', 'channel-overview-copy');
+      copy.append(el('p', 'eyebrow', block.label), el('p', 'brand-overview-title', block.title));
+      section.append(logo, copy); return section;
+    }
     if (block.type === 'channel-overview') {
       const section = el('section', 'channel-overview');
       const identity = picture(block.logo, 'Логотип Владислава Сурина');
@@ -752,7 +760,6 @@
   const title = document.getElementById('intro-title'); title.replaceChildren();
   data.home.titleLines.forEach((line, i) => { if (i) title.append(document.createElement('br')); title.append(document.createTextNode(line)); });
   document.querySelector('.intro').textContent = data.home.intro;
-  document.querySelector('.index-note').textContent = data.home.note;
   document.querySelector('.about-copy').textContent = data.home.about;
   document.querySelector('.about-small').textContent = data.home.aboutSmall;
   if (data.home.aboutLinks?.length) {
@@ -767,7 +774,7 @@
     const shade = el('div', 'hero-shade'); shade.setAttribute('aria-hidden', 'true');
     const pause = el('button', 'hero-motion-toggle'); pause.type = 'button';
     const label = el('span'); pause.append(label);
-    hero.prepend(video, shade); hero.append(pause, hero.querySelector('.index-note'));
+    hero.prepend(video, shade); hero.append(pause);
     manageLoop(video, pause, 'Видео на главной', data.home.video.src, label);
   }
 
@@ -815,12 +822,10 @@
     }
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
     if (project.presentation === 'channel') article.classList.add('project-channel');
-    if (project.headerTheme === 'dark') article.classList.add('project-dark-header');
     if (project.logo?.wide) article.classList.add('project-wide-logo');
     article.setAttribute('aria-labelledby', project.id + '-title');
     article.append(link(project.parent ? 'К проектам ПРПР' : 'К работам', project.parent ? '#' + project.parent : '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
-    if (project.headerTheme === 'dark') head.append(article.querySelector('.back'));
     if (project.hero?.src) {
       article.classList.add('project-with-hero');
       head.classList.add('project-art-hero');
