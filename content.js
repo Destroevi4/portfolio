@@ -107,6 +107,37 @@ window.PORTFOLIO = {
           "id": "bresh-game"
         },
         {
+          "type": "gallery",
+          "id": "bresh-mobile-screens",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/bresh/game/StoreReadySC_0.PNG",
+              "alt": "BRESH: мобильный игровой экран на открытой местности",
+              "width": 2556,
+              "height": 1179
+            },
+            {
+              "src": "assets/bresh/game/StoreReadySC_1.PNG",
+              "alt": "BRESH: персонажи на мобильном игровом экране",
+              "width": 2556,
+              "height": 1179
+            },
+            {
+              "src": "assets/bresh/game/StoreReadySC_4.PNG",
+              "alt": "BRESH: меню выбора и настройки матча",
+              "width": 2556,
+              "height": 1179
+            },
+            {
+              "src": "assets/bresh/game/StoreReadySC_5.png",
+              "alt": "BRESH: вид карты в двух мирах",
+              "width": 2556,
+              "height": 1179
+            }
+          ]
+        },
+        {
           "type": "design-notes",
           "eyebrow": "Геймдизайн",
           "title": "Два мира: бой, информация и маршруты",

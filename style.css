@@ -629,3 +629,10 @@
 /* Переход к работам закреплён у нижнего края, отдельно от описания. */
 .hero-video>.index-note{position:absolute;left:var(--page-gutter,44px);bottom:24px;z-index:2;margin:0;padding:10px 0;color:#fff;line-height:1.4;text-decoration:underline;text-underline-offset:5px;white-space:normal}
 @media(max-width:720px){.hero-video>.index-note{left:var(--page-gutter,22px);bottom:22px;max-width:calc(100% - 145px)}}
+
+/* Четыре небольших игровых экрана под мобильным видео BRESH. */
+#bresh-mobile-screens{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 26px}
+#bresh-mobile-screens .project-image{margin:0;min-width:0}
+#bresh-mobile-screens .image-open{aspect-ratio:960/442;background:#e5e8e2;overflow:hidden}
+#bresh-mobile-screens .image-open img{width:100%;height:100%;object-fit:contain}
+@media(max-width:720px){#bresh-mobile-screens{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 22px}}
