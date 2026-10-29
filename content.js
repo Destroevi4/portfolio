@@ -84,6 +84,26 @@ window.PORTFOLIO = {
       ],
       "blocks": [
         {
+          "type": "media-intro",
+          "title": "BRESH на мобильных устройствах",
+          "media": {
+            "type": "video",
+            "src": "assets/bresh/mobile.mp4",
+            "motion": true,
+            "aspectRatio": "960 / 442",
+            "label": "Геймплей мобильной версии BRESH",
+            "caption": "Запись мобильной версии. Видео без звука, по кругу; нажмите для паузы."
+          },
+          "aside": {
+            "title": "Одна идея на разных устройствах",
+            "paragraphs": [
+              "Развиваю игру для PC, iOS и Android. Отдельная часть работы — мобильное управление и интерфейс.",
+              "Кроссплатформенность и общение игроков — важные для меня направления развития BRESH."
+            ]
+          },
+          "id": "bresh-game"
+        },
+        {
           "type": "text",
           "title": "Мой вклад",
           "paragraphs": [
@@ -118,25 +138,6 @@ window.PORTFOLIO = {
           ]
         },
         {
-          "type": "media-intro",
-          "title": "BRESH на мобильных устройствах",
-          "media": {
-            "type": "video",
-            "src": "assets/bresh/mobile.mp4",
-            "motion": true,
-            "aspectRatio": "960 / 442",
-            "label": "Геймплей мобильной версии BRESH",
-            "caption": "Запись мобильной версии. Видео без звука, по кругу; нажмите для паузы."
-          },
-          "aside": {
-            "title": "Одна идея на разных устройствах",
-            "paragraphs": [
-              "Развиваю игру для PC, iOS и Android. Отдельная часть работы — мобильное управление и интерфейс.",
-              "Кроссплатформенность и общение игроков — важные для меня направления развития BRESH."
-            ]
-          }
-        },
-        {
           "type": "collage",
           "title": "Зарисовки интерфейса",
           "layout": "bresh-ui",
@@ -144,26 +145,86 @@ window.PORTFOLIO = {
             {
               "src": "assets/bresh/game/ui-01.jpg",
               "alt": "Рабочие зарисовки игровых экранов BRESH",
-              "caption": "Поиск структуры экранов"
+              "caption": "Поиск структуры экранов",
+              "width": 2224,
+              "height": 1668
             },
             {
               "src": "assets/bresh/game/ui-02.jpg",
               "alt": "Схемы интерфейса экипировки BRESH",
-              "caption": "Экипировка и выбор предметов"
+              "caption": "Экипировка и выбор предметов",
+              "width": 1920,
+              "height": 1080
             },
             {
               "src": "assets/bresh/game/ui-03.jpg",
               "alt": "Зарисовки меню и внутриигрового интерфейса BRESH",
-              "caption": "Меню и игровые экраны"
+              "caption": "Меню и игровые экраны",
+              "width": 2224,
+              "height": 1668
             }
           ],
           "caption": "Рабочие зарисовки. Любую можно открыть крупно."
         },
         {
+          "type": "collage",
+          "title": "Визуальный образ BRESH",
+          "layout": "bresh-identity",
+          "images": [
+            {
+              "src": "assets/bresh/game/capsule-01.jpg",
+              "alt": "Эскиз вертикальной капсулы BRESH с двумя бойцами",
+              "caption": "Вертикальная капсула",
+              "width": 1592,
+              "height": 2156
+            },
+            {
+              "src": "assets/bresh/game/capsule-02.jpg",
+              "alt": "Эскиз горизонтальной капсулы BRESH",
+              "caption": "Горизонтальная капсула",
+              "width": 2266,
+              "height": 1080
+            },
+            {
+              "src": "assets/bresh/game/art-sketch.jpg",
+              "alt": "Авторский арт BRESH: город и бойцы в двух мирах",
+              "caption": "Поиск образа двух миров",
+              "width": 1920,
+              "height": 1080
+            },
+            {
+              "src": "assets/bresh/game/logo-sketches.jpg",
+              "alt": "Зарисовки вариантов логотипа BRESH",
+              "caption": "Поиск знака и логотипа",
+              "width": 1301,
+              "height": 1860
+            }
+          ],
+          "caption": "Авторские эскизы арта, капсул и логотипа."
+        },
+        {
           "type": "chapter",
-          "eyebrow": "Левел-дизайн",
-          "title": "Карты для двух миров",
-          "text": "Игрок переключается между двумя версиями одной карты. Архитектура и препятствия в них различаются: смена мира открывает другие пути и позволяет пройти участки, недоступные в текущем мире."
+          "eyebrow": "02 / Уровни и игровое пространство",
+          "title": "Левел-дизайн: карты для двух миров",
+          "text": "Игрок переключается между двумя версиями одной карты. Архитектура и препятствия в них различаются: смена мира открывает другие пути и позволяет пройти участки, недоступные в текущем мире.",
+          "id": "bresh-level-design"
+        },
+        {
+          "type": "comparison-plan",
+          "comparison": {
+            "title": "Monument: блокаут и концепт",
+            "before": "assets/bresh/game/monument1-1.jpg",
+            "after": "assets/bresh/game/monument1.jpg",
+            "beforeLabel": "Блокаут",
+            "afterLabel": "Концепт",
+            "aspectRatio": "2556 / 1612"
+          },
+          "planTitle": "Эскиз планировки",
+          "plan": {
+            "src": "assets/bresh/game/monument-plan.jpg",
+            "alt": "Эскиз планировки карты Monument",
+            "caption": "План карты — открыть крупно"
+          }
         },
         {
           "type": "comparison",
@@ -261,56 +322,6 @@ window.PORTFOLIO = {
               "afterLabel": "Мир 2"
             }
           ]
-        },
-        {
-          "type": "collage",
-          "title": "Поиск устройства карты Monument",
-          "layout": "bresh-level",
-          "images": [
-            {
-              "src": "assets/bresh/game/monument1.jpg",
-              "alt": "Объёмный концепт карты Monument со статуей",
-              "caption": "Концепт со статуей"
-            },
-            {
-              "src": "assets/bresh/game/monument1-1.jpg",
-              "alt": "Концепт карты Monument с объёмами препятствий",
-              "caption": "Объёмы и препятствия"
-            },
-            {
-              "src": "assets/bresh/game/monument-plan.jpg",
-              "alt": "Нарисованный план карты Monument",
-              "caption": "Эскиз планировки"
-            }
-          ]
-        },
-        {
-          "type": "collage",
-          "title": "Визуальный образ BRESH",
-          "layout": "bresh-identity",
-          "images": [
-            {
-              "src": "assets/bresh/game/capsule-01.jpg",
-              "alt": "Эскиз вертикальной капсулы BRESH с двумя бойцами",
-              "caption": "Вертикальная капсула"
-            },
-            {
-              "src": "assets/bresh/game/capsule-02.jpg",
-              "alt": "Эскиз горизонтальной капсулы BRESH",
-              "caption": "Горизонтальная капсула"
-            },
-            {
-              "src": "assets/bresh/game/art-sketch.jpg",
-              "alt": "Авторский арт BRESH: город и бойцы в двух мирах",
-              "caption": "Поиск образа двух миров"
-            },
-            {
-              "src": "assets/bresh/game/logo-sketches.jpg",
-              "alt": "Зарисовки вариантов логотипа BRESH",
-              "caption": "Поиск знака и логотипа"
-            }
-          ],
-          "caption": "Авторские эскизы арта, капсул и логотипа."
         }
       ],
       "links": [
@@ -338,7 +349,17 @@ window.PORTFOLIO = {
         "alt": "Два мира BRESH: город и бойцы по разные стороны перехода",
         "position": "60% 50%",
         "linksTitle": "Играть в BRESH"
-      }
+      },
+      "navigation": [
+        {
+          "label": "01 / Об игре",
+          "target": "bresh-game"
+        },
+        {
+          "label": "02 / Левел-дизайн",
+          "target": "bresh-level-design"
+        }
+      ]
     },
     {
       "id": "rcd",
@@ -556,46 +577,55 @@ window.PORTFOLIO = {
         "handle": "@vlSurin"
       },
       "eyebrow": "Личный канал · YouTube",
-      "lead": "Рассказываю об архитектуре, городской среде и видеоиграх на своём канале.",
+      "lead": "Архитектура, городская среда и видеоигры: авторские выпуски, разборы и проектные предложения.",
       "linksLabel": "Личный канал",
-      "links": [
-        {
-          "label": "Перейти на канал · @vlSurin",
-          "url": "https://www.youtube.com/@vlSurin"
-        }
-      ],
+      "links": [],
       "blocks": [
         {
-          "type": "channel-cover",
+          "type": "channel-overview",
           "logo": "assets/branding/logo.jpg",
           "youtubeLogo": "assets/ytchannel/YouTube_Logo.png",
-          "handle": "@vlSurin"
+          "handle": "@vlSurin",
+          "url": "https://www.youtube.com/@vlSurin"
         },
         {
-          "type": "text",
-          "title": "О блоге",
-          "paragraphs": [
-            "В блоге соединяю архитектурный опыт и интерес к играм: разбираю игровые города и реальные пространства, предлагаю изменения улиц и площадей. Форматы разные — от подготовленных выпусков до разговоров и трансляций."
-          ]
-        },
-        {
-          "type": "text",
-          "title": "Связанные проекты",
-          "paragraphs": [
-            "Проекты улиц из рубрики «ПРПР — Простое проектирование» собраны отдельно: с планами, сравнениями до и после и выпусками блога. Разборы для StopGame также представлены отдельной серией."
-          ],
-          "links": [
+          "type": "link-collection",
+          "title": "Рубрики и выпуски",
+          "items": [
             {
-              "label": "ПРПР — Простое проектирование",
-              "url": "#prpr"
+              "kind": "Рубрика",
+              "title": "Тебя никто не спрашивает",
+              "url": "https://www.youtube.com/playlist?list=PLifYKO6pxu9OMVDRYorzj4m-Z47X2DpIr"
             },
             {
-              "label": "Архитектура игровых городов · StopGame",
-              "url": "#stopgame"
+              "kind": "Серия проектов",
+              "title": "ПРПР — Простое проектирование",
+              "description": "Предлагаю изменения улиц и площадей и объясняю проектные решения.",
+              "url": "https://www.youtube.com/playlist?list=PLifYKO6pxu9OopZJ_DG-vdUHy06uVRTd7"
+            },
+            {
+              "kind": "Плейлист",
+              "title": "Игры",
+              "url": "https://www.youtube.com/playlist?list=PLifYKO6pxu9PpS_nHZFHDgtpGjJ0dNXCe"
+            },
+            {
+              "kind": "Отдельный выпуск",
+              "title": "Образовательное",
+              "action": "Смотреть выпуск",
+              "url": "https://www.youtube.com/watch?v=FUUpvbfNqjM"
             }
           ]
+        },
+        {
+          "type": "related-projects",
+          "title": "Подробнее в портфолио",
+          "projects": [
+            "prpr",
+            "stopgame"
+          ]
         }
-      ]
+      ],
+      "presentation": "channel"
     },
     {
       "id": "game-concepts",
@@ -789,7 +819,14 @@ window.PORTFOLIO = {
         }
       ],
       "column": "left",
-      "columnOrder": 3
+      "columnOrder": 3,
+      "linksLabel": "Рубрика ПРПР на YouTube",
+      "links": [
+        {
+          "label": "Смотреть плейлист ПРПР на YouTube",
+          "url": "https://www.youtube.com/playlist?list=PLifYKO6pxu9OopZJ_DG-vdUHy06uVRTd7"
+        }
+      ]
     },
     {
       "id": "illustrations",

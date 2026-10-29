@@ -281,7 +281,9 @@
     const button = el('button', 'image-open');
     button.type = 'button';
     button.setAttribute('aria-label', 'Увеличить: ' + (item.alt || item.caption || 'изображение проекта'));
-    button.append(picture(item.src, item.alt));
+    const image = picture(item.src, item.alt);
+    if (item.width && item.height) { image.width = item.width; image.height = item.height; }
+    button.append(image);
     button.addEventListener('click', () => openImage(item.src, item.alt || item.caption));
     if (item.animation) {
       const frame = el('div', 'artwork-media');
@@ -476,6 +478,51 @@
     return cover;
   }
   function renderBlock(block) {
+    if (block.type === 'comparison-plan') {
+      const section = el('section', 'comparison-plan');
+      section.append(comparison(block.comparison));
+      const plan = el('div', 'comparison-plan-aside');
+      plan.append(el('h3', '', block.planTitle || 'Эскиз планировки'), figure(block.plan));
+      section.append(plan); return section;
+    }
+    if (block.type === 'channel-overview') {
+      const section = el('section', 'channel-overview');
+      const identity = picture(block.logo, 'Логотип Владислава Сурина');
+      identity.className = 'channel-overview-logo';
+      const copy = el('div', 'channel-overview-copy');
+      const name = el('div', 'channel-overview-name');
+      const mark = el('span', 'youtube-mark'); mark.append(picture(block.youtubeLogo, 'YouTube'));
+      name.append(mark, el('span', '', block.handle));
+      copy.append(name, link('Смотреть канал', block.url, 'channel-visit'));
+      section.append(identity, copy); return section;
+    }
+    if (block.type === 'link-collection') {
+      const section = el('section', 'link-collection');
+      section.append(el('h2', '', block.title));
+      const list = el('div', 'rubric-list');
+      (block.items || []).forEach(item => {
+        const entry = link('', item.url, 'rubric-link');
+        const copy = el('div');
+        copy.append(el('p', 'eyebrow muted', item.kind), el('h3', '', item.title));
+        if (item.description) copy.append(el('p', 'rubric-description', item.description));
+        entry.append(copy, el('span', 'rubric-action', item.action || 'Открыть плейлист'));
+        list.append(entry);
+      });
+      section.append(list); return section;
+    }
+    if (block.type === 'related-projects') {
+      const section = el('section', 'related-projects');
+      section.append(el('h2', '', block.title));
+      const list = el('div', 'related-projects-grid');
+      (block.projects || []).forEach(id => {
+        const project = projects.find(item => item.id === id); if (!project) return;
+        const card = link('', '#' + id, 'related-project');
+        card.append(picture(project.cover?.src, project.cover?.alt));
+        const copy = el('div'); copy.append(el('h3', '', project.title), el('p', '', project.summary));
+        card.append(copy); list.append(card);
+      });
+      section.append(list); return section;
+    }
     if (block.type === 'design-notes') {
       const section = el('section', 'design-notes');
       section.append(el('p', 'eyebrow muted', block.eyebrow || 'Геймдизайн'), el('h2', '', block.title));
@@ -749,6 +796,7 @@
     card.append(cover, meta); cards.push({card, project, index});
     }
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
+    if (project.presentation === 'channel') article.classList.add('project-channel');
     if (project.logo?.wide) article.classList.add('project-wide-logo');
     article.setAttribute('aria-labelledby', project.id + '-title');
     article.append(link(project.parent ? 'К проектам ПРПР' : 'К работам', project.parent ? '#' + project.parent : '#works', 'back'));
@@ -761,6 +809,7 @@
       if (project.hero.position) artwork.style.objectPosition = project.hero.position;
       const shade = el('div', 'project-hero-shade'); shade.setAttribute('aria-hidden', 'true');
       head.append(artwork, shade);
+      head.append(article.querySelector('.back'));
     }
     h1.id = project.id + '-title'; h1.tabIndex = -1;
     const title = project.logo ? el('div', 'project-title-row') : h1;
@@ -788,7 +837,16 @@
       project.facts.forEach(item => { const fact = el('div', 'fact'); fact.append(el('dt', '', item.label), el('dd', '', item.value)); facts.append(fact); });
       article.append(facts);
     }
-    (project.blocks || []).forEach(block => article.append(renderBlock(block)));
+    if (project.navigation?.length) {
+      const navigation = el('nav', 'project-jump-nav'); navigation.setAttribute('aria-label', 'Разделы проекта');
+      project.navigation.forEach(item => navigation.append(link(item.label, '#' + item.target)));
+      article.append(navigation);
+    }
+    (project.blocks || []).forEach(block => {
+      const section = renderBlock(block);
+      if (block.id) { section.id = block.id; section.tabIndex = -1; }
+      article.append(section);
+    });
     const end = el('div', 'project-end'); const next = projects[index + 1];
     end.append(project.parent ? link('К проектам ПРПР', '#' + project.parent) : link(next ? 'Следующий проект — ' + next.title : 'Вернуться ко всем работам', next ? '#' + next.id : '#works'));
     article.append(end); pages.append(article); articles.set(project.id, {article, h1, project});
@@ -899,10 +957,13 @@
   function route() {
     if (viewer.open) viewer.close();
     if (planViewer.open) planViewer.close();
-    const id = location.hash.slice(1); const match = articles.get(id);
+    const id = location.hash.slice(1);
+    const target = document.getElementById(id);
+    const owner = target?.closest('article.project');
+    const match = articles.get(id) || (owner ? articles.get(owner.id) : undefined);
     home.hidden = Boolean(match);
     articles.forEach(({article}, key) => {
-      article.hidden = key !== id;
+      article.hidden = article !== match?.article;
       if (article.hidden) article.querySelectorAll('.video-grid video').forEach(video => video.pause());
     });
     blogPlayers.forEach((player, frame) => {
@@ -910,7 +971,12 @@
     });
     loops.forEach((_, video) => syncLoop(video));
     document.title = match ? match.project.title + ' — ' + data.site.name : data.site.title;
-    if (match) { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
+    if (match) {
+      if (target && target !== match.article) {
+        target.scrollIntoView({block:'start'});
+        if (keyboardNavigation) target.focus({preventScroll:true});
+      } else { window.scrollTo(0, 0); if (keyboardNavigation) match.h1.focus({preventScroll:true}); }
+    }
     else if (id === 'works' || id === 'about') requestAnimationFrame(() => document.getElementById(id).scrollIntoView());
     else window.scrollTo(0, 0);
     updateToTop();
