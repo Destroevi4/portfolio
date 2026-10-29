@@ -112,25 +112,25 @@ window.PORTFOLIO = {
           "columns": 4,
           "images": [
             {
-              "src": "assets/bresh/game/StoreReadySC_0.PNG",
+              "src": "assets/bresh/game/StoreReadySC_0.jpg",
               "alt": "BRESH: мобильный игровой экран на открытой местности",
               "width": 2556,
               "height": 1179
             },
             {
-              "src": "assets/bresh/game/StoreReadySC_1.PNG",
+              "src": "assets/bresh/game/StoreReadySC_1.jpg",
               "alt": "BRESH: персонажи на мобильном игровом экране",
               "width": 2556,
               "height": 1179
             },
             {
-              "src": "assets/bresh/game/StoreReadySC_4.PNG",
+              "src": "assets/bresh/game/StoreReadySC_4.jpg",
               "alt": "BRESH: меню выбора и настройки матча",
               "width": 2556,
               "height": 1179
             },
             {
-              "src": "assets/bresh/game/StoreReadySC_5.png",
+              "src": "assets/bresh/game/StoreReadySC_5.jpg",
               "alt": "BRESH: вид карты в двух мирах",
               "width": 2556,
               "height": 1179
