@@ -759,6 +759,72 @@
     end.append(project.parent ? link('К проектам ПРПР', '#' + project.parent) : link(next ? 'Следующий проект — ' + next.title : 'Вернуться ко всем работам', next ? '#' + next.id : '#works'));
     article.append(end); pages.append(article); articles.set(project.id, {article, h1, project});
   });
+  if (data.resume?.versions?.length) {
+    const resume = data.resume;
+    const person = resume.contact;
+    const article = el('article', 'project resume-page'); article.id = 'cv'; article.hidden = true;
+    article.setAttribute('aria-labelledby', 'cv-title');
+    article.append(link('К работам', '#works', 'back'));
+    const profile = el('div', 'resume-profile');
+    const portrait = picture(person.photo, person.name); portrait.className = 'resume-photo'; portrait.width = 136; portrait.height = 136;
+    const intro = el('div', 'resume-profile-copy');
+    const h1 = el('h1', 'resume-name', person.name); h1.id = 'cv-title'; h1.tabIndex = -1;
+    const role = el('p', 'resume-role');
+    const contacts = el('div', 'resume-contacts');
+    contacts.append(el('span', '', person.city), link(person.email, 'mailto:' + person.email), link(person.telegram, 'https://t.me/' + person.telegram.replace(/^@/, '')));
+    intro.append(h1, role, contacts); profile.append(portrait, intro); article.append(profile);
+    const toolbar = el('div', 'resume-toolbar');
+    const tabs = el('div', 'resume-tabs'); tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', 'Версия резюме');
+    const download = el('a', 'resume-download', 'Скачать PDF');
+    const size = el('span', 'resume-file-note', '2 страницы · PDF');
+    const action = el('div', 'resume-download-group'); action.append(download, size);
+    toolbar.append(tabs, action); article.append(toolbar);
+    const panels = []; const buttons = [];
+    resume.versions.forEach((version, index) => {
+      const button = el('button', 'resume-tab', version.label); button.type = 'button';
+      button.id = 'cv-tab-' + version.id; button.setAttribute('role', 'tab'); button.setAttribute('aria-controls', 'cv-panel-' + version.id);
+      const panel = el('section', 'resume-panel'); panel.id = 'cv-panel-' + version.id;
+      panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', button.id);
+      const summary = el('div', 'resume-summary-row');
+      summary.append(el('h2', '', 'Профиль'), el('p', 'resume-summary', version.summary)); panel.append(summary);
+      version.sections.forEach((part, sectionIndex) => {
+        const section = el('section', 'resume-section');
+        const title = el('h2', '', part.title); title.id = 'cv-' + version.id + '-' + sectionIndex;
+        section.setAttribute('aria-labelledby', title.id);
+        const body = el('div', 'resume-section-body');
+        (part.items || []).forEach(item => {
+          const job = el('div', 'resume-job' + (['history','education'].includes(part.key) ? ' resume-job-compact' : ''));
+          const name = el('h3');
+          if (item.url) name.append(link(item.title, item.url)); else name.textContent = item.title;
+          job.append(name, el('p', 'resume-job-role', item.role), el('p', 'resume-date', item.date));
+          (item.paragraphs || []).forEach(text => job.append(el('p', 'resume-paragraph', text)));
+          body.append(job);
+        });
+        (part.paragraphs || []).forEach(text => body.append(el('p', 'resume-paragraph', text)));
+        section.append(title, body); panel.append(section);
+      });
+      const end = el('div', 'project-end'); end.append(link('Вернуться к работам', '#works')); panel.append(end);
+      buttons.push(button); panels.push(panel); tabs.append(button); article.append(panel);
+      button.addEventListener('click', () => selectResume(index));
+      button.addEventListener('keydown', event => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % buttons.length;
+        if (event.key === 'ArrowLeft') next = (index + buttons.length - 1) % buttons.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = buttons.length - 1;
+        if (next === undefined) return;
+        event.preventDefault(); selectResume(next); buttons[next].focus();
+      });
+    });
+    function selectResume(index) {
+      const version = resume.versions[index]; role.textContent = version.title;
+      buttons.forEach((button, i) => { button.setAttribute('aria-selected', String(i === index)); button.tabIndex = i === index ? 0 : -1; panels[i].hidden = i !== index; });
+      download.href = safeUrl(version.pdf); download.download = version.pdf.split('/').pop();
+      download.setAttribute('aria-label', 'Скачать PDF: ' + version.label + ' резюме');
+    }
+    selectResume(Math.max(0, resume.versions.findIndex(version => version.id === resume.default)));
+    pages.append(article); articles.set('cv', {article, h1, project:{title:'Резюме'}});
+  }
   const desktopColumns = window.matchMedia('(min-width:721px)');
   const leftColumn = el('div', 'portfolio-column');
   const rightColumn = el('div', 'portfolio-column');
