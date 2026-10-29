@@ -476,6 +476,25 @@
     return cover;
   }
   function renderBlock(block) {
+    if (block.type === 'design-notes') {
+      const section = el('section', 'design-notes');
+      section.append(el('p', 'eyebrow muted', block.eyebrow || 'Геймдизайн'), el('h2', '', block.title));
+      if (block.intro) section.append(el('p', 'design-intro', block.intro));
+      const list = el('div', 'design-notes-grid');
+      (block.items || []).forEach((item, index) => {
+        const entry = el('div', 'design-note');
+        entry.append(el('span', 'eyebrow muted', count(index + 1)), el('h3', '', item.title), el('p', '', item.text));
+        list.append(entry);
+      });
+      section.append(list); return section;
+    }
+    if (block.type === 'chapter') {
+      const section = el('section', 'project-chapter');
+      if (block.eyebrow) section.append(el('p', 'eyebrow muted', block.eyebrow));
+      section.append(el('h2', '', block.title));
+      if (block.text) section.append(el('p', '', block.text));
+      return section;
+    }
     if (block.type === 'channel-cover') return channelCover(block);
     if (block.type === 'youtube') {
       const grouped = block.grouped === true;
@@ -611,7 +630,7 @@
       const section = el('section', 'process-section');
       section.append(el('h2', '', block.title || 'Рабочие материалы'));
       const collage = el('div', 'process-collage');
-      if (['board', 'landscape-portrait', 'pair', 'compact', 'panorama-posters'].includes(block.layout)) collage.classList.add('process-' + block.layout);
+      if (['board', 'landscape-portrait', 'pair', 'compact', 'panorama-posters', 'bresh-ui', 'bresh-identity', 'bresh-level'].includes(block.layout)) collage.classList.add('process-' + block.layout);
       (block.images || []).forEach(item => collage.append(figure(item)));
       section.append(collage);
       if (block.caption) section.append(el('p', 'media-note', block.caption));
@@ -734,6 +753,15 @@
     article.setAttribute('aria-labelledby', project.id + '-title');
     article.append(link(project.parent ? 'К проектам ПРПР' : 'К работам', project.parent ? '#' + project.parent : '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
+    if (project.hero?.src) {
+      article.classList.add('project-with-hero');
+      head.classList.add('project-art-hero');
+      const artwork = picture(project.hero.src, project.hero.alt || '');
+      artwork.className = 'project-hero-art'; artwork.loading = 'eager';
+      if (project.hero.position) artwork.style.objectPosition = project.hero.position;
+      const shade = el('div', 'project-hero-shade'); shade.setAttribute('aria-hidden', 'true');
+      head.append(artwork, shade);
+    }
     h1.id = project.id + '-title'; h1.tabIndex = -1;
     const title = project.logo ? el('div', 'project-title-row') : h1;
     if (project.logo) {
@@ -747,7 +775,13 @@
       const stores = el('nav', 'project-links');
       stores.setAttribute('aria-label', project.linksLabel || 'Страницы игры в магазинах');
       project.links.forEach(item => stores.append(link(item.label, item.url, 'store-link')));
-      article.append(stores);
+      if (project.hero?.src) {
+        stores.classList.add('hero-store-links');
+        const storesLabel = el('p', 'eyebrow', project.hero.linksTitle || 'Играть');
+        const storesRow = el('div', 'hero-store-row');
+        storesRow.append(...Array.from(stores.children));
+        stores.append(storesLabel, storesRow); head.append(stores);
+      } else article.append(stores);
     }
     if (project.facts?.length) {
       const facts = el('dl', 'facts');
