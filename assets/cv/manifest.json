@@ -1,0 +1,25 @@
+{
+  "revision": "ce10bdcbc19a7c65",
+  "files": {
+    "assets/cv/Vladislav-Surin-Level-Designer.pdf": {
+      "language": "ru",
+      "version": "games",
+      "pages": 2
+    },
+    "assets/cv/Vladislav-Surin-Architect.pdf": {
+      "language": "ru",
+      "version": "architecture",
+      "pages": 2
+    },
+    "assets/cv/Vladislav-Surin-Level-Designer-EN.pdf": {
+      "language": "en",
+      "version": "games",
+      "pages": 2
+    },
+    "assets/cv/Vladislav-Surin-Architect-EN.pdf": {
+      "language": "en",
+      "version": "architecture",
+      "pages": 2
+    }
+  }
+}

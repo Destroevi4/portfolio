@@ -4520,3 +4520,43 @@
     .hero-video .intro {
       color: #fff;
     }
+.resume-page{max-width:900px}
+.resume-page .resume-summary-row,.resume-page .resume-section{display:block;padding:24px 0}
+.resume-page .resume-summary-row>h2,.resume-page .resume-section>h2{font-size:20px;font-weight:700;color:var(--ink);margin:0 0 16px}
+.resume-page .resume-summary{font-size:17px;line-height:1.65;max-width:780px}
+.resume-page .resume-toolbar{flex-wrap:wrap;gap:14px;padding:16px 0 22px}
+.resume-languages{display:flex;gap:4px;margin-left:auto;border:1px solid var(--line);padding:4px;border-radius:28px}
+.resume-language{border:0;background:transparent;border-radius:22px;padding:10px 12px;font-size:13px;cursor:pointer}
+.resume-language[aria-pressed=true]{color:var(--paper);background:var(--ink)}
+.resume-skill-groups{margin:0;font-size:16px;line-height:1.6}
+.resume-skill-groups>div{display:grid;grid-template-columns:155px minmax(0,1fr);gap:20px;margin:0 0 9px}
+.resume-skill-groups dt{font-weight:700}
+.resume-skill-groups dd{margin:0}
+.resume-job-meta{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 22px;margin:0 0 10px}
+.resume-job-meta .resume-date{margin:0 0 0 auto}
+.resume-job-meta .resume-job-role{margin:0}
+.resume-page .resume-job{margin-bottom:26px}
+.resume-bullets{margin:0;padding-left:21px;font-size:16px;line-height:1.65;max-width:800px}
+.resume-bullets li+li{margin-top:6px}
+.resume-job-compact .resume-bullets{font-size:15px}
+.resume-job-compact .resume-bullets li+li{margin-top:4px}
+@media(max-width:720px){
+ .resume-page .resume-profile{gap:18px}
+ .resume-page .resume-summary-row,.resume-page .resume-section{padding:23px 0}
+ .resume-page .resume-summary-row>h2,.resume-page .resume-section>h2{font-size:20px;margin-bottom:14px}
+ .resume-page .resume-summary{font-size:16px}
+ .resume-page .resume-toolbar{flex-direction:row;align-items:center;gap:12px}
+ .resume-page .resume-tabs{flex-basis:auto;max-width:100%}
+ .resume-page .resume-tab{font-size:12px;padding:10px 12px}
+ .resume-languages{margin-left:auto}
+ .resume-language{font-size:12px;padding:9px 10px}
+ .resume-download-group{width:100%;justify-content:space-between}
+ .resume-page .resume-download{width:auto;flex:1;text-align:center}
+ .resume-page .resume-file-note{display:block}
+ .resume-skill-groups{font-size:15px}
+ .resume-skill-groups>div{display:block;margin-bottom:12px}
+ .resume-skill-groups dt{margin-bottom:2px}
+ .resume-job-meta{display:block}
+ .resume-job-meta .resume-date{margin-top:4px}
+ .resume-bullets,.resume-job-compact .resume-bullets{font-size:15px;line-height:1.6}
+}

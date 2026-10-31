@@ -1664,6 +1664,7 @@ window.PORTFOLIO = {
   ],
   "resume": {
     "default": "games",
+    "defaultLanguage": "ru",
     "contact": {
       "name": "Владислав Сурин",
       "city": "Москва",
@@ -1678,156 +1679,148 @@ window.PORTFOLIO = {
         "label": "Игровое",
         "title": "Левел-дизайнер",
         "pdf": "assets/cv/Vladislav-Surin-Level-Designer.pdf",
-        "summary": "Левел-дизайнер с архитектурным опытом. Проектирую игровые города и карты: планировку, дорожные сети, маршруты, ориентиры и рельеф. Работал над RCD в Unity, развиваю собственный шутер BRESH в Unreal Engine. Проектирую и реальные городские пространства.",
+        "summary": "Проектирую игровые города и карты. Работал над городом для Russian Car Drift в Unity; разрабатываю собственный сетевой шутер BRESH в Unreal Engine. В левел-дизайне использую опыт архитектурного и транспортного проектирования.",
         "sections": [
           {
-            "title": "Опыт в играх",
+            "key": "skills",
+            "title": "Навыки и инструменты",
+            "groups": [
+              {
+                "label": "Левел-дизайн",
+                "text": "Проектирование игровых городов и карт, блокинг, маршруты и навигация, масштаб и линии видимости, сборка окружения."
+              },
+              {
+                "label": "Движки",
+                "text": "Unreal Engine, Blueprints, UMG; Unity."
+              },
+              {
+                "label": "3D и архитектура",
+                "text": "Rhino 3D, Grasshopper, Revit."
+              },
+              {
+                "label": "Графика и видео",
+                "text": "Photoshop, Illustrator, Figma, Premiere Pro, After Effects."
+              }
+            ]
+          },
+          {
+            "key": "experience",
+            "title": "Игровой опыт",
             "items": [
               {
                 "title": "BRESH",
                 "date": "Весна 2023 — настоящее время",
-                "role": "Автор игры · геймдизайн и левел-дизайн · проектная занятость",
-                "paragraphs": [
-                  "Тактический мультиплеерный шутер с переключением между двумя мирами. Создал все карты: маршруты, стартовые позиции, обзоры и обходы в двух состояниях пространства. Собрал окружение из сторонних моделей; работаю над интерфейсами UMG, звуком и сборками. Unreal Engine, совместная работа с разработчиком."
+                "role": "Автор игры · геймдизайнер и левел-дизайнер · переменная занятость",
+                "bullets": [
+                  "Спроектировал все карты сетевого шутера: маршруты, стартовые позиции, обходы и вертикальные связи с учётом переключения между двумя мирами.",
+                  "Работаю над геймплейными механиками, поведением ботов и визуальными и звуковыми подсказками для игроков.",
+                  "Собираю окружение из готовых моделей, разрабатываю интерфейсы в UMG и Blueprints. Работаю над версиями для PC, iOS и Android совместно с другим разработчиком."
                 ],
                 "url": "#bresh"
               },
               {
                 "title": "Russian Car Drift (RCD)",
                 "date": "Сентябрь 2023 — апрель 2024",
-                "role": "Левел-дизайн города и сборка окружения · Unity",
-                "paragraphs": [
-                  "Разработал планировку города, дорожную сеть, дворы, маршруты, рельеф и ориентиры. Проверял проезды и дрифт в игре. Работал над зимним состоянием, освещением и второй картой с деревней и мостом, соединённой с городом. Использовал Grasshopper для рельефа."
+                "role": "Левел-дизайнер · Unity",
+                "bullets": [
+                  "Спроектировал и собрал игровой город: кварталы, дорожную сеть, дворы, рельеф и систему ориентиров.",
+                  "Подбирал масштаб улиц и геометрию поворотов, проверял маршруты при вождении и дрифте. Использовал Grasshopper для создания рельефа.",
+                  "Работал над зимним окружением, освещением и второй картой с деревней и мостом, соединённой с городом."
                 ],
                 "url": "#rcd"
               }
-            ],
-            "key": "games"
+            ]
           },
           {
-            "title": "Анализ игровых миров",
+            "key": "other",
+            "title": "Архитектура и медиа",
             "items": [
               {
                 "title": "StopGame",
-                "date": "2025 — настоящее время",
+                "date": "Март 2025 — настоящее время",
                 "role": "Автор видео",
-                "paragraphs": [
-                  "Разбираю архитектуру и устройство игровых городов, ориентирование, реальные прототипы и связь пространства с геймплеем. Автор рубрики «Где я нахуй?»: GTA: San Andreas, Forza Horizon 6 и Oblivion."
+                "bullets": [
+                  "Готовлю видео об архитектуре игровых городов: анализ планировки, навигации, реальных прототипов и связи пространства с игровыми задачами."
                 ],
-                "url": "#stopgame"
-              }
-            ],
-            "key": "media"
-          },
-          {
-            "title": "Навыки",
-            "paragraphs": [
-              "Unreal Engine, Unity, Blueprints / UMG, Grasshopper. Планировка, масштаб, маршруты, обзоры, ориентиры и проверка проездов в игре. Photoshop, Illustrator, Figma, Premiere Pro, After Effects."
-            ],
-            "key": "skills"
-          },
-          {
-            "title": "Проекты городской среды",
-            "items": [
-              {
-                "title": "Площадь и кольцевое пересечение в Ноябрьске",
-                "date": "Реализованный проект",
-                "role": "Городская среда и организация движения",
-                "paragraphs": [
-                  "Преобразование асфальтового пространства в пешеходную площадь. Работа с потоками людей и транспорта, автобусными маршрутами и траекториями снегоуборочной техники."
-                ],
-                "url": "#roundabout"
+                "url": "#stopgame",
+                "compact": true
               },
               {
-                "title": "Градостроительная концепция района в Краснодаре",
-                "date": "Концепция",
-                "role": "Планировка, схемы и эскизы",
-                "paragraphs": [
-                  "Квартальная застройка, парк и бульвар, транспортные связи и переход этажности к частной застройке. Разработал схемы, эскизы и презентацию предложения."
+                "title": "Видеопрезентации транспортных решений",
+                "date": "2023",
+                "role": "Режиссура, монтаж и визуальные эффекты",
+                "bullets": [
+                  "Алматы и Ташкент: структура, раскадровка, режиссура, монтаж и эффекты для презентации транспортных решений. В Алматы также выполнял съёмку."
                 ],
-                "url": "#krd"
+                "compact": true
               },
               {
-                "title": "ПРПР — Простое проектирование",
-                "date": "Серия авторских проектов",
-                "role": "Улицы и площади",
-                "paragraphs": [
-                  "Предложения для Дзержинского, Костромы, Краснодара и Дубны: планировка, пешеходные связи и организация движения. Схемы, визуализации до и после и разборы решений в блоге."
-                ],
-                "url": "#prpr"
-              }
-            ],
-            "key": "urban"
-          },
-          {
-            "title": "Архитектурная практика",
-            "items": [
-              {
-                "title": "Независимые проекты и консалтинг",
+                "title": "Независимые архитектурные проекты",
                 "date": "2018 — 2023",
                 "role": "Архитектор · транспортное планирование",
-                "paragraphs": [
-                  "Проекты улиц и площадей; консультации по Ноябрьску и Благовещенску (Башкортостан)."
-                ]
+                "bullets": [
+                  "Проектировал улицы и площади, пешеходные и транспортные связи; готовил схемы, эскизы и визуализации.",
+                  "Работал над площадью в Ноябрьске, концепцией района в Краснодаре и серией предложений для улиц и площадей ПРПР. Консультировал по проектам в Ноябрьске и Благовещенске (Башкортостан)."
+                ],
+                "url": "#prpr",
+                "compact": true
               },
               {
                 "title": "Студия Транспортного Проектирования (STEP)",
                 "date": "2017 — 2020",
                 "role": "Архитектор",
-                "paragraphs": [
-                  "Транспортные схемы, 3D-визуализация, аэрофотосъёмка и моделирование в Grasshopper."
-                ]
+                "bullets": [
+                  "Анализ городской среды, транспортные схемы, 3D-моделирование и визуализация; аэрофотосъёмка и параметрическое моделирование в Grasshopper."
+                ],
+                "compact": true
               },
               {
                 "title": "Мастерская Лозинский и партнёры",
                 "date": "2015 — 2017",
                 "role": "Архитектор",
-                "paragraphs": [
+                "bullets": [
                   "Концептуальное проектирование, рабочая документация и 3D-визуализация."
-                ]
+                ],
+                "compact": true
               },
               {
                 "title": "АСК «Доминанте»",
                 "date": "2014 — 2015",
                 "role": "Техник-архитектор",
-                "paragraphs": [
+                "bullets": [
                   "BIM-проектирование и рабочая документация."
-                ]
+                ],
+                "compact": true
               }
             ],
-            "key": "history"
+            "pageBreakBefore": true
           },
           {
-            "title": "Видео",
-            "paragraphs": [
-              "Алматы и Ташкент, 2023. Режиссура, раскадровка, монтаж и эффекты. Алматы — три недели, командировка и собственная съёмка; Ташкент — 27 октября — 3 декабря, удалённо, с отдельным оператором."
-            ],
-            "key": "video"
-          },
-          {
+            "key": "education",
             "title": "Образование",
             "items": [
               {
                 "title": "Московская школа кино",
                 "date": "2017 — 2022",
                 "role": "Filmmaking · режиссура короткой формы",
-                "paragraphs": []
+                "bullets": [],
+                "compact": true
               },
               {
                 "title": "МАрхИ",
                 "date": "2011 — 2016",
                 "role": "Бакалавр архитектуры",
-                "paragraphs": []
+                "bullets": [],
+                "compact": true
               }
-            ],
-            "key": "education"
+            ]
           },
           {
+            "key": "language",
             "title": "Английский",
             "paragraphs": [
-              "Чтение документации и переписка; разговорный — средний."
-            ],
-            "key": "language"
+              "Чтение документации и рабочая переписка; разговорный — средний."
+            ]
           }
         ]
       },
@@ -1836,168 +1829,463 @@ window.PORTFOLIO = {
         "label": "Архитектурное",
         "title": "Архитектор · транспортное планирование",
         "pdf": "assets/cv/Vladislav-Surin-Architect.pdf",
-        "summary": "Архитектор и транспортный планировщик. Проектирую улицы, площади и городские пространства: работаю с планировкой, движением, пешеходными связями и визуальной подачей. Этот опыт применяю и в игровых городах.",
+        "summary": "Проектирую улицы, площади и городские пространства: планировку, транспортные и пешеходные связи. Готовлю схемы, эскизы и визуализации. Есть опыт создания игровых городов и видеопрезентаций транспортных проектов.",
         "sections": [
           {
-            "title": "Проекты городской среды",
-            "items": [
+            "key": "skills",
+            "title": "Навыки и инструменты",
+            "groups": [
               {
-                "title": "Площадь и кольцевое пересечение в Ноябрьске",
-                "date": "Реализованный проект",
-                "role": "Городская среда и организация движения",
-                "paragraphs": [
-                  "Преобразование асфальтового пространства в пешеходную площадь. Работа с потоками людей и транспорта, автобусными маршрутами и траекториями снегоуборочной техники."
-                ],
-                "url": "#roundabout"
+                "label": "Проектирование",
+                "text": "Улицы и площади, транспортные и пешеходные связи, анализ городской среды, концептуальное проектирование, документация и визуализация."
               },
               {
-                "title": "Градостроительная концепция района в Краснодаре",
-                "date": "Концепция",
-                "role": "Планировка, схемы и эскизы",
-                "paragraphs": [
-                  "Квартальная застройка, парк и бульвар, транспортные связи и переход этажности к частной застройке. Разработал схемы, эскизы и презентацию предложения."
-                ],
-                "url": "#krd"
+                "label": "3D и BIM",
+                "text": "Rhino 3D, Grasshopper, Revit."
               },
               {
-                "title": "ПРПР — Простое проектирование",
-                "date": "Серия авторских проектов",
-                "role": "Улицы и площади",
-                "paragraphs": [
-                  "Предложения для Дзержинского, Костромы, Краснодара и Дубны: планировка, пешеходные связи и организация движения. Схемы, визуализации до и после и разборы решений в блоге."
-                ],
-                "url": "#prpr"
+                "label": "Движки",
+                "text": "Unity, Unreal Engine; Blueprints и UMG."
+              },
+              {
+                "label": "Графика и видео",
+                "text": "Photoshop, Illustrator, Figma, Premiere Pro, After Effects."
               }
-            ],
-            "key": "urban"
+            ]
           },
           {
-            "title": "Архитектурная практика",
+            "key": "experience",
+            "title": "Архитектурный опыт",
             "items": [
               {
-                "title": "Независимые проекты и консалтинг",
+                "title": "Независимые архитектурные проекты",
                 "date": "2018 — 2023",
                 "role": "Архитектор · транспортное планирование",
-                "paragraphs": [
-                  "Проекты улиц и площадей; консультации по Ноябрьску и Благовещенску (Башкортостан)."
-                ]
+                "bullets": [
+                  "Проектировал улицы и площади, пешеходные и транспортные связи; готовил схемы, эскизы и визуализации.",
+                  "Работал над площадью в Ноябрьске, концепцией района в Краснодаре и серией предложений для улиц и площадей ПРПР. Консультировал по проектам в Ноябрьске и Благовещенске (Башкортостан)."
+                ],
+                "url": "#prpr",
+                "compact": true
               },
               {
                 "title": "Студия Транспортного Проектирования (STEP)",
                 "date": "2017 — 2020",
                 "role": "Архитектор",
-                "paragraphs": [
-                  "Транспортные схемы, 3D-визуализация, аэрофотосъёмка и моделирование в Grasshopper."
-                ]
+                "bullets": [
+                  "Анализ городской среды, транспортные схемы, 3D-моделирование и визуализация; аэрофотосъёмка и параметрическое моделирование в Grasshopper."
+                ],
+                "compact": true
               },
               {
                 "title": "Мастерская Лозинский и партнёры",
                 "date": "2015 — 2017",
                 "role": "Архитектор",
-                "paragraphs": [
+                "bullets": [
                   "Концептуальное проектирование, рабочая документация и 3D-визуализация."
-                ]
+                ],
+                "compact": true
               },
               {
                 "title": "АСК «Доминанте»",
                 "date": "2014 — 2015",
                 "role": "Техник-архитектор",
-                "paragraphs": [
+                "bullets": [
                   "BIM-проектирование и рабочая документация."
-                ]
+                ],
+                "compact": true
               }
-            ],
-            "key": "history"
+            ]
           },
           {
-            "title": "Видео",
+            "key": "other",
+            "title": "Игры и видеопроекты",
             "items": [
               {
-                "title": "Алматы",
-                "date": "2023 · три недели",
-                "role": "Командировка · режиссура, съёмка и монтаж",
-                "paragraphs": [
-                  "Структура, раскадровка, операторская работа, монтаж и эффекты для презентации транспортных решений при небольшом бюджете."
-                ]
+                "title": "StopGame",
+                "date": "Март 2025 — настоящее время",
+                "role": "Автор видео",
+                "bullets": [
+                  "Готовлю видео об архитектуре игровых городов: анализ планировки, навигации, реальных прототипов и связи пространства с игровыми задачами."
+                ],
+                "url": "#stopgame",
+                "compact": true
               },
-              {
-                "title": "Ташкент",
-                "date": "27 октября — 3 декабря 2023",
-                "role": "Удалённо · режиссура и монтаж",
-                "paragraphs": [
-                  "Структура, раскадровка, монтаж и эффекты. Съёмку выполнял отдельный оператор. В обоих проектах отвечал за видеоподачу, а не за разработку транспортных решений."
-                ]
-              }
-            ],
-            "key": "video"
-          },
-          {
-            "title": "Игры и медиа",
-            "items": [
               {
                 "title": "BRESH",
                 "date": "Весна 2023 — настоящее время",
-                "role": "Автор игры · проектная занятость",
-                "paragraphs": [
-                  "Левел-дизайн всех карт и сборка окружения в Unreal Engine; два состояния игрового пространства."
+                "role": "Автор игры · геймдизайнер и левел-дизайнер · переменная занятость",
+                "bullets": [
+                  "Спроектировал все карты сетевого шутера: маршруты, стартовые позиции, обходы и вертикальные связи с учётом переключения между двумя мирами."
                 ],
-                "url": "#bresh"
+                "url": "#bresh",
+                "compact": true
               },
               {
                 "title": "Russian Car Drift (RCD)",
                 "date": "Сентябрь 2023 — апрель 2024",
-                "role": "Левел-дизайн города · Unity",
-                "paragraphs": [
-                  "Планировка города, дороги, маршруты, рельеф и ориентиры. Зимнее состояние и связанная с городом вторая карта."
+                "role": "Левел-дизайнер · Unity",
+                "bullets": [
+                  "Спроектировал и собрал игровой город: кварталы, дорожную сеть, дворы, рельеф и систему ориентиров."
                 ],
-                "url": "#rcd"
+                "url": "#rcd",
+                "compact": true
               },
               {
-                "title": "StopGame",
-                "date": "2025 — настоящее время",
-                "role": "Автор видео",
-                "paragraphs": [
-                  "Архитектурные разборы игровых городов и их реальных прототипов."
+                "title": "Видеопрезентации транспортных решений",
+                "date": "2023",
+                "role": "Режиссура, монтаж и визуальные эффекты",
+                "bullets": [
+                  "Алматы: презентационный ролик за три недели, включая командировку и собственную съёмку. Ташкент: удалённая работа с 27 октября по 3 декабря, съёмка отдельным оператором.",
+                  "Структура, раскадровка, монтаж и эффекты при небольшом бюджете. Отвечал за видеоподачу материалов проектной команды."
                 ],
-                "url": "#stopgame"
+                "compact": true
               }
             ],
-            "key": "games"
+            "pageBreakBefore": true
           },
           {
-            "title": "Навыки",
-            "paragraphs": [
-              "Транспортные схемы, концептуальное проектирование, рабочая документация и визуализация. Grasshopper, Photoshop, Illustrator, Figma, Premiere Pro, After Effects, Unity и Unreal Engine."
-            ],
-            "key": "skills"
-          },
-          {
+            "key": "education",
             "title": "Образование",
             "items": [
               {
                 "title": "Московская школа кино",
                 "date": "2017 — 2022",
                 "role": "Filmmaking · режиссура короткой формы",
-                "paragraphs": []
+                "bullets": [],
+                "compact": true
               },
               {
                 "title": "МАрхИ",
                 "date": "2011 — 2016",
                 "role": "Бакалавр архитектуры",
-                "paragraphs": []
+                "bullets": [],
+                "compact": true
               }
-            ],
-            "key": "education"
+            ]
           },
           {
+            "key": "language",
             "title": "Английский",
             "paragraphs": [
-              "Чтение документации и переписка; разговорный — средний."
-            ],
-            "key": "language"
+              "Чтение документации и рабочая переписка; разговорный — средний."
+            ]
           }
         ]
       }
-    ]
+    ],
+    "translations": {
+      "en": {
+        "contact": {
+          "name": "Vladislav Surin",
+          "city": "Moscow",
+          "email": "iwannabetheonewho@gmail.com",
+          "telegram": "@iwannabethe1who",
+          "portfolio": "https://destroevi4.github.io/portfolio/",
+          "photo": "assets/about/photo.jpg"
+        },
+        "versions": [
+          {
+            "id": "games",
+            "label": "Level Design",
+            "title": "Level Designer",
+            "pdf": "assets/cv/Vladislav-Surin-Level-Designer-EN.pdf",
+            "summary": "I design playable cities and maps. I worked on the city for Russian Car Drift in Unity and develop BRESH, my own multiplayer FPS, in Unreal Engine. My level-design approach draws on experience in architecture and transport planning.",
+            "sections": [
+              {
+                "key": "skills",
+                "title": "Skills & tools",
+                "groups": [
+                  {
+                    "label": "Level design",
+                    "text": "Design of playable cities and maps, blockouts, routes and navigation, scale and sightlines, environment assembly."
+                  },
+                  {
+                    "label": "Engines",
+                    "text": "Unreal Engine, Blueprints, UMG; Unity."
+                  },
+                  {
+                    "label": "3D & architecture",
+                    "text": "Rhino 3D, Grasshopper, Revit."
+                  },
+                  {
+                    "label": "Graphics & video",
+                    "text": "Photoshop, Illustrator, Figma, Premiere Pro, After Effects."
+                  }
+                ]
+              },
+              {
+                "key": "experience",
+                "title": "Game development experience",
+                "items": [
+                  {
+                    "title": "BRESH",
+                    "date": "Spring 2023 — present",
+                    "role": "Game creator · Game & Level Designer · independent project",
+                    "bullets": [
+                      "Designed all maps for a multiplayer FPS: routes, spawn positions, flanking paths and vertical connections built around switching between two worlds.",
+                      "Work on gameplay mechanics, bot behaviour, and visual and audio cues that help players understand the match.",
+                      "Assemble environments using third-party assets and develop interfaces with UMG and Blueprints. Work on PC, iOS and Android versions alongside another developer."
+                    ],
+                    "url": "#bresh"
+                  },
+                  {
+                    "title": "Russian Car Drift (RCD)",
+                    "date": "September 2023 — April 2024",
+                    "role": "Level Designer · Unity",
+                    "bullets": [
+                      "Designed and assembled a playable city: urban blocks, road network, courtyards, terrain and landmarks.",
+                      "Set street dimensions and corner geometry, testing routes through driving and drifting. Used Grasshopper to create terrain.",
+                      "Worked on winter environments, lighting and a second map featuring a village and bridge connected to the city."
+                    ],
+                    "url": "#rcd"
+                  }
+                ]
+              },
+              {
+                "key": "other",
+                "title": "Architecture & media",
+                "items": [
+                  {
+                    "title": "StopGame",
+                    "date": "March 2025 — present",
+                    "role": "Video author",
+                    "bullets": [
+                      "Create videos analysing game-city architecture: layouts, navigation, real-world references and how spaces support gameplay."
+                    ],
+                    "url": "#stopgame",
+                    "compact": true
+                  },
+                  {
+                    "title": "Transport project presentation videos",
+                    "date": "2023",
+                    "role": "Direction, editing & visual effects",
+                    "bullets": [
+                      "Almaty and Tashkent: structure, storyboarding, direction, editing and effects for transport project films. Also filmed the Almaty project."
+                    ],
+                    "compact": true
+                  },
+                  {
+                    "title": "Independent architectural projects",
+                    "date": "2018 — 2023",
+                    "role": "Architect · Transport Planning",
+                    "bullets": [
+                      "Designed streets, squares, pedestrian connections and transport layouts; prepared diagrams, sketches and visualisations.",
+                      "Worked on a square in Noyabrsk, a district concept in Krasnodar and the PRPR street and square proposals. Provided project consulting in Noyabrsk and Blagoveshchensk, Bashkortostan."
+                    ],
+                    "url": "#prpr",
+                    "compact": true
+                  },
+                  {
+                    "title": "Transport Design Studio (STEP)",
+                    "date": "2017 — 2020",
+                    "role": "Architect",
+                    "bullets": [
+                      "Urban analysis, transport layouts, 3D modelling and visualisation; aerial photography and parametric modelling with Grasshopper."
+                    ],
+                    "compact": true
+                  },
+                  {
+                    "title": "Lozinsky & Partners",
+                    "date": "2015 — 2017",
+                    "role": "Architect",
+                    "bullets": [
+                      "Concept design, construction documentation and 3D visualisation."
+                    ],
+                    "compact": true
+                  },
+                  {
+                    "title": "ASK Dominante",
+                    "date": "2014 — 2015",
+                    "role": "Architectural Technician",
+                    "bullets": [
+                      "BIM modelling and construction documentation."
+                    ],
+                    "compact": true
+                  }
+                ],
+                "pageBreakBefore": true
+              },
+              {
+                "key": "education",
+                "title": "Education",
+                "items": [
+                  {
+                    "title": "Moscow Film School",
+                    "date": "2017 — 2022",
+                    "role": "Filmmaking · Short-form Directing",
+                    "bullets": [],
+                    "compact": true
+                  },
+                  {
+                    "title": "Moscow Architectural Institute (MARCHI)",
+                    "date": "2011 — 2016",
+                    "role": "Bachelor’s degree in Architecture",
+                    "bullets": [],
+                    "compact": true
+                  }
+                ]
+              },
+              {
+                "key": "language",
+                "title": "English",
+                "paragraphs": [
+                  "Technical documentation and written communication; intermediate spoken communication (self-assessed)."
+                ]
+              }
+            ]
+          },
+          {
+            "id": "architecture",
+            "label": "Architecture",
+            "title": "Architect · Transport Planning",
+            "pdf": "assets/cv/Vladislav-Surin-Architect-EN.pdf",
+            "summary": "I design streets, squares and urban spaces, including layouts, transport and pedestrian connections. I produce diagrams, sketches and visualisations, with additional experience in playable cities and transport project presentation films.",
+            "sections": [
+              {
+                "key": "skills",
+                "title": "Skills & tools",
+                "groups": [
+                  {
+                    "label": "Design",
+                    "text": "Streets and squares, transport and pedestrian connections, urban analysis, concept design, documentation and visualisation."
+                  },
+                  {
+                    "label": "3D & BIM",
+                    "text": "Rhino 3D, Grasshopper, Revit."
+                  },
+                  {
+                    "label": "Engines",
+                    "text": "Unity, Unreal Engine; Blueprints and UMG."
+                  },
+                  {
+                    "label": "Graphics & video",
+                    "text": "Photoshop, Illustrator, Figma, Premiere Pro, After Effects."
+                  }
+                ]
+              },
+              {
+                "key": "experience",
+                "title": "Architectural experience",
+                "items": [
+                  {
+                    "title": "Independent architectural projects",
+                    "date": "2018 — 2023",
+                    "role": "Architect · Transport Planning",
+                    "bullets": [
+                      "Designed streets, squares, pedestrian connections and transport layouts; prepared diagrams, sketches and visualisations.",
+                      "Worked on a square in Noyabrsk, a district concept in Krasnodar and the PRPR street and square proposals. Provided project consulting in Noyabrsk and Blagoveshchensk, Bashkortostan."
+                    ],
+                    "url": "#prpr",
+                    "compact": true
+                  },
+                  {
+                    "title": "Transport Design Studio (STEP)",
+                    "date": "2017 — 2020",
+                    "role": "Architect",
+                    "bullets": [
+                      "Urban analysis, transport layouts, 3D modelling and visualisation; aerial photography and parametric modelling with Grasshopper."
+                    ],
+                    "compact": true
+                  },
+                  {
+                    "title": "Lozinsky & Partners",
+                    "date": "2015 — 2017",
+                    "role": "Architect",
+                    "bullets": [
+                      "Concept design, construction documentation and 3D visualisation."
+                    ],
+                    "compact": true
+                  },
+                  {
+                    "title": "ASK Dominante",
+                    "date": "2014 — 2015",
+                    "role": "Architectural Technician",
+                    "bullets": [
+                      "BIM modelling and construction documentation."
+                    ],
+                    "compact": true
+                  }
+                ]
+              },
+              {
+                "key": "other",
+                "title": "Games & video projects",
+                "items": [
+                  {
+                    "title": "StopGame",
+                    "date": "March 2025 — present",
+                    "role": "Video author",
+                    "bullets": [
+                      "Create videos analysing game-city architecture: layouts, navigation, real-world references and how spaces support gameplay."
+                    ],
+                    "url": "#stopgame",
+                    "compact": true
+                  },
+                  {
+                    "title": "BRESH",
+                    "date": "Spring 2023 — present",
+                    "role": "Game creator · Game & Level Designer · independent project",
+                    "bullets": [
+                      "Designed all maps for a multiplayer FPS: routes, spawn positions, flanking paths and vertical connections built around switching between two worlds."
+                    ],
+                    "url": "#bresh",
+                    "compact": true
+                  },
+                  {
+                    "title": "Russian Car Drift (RCD)",
+                    "date": "September 2023 — April 2024",
+                    "role": "Level Designer · Unity",
+                    "bullets": [
+                      "Designed and assembled a playable city: urban blocks, road network, courtyards, terrain and landmarks."
+                    ],
+                    "url": "#rcd",
+                    "compact": true
+                  },
+                  {
+                    "title": "Transport project presentation videos",
+                    "date": "2023",
+                    "role": "Direction, editing & visual effects",
+                    "bullets": [
+                      "Almaty: completed a presentation film in three weeks, including travel and filming. Tashkent: worked remotely from 27 October to 3 December with footage from a separate camera operator.",
+                      "Developed structure and storyboards, editing and visual effects on limited budgets. Presented the project team’s proposals through video."
+                    ],
+                    "compact": true
+                  }
+                ],
+                "pageBreakBefore": true
+              },
+              {
+                "key": "education",
+                "title": "Education",
+                "items": [
+                  {
+                    "title": "Moscow Film School",
+                    "date": "2017 — 2022",
+                    "role": "Filmmaking · Short-form Directing",
+                    "bullets": [],
+                    "compact": true
+                  },
+                  {
+                    "title": "Moscow Architectural Institute (MARCHI)",
+                    "date": "2011 — 2016",
+                    "role": "Bachelor’s degree in Architecture",
+                    "bullets": [],
+                    "compact": true
+                  }
+                ]
+              },
+              {
+                "key": "language",
+                "title": "English",
+                "paragraphs": [
+                  "Technical documentation and written communication; intermediate spoken communication (self-assessed)."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
   }
 };
