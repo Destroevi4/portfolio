@@ -4560,3 +4560,16 @@
  .resume-job-meta .resume-date{margin-top:4px}
  .resume-bullets,.resume-job-compact .resume-bullets{font-size:15px;line-height:1.6}
 }
+
+.header-controls{display:flex;align-items:center;gap:28px}
+.site-languages{display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:24px;flex-shrink:0}
+.site-languages button{padding:7px 10px;border:0;border-radius:20px;background:transparent;color:var(--ink);font:500 12px Ubuntu,Arial,sans-serif;cursor:pointer;min-height:32px}
+.site-languages button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.site-languages button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.resume-download-group{margin-left:auto}
+@media(max-width:720px){
+ .header-controls{width:100%;justify-content:space-between;gap:14px}
+ .header-controls .navigation{gap:20px;flex-wrap:nowrap}
+ .header-controls .navigation a{font-size:13px}
+ .site-languages button{min-width:38px;min-height:36px;padding:8px}
+}

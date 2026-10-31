@@ -1,7 +1,40 @@
 (() => {
   'use strict';
-  const data = window.PORTFOLIO;
-  if (!data) return;
+  const sourceData = window.PORTFOLIO;
+  if (!sourceData) return;
+  const query = new URLSearchParams(location.search);
+  const requestedLanguage = query.get('lang') || query.get('cvlang');
+  let savedLanguage;
+  try { savedLanguage = localStorage.getItem('portfolio-language'); } catch (_) {}
+  const language = ['ru', 'en'].includes(requestedLanguage) ? requestedLanguage : (savedLanguage === 'en' ? 'en' : 'ru');
+  const dictionary = sourceData.translations?.[language]?.strings || {};
+  function t(text) { return dictionary[text] ?? text; }
+  function translate(value) {
+    if (typeof value === 'string') return t(value);
+    if (Array.isArray(value)) return value.map(translate);
+    if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, entry]) => [key, translate(entry)]));
+    return value;
+  }
+  const data = {...sourceData};
+  ['site', 'home', 'categories', 'projects', 'caseStudies'].forEach(key => { data[key] = translate(sourceData[key]); });
+  document.documentElement.lang = language;
+  function setLanguage(code) {
+    const url = new URL(location.href);
+    url.searchParams.set('lang', code); url.searchParams.delete('cvlang');
+    try { localStorage.setItem('portfolio-language', code); } catch (_) {}
+    location.assign(url.href);
+  }
+  const siteLanguages = document.querySelector('.site-languages');
+  siteLanguages.setAttribute('aria-label', t(t('Язык сайта')));
+  siteLanguages.querySelectorAll('button').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.language === language));
+    button.addEventListener('click', () => setLanguage(button.dataset.language));
+  });
+  document.querySelector('.navigation').setAttribute('aria-label', t(t('Главное меню')));
+  document.querySelectorAll('.navigation a').forEach(item => { item.textContent = t(item.textContent); });
+  document.querySelector('.filters').setAttribute('aria-label', t(t('Направления работ')));
+  document.getElementById('works-title').textContent = t(t('Работы'));
+  document.getElementById('about-title').textContent = t(t('Обо мне'));
   const home = document.getElementById('home');
   const grid = document.getElementById('projects');
   const pages = document.getElementById('project-pages');
@@ -80,8 +113,8 @@
     state.paint = () => {
       const playing = !video.paused;
       control.dataset.state = playing ? 'playing' : 'paused';
-      control.setAttribute('aria-label', (playing ? 'Приостановить: ' : 'Запустить: ') + label);
-      if (badge) badge.textContent = playing ? 'Пауза' : 'Воспроизвести';
+      control.setAttribute('aria-label', (playing ? t('Приостановить: ') : t('Запустить: ')) + label);
+      if (badge) badge.textContent = playing ? t('Пауза') : t('Воспроизвести');
     };
     control.addEventListener('click', () => {
       if (!video.paused) { state.userPaused = true; video.pause(); }
@@ -98,13 +131,13 @@
   document.addEventListener('visibilitychange', () => loops.forEach((_, video) => syncLoop(video)));
   reducedMotion.addEventListener('change', () => loops.forEach((_, video) => syncLoop(video)));
   const viewer = el('dialog', 'image-viewer');
-  viewer.setAttribute('aria-label', 'Просмотр изображения');
+  viewer.setAttribute('aria-label', t('Просмотр изображения'));
   const viewerBar = el('div', 'image-viewer-bar');
   const viewerTitle = el('p');
   viewerTitle.id = 'image-viewer-title';
   viewer.setAttribute('aria-labelledby', viewerTitle.id);
-  const original = link('Открыть оригинал', '', 'image-original');
-  const closeViewer = el('button', 'viewer-close', 'Закрыть');
+  const original = link(t('Открыть оригинал'), '', 'image-original');
+  const closeViewer = el('button', 'viewer-close', t('Закрыть'));
   closeViewer.type = 'button';
   closeViewer.addEventListener('click', () => viewer.close());
   viewerBar.append(viewerTitle, original, closeViewer);
@@ -116,25 +149,25 @@
   viewer.addEventListener('close', () => { document.body.classList.remove('viewing-image'); });
   document.body.append(viewer);
   const planViewer = el('dialog', 'plan-viewer');
-  planViewer.setAttribute('aria-label', 'Просмотр плана');
+  planViewer.setAttribute('aria-label', t('Просмотр плана'));
   const planBar = el('div', 'plan-viewer-bar');
-  const planTitle = el('p', '', 'План'); planTitle.id = 'plan-viewer-title';
+  const planTitle = el('p', '', t('План')); planTitle.id = 'plan-viewer-title';
   planViewer.setAttribute('aria-labelledby', planTitle.id);
   const planVersions = el('div', 'plan-versions');
-  planVersions.setAttribute('role', 'group'); planVersions.setAttribute('aria-label', 'Версия большого плана');
+  planVersions.setAttribute('role', 'group'); planVersions.setAttribute('aria-label', t('Версия большого плана'));
   const zoomOut = el('button', '', '−'), zoomIn = el('button', '', '+');
-  zoomOut.setAttribute('aria-label', 'Уменьшить план'); zoomIn.setAttribute('aria-label', 'Увеличить план');
-  const resetPlan = el('button', '', 'Целиком');
+  zoomOut.setAttribute('aria-label', t('Уменьшить план')); zoomIn.setAttribute('aria-label', t('Увеличить план'));
+  const resetPlan = el('button', '', t('Целиком'));
   const planScale = el('span', 'plan-scale', '×1'); planScale.setAttribute('aria-live', 'polite');
-  const closePlan = el('button', 'viewer-close', 'Закрыть план');
+  const closePlan = el('button', 'viewer-close', t('Закрыть план'));
   [zoomOut, zoomIn, resetPlan, closePlan].forEach(button => { button.type = 'button'; });
   closePlan.addEventListener('click', () => planViewer.close());
   planBar.append(planTitle, planVersions, zoomOut, planScale, zoomIn, resetPlan, closePlan);
   const planViewport = el('div', 'plan-viewport'); planViewport.tabIndex = 0;
-  planViewport.setAttribute('aria-label', 'План: перетаскивайте для перемещения; плюс и минус меняют масштаб');
+  planViewport.setAttribute('aria-label', t('План: перетаскивайте для перемещения; плюс и минус меняют масштаб'));
   const largePlan = el('img'); largePlan.draggable = false;
   planViewport.append(largePlan);
-  planViewer.append(planBar, planViewport, el('p', 'plan-help', 'Масштаб: + / −, колесо мыши или два пальца. Перетаскивание — перемещение.'));
+  planViewer.append(planBar, planViewport, el('p', 'plan-help', t('Масштаб: + / −, колесо мыши или два пальца. Перетаскивание — перемещение.')));
   document.body.append(planViewer);
   let planZoom = 1, planX = 0, planY = 0, basePlanWidth = 0, basePlanHeight = 0;
   let planRatio = 0;
@@ -221,32 +254,32 @@
   }
   function openPlan(block, initial, onSelect) {
     if (viewer.open) viewer.close();
-    const labels = [block.beforeLabel || 'До', block.afterLabel || 'Проект'];
-    planVersions.replaceChildren(); planTitle.textContent = block.title || 'План';
+    const labels = [block.beforeLabel || t('До'), block.afterLabel || t('Проект')];
+    planVersions.replaceChildren(); planTitle.textContent = block.title || t('План');
     planRatio = 0; basePlanWidth = 0; planZoom = 1; planPointers.clear();
     const paintVersions = versionButtons(planVersions, labels, select);
     function select(index) {
       paintVersions(index); onSelect(index);
-      largePlan.alt = (block.title || 'План') + ' — ' + labels[index];
+      largePlan.alt = (block.title || t('План')) + ' — ' + labels[index];
       largePlan.src = safeUrl(index ? block.after : block.before);
     }
     planViewer.showModal(); document.body.classList.add('viewing-image'); select(initial);
   }
   function streetPlan(block, heading = 'h2') {
-    const section = el('section', 'street-plan'); section.append(el(heading, '', block.title || 'План'));
+    const section = el('section', 'street-plan'); section.append(el(heading, '', block.title || t('План')));
     const toolbar = el('div', 'plan-toolbar'), versions = el('div', 'plan-versions');
-    versions.setAttribute('role', 'group'); versions.setAttribute('aria-label', 'Версия плана');
-    const open = el('button', 'image-open plan-open'); open.type = 'button'; open.setAttribute('aria-label', 'Открыть план крупно');
+    versions.setAttribute('role', 'group'); versions.setAttribute('aria-label', t('Версия плана'));
+    const open = el('button', 'image-open plan-open'); open.type = 'button'; open.setAttribute('aria-label', t('Открыть план крупно'));
     const img = picture('', ''); open.append(img);
-    const enlarge = el('button', 'comparison-enlarge', 'Увеличить план'); enlarge.type = 'button';
-    enlarge.setAttribute('aria-label', 'Увеличить: ' + (block.title || 'План'));
+    const enlarge = el('button', 'comparison-enlarge', t('Увеличить план')); enlarge.type = 'button';
+    enlarge.setAttribute('aria-label', t('Увеличить: ') + (block.title || t('План')));
     let selected = 1;
-    const paint = versionButtons(versions, [block.beforeLabel || 'До', block.afterLabel || 'Проект'], select);
-    function select(index) { selected = index; paint(index); img.alt = (block.title || 'План') + ' — ' + (index ? block.afterLabel || 'Проект' : block.beforeLabel || 'До'); img.src = safeUrl(index ? block.after : block.before); }
+    const paint = versionButtons(versions, [block.beforeLabel || t('До'), block.afterLabel || t('Проект')], select);
+    function select(index) { selected = index; paint(index); img.alt = (block.title || t('План')) + ' — ' + (index ? block.afterLabel || t('Проект') : block.beforeLabel || t('До')); img.src = safeUrl(index ? block.after : block.before); }
     const show = () => openPlan(block, selected, select);
     open.addEventListener('click', show); enlarge.addEventListener('click', show);
     toolbar.append(versions, enlarge); select(selected); section.append(toolbar, open);
-    section.append(el('p', 'media-note', 'В большом просмотре доступны обе версии, увеличение и перемещение плана.'));
+    section.append(el('p', 'media-note', t('В большом просмотре доступны обе версии, увеличение и перемещение плана.')));
     return section;
   }
   function openImage(src, title) {
@@ -258,7 +291,7 @@
     original.hidden = false;
     viewerImage.src = url;
     viewerImage.alt = title || '';
-    viewerTitle.textContent = title || 'Изображение проекта';
+    viewerTitle.textContent = title || t('Изображение проекта');
     original.href = url;
     original.target = '_blank';
     original.rel = 'noopener noreferrer';
@@ -268,7 +301,7 @@
   function openComparison(block) {
     viewerImage.hidden = true;
     original.hidden = true;
-    viewerTitle.textContent = block.title || 'Сравнение изображений';
+    viewerTitle.textContent = block.title || t('Сравнение изображений');
     viewerComparison.replaceChildren(comparisonFrame(block, true));
     viewerComparison.hidden = false;
     viewer.showModal();
@@ -279,24 +312,24 @@
     if (item.span === 2) node.classList.add('image-span-2');
     const button = el('button', 'image-open');
     button.type = 'button';
-    button.setAttribute('aria-label', 'Увеличить: ' + (item.alt || item.caption || 'изображение проекта'));
+    button.setAttribute('aria-label', t('Увеличить: ') + (item.alt || item.caption || t('изображение проекта')));
     const image = picture(item.src, item.alt);
     if (item.width && item.height) { image.width = item.width; image.height = item.height; }
     button.append(image);
     button.addEventListener('click', () => openImage(item.src, item.alt || item.caption));
     if (item.animation) {
       const frame = el('div', 'artwork-media');
-      const clip = renderBlock({type:'video', motion:true, src:item.animation, poster:item.src, label:'Анимированная версия: ' + (item.caption || item.alt || 'концепт')});
+      const clip = renderBlock({type:'video', motion:true, src:item.animation, poster:item.src, label:t('Анимированная версия: ') + (item.caption || item.alt || t('концепт'))});
       clip.hidden = true;
-      const toggle = el('button', 'artwork-toggle', 'Анимация'); toggle.type = 'button';
-      toggle.setAttribute('aria-label', 'Включить анимацию: ' + (item.caption || item.alt || 'концепт'));
+      const toggle = el('button', 'artwork-toggle', t('Анимация')); toggle.type = 'button';
+      toggle.setAttribute('aria-label', t('Включить анимацию: ') + (item.caption || item.alt || t('концепт')));
       toggle.setAttribute('aria-pressed', 'false');
       toggle.addEventListener('click', () => {
         const animated = clip.hidden;
         clip.hidden = !animated; button.hidden = animated;
-        toggle.textContent = animated ? 'Картинка' : 'Анимация';
+        toggle.textContent = animated ? t('Картинка') : t('Анимация');
         toggle.setAttribute('aria-pressed', String(animated));
-        toggle.setAttribute('aria-label', (animated ? 'Показать рисунок: ' : 'Включить анимацию: ') + (item.caption || item.alt || 'концепт'));
+        toggle.setAttribute('aria-label', (animated ? t('Показать рисунок: ') : t('Включить анимацию: ')) + (item.caption || item.alt || t('концепт')));
         if (!animated) clip.querySelector('video').pause();
       });
       frame.append(button, clip, toggle); node.append(frame);
@@ -318,9 +351,9 @@
     const parts = ratio.split('/').map(Number);
     box.style.setProperty('--media-ratio', String(parts[1] ? parts[0] / parts[1] : parts[0]));
     const images = [];
-    [['before', block.before, block.beforeLabel || 'Мир 1'], ['after', block.after, block.afterLabel || 'Мир 2']].forEach(([side, src, label]) => {
+    [['before', block.before, block.beforeLabel || t('Мир 1')], ['after', block.after, block.afterLabel || t('Мир 2')]].forEach(([side, src, label]) => {
       const layer = el('div', 'slider-layer slider-' + side);
-      const img = picture(src, (block.title || 'Сравнение') + ' — ' + label);
+      const img = picture(src, (block.title || t('Сравнение')) + ' — ' + label);
       if (enlarged) img.loading = 'eager';
       layer.append(img); box.append(layer); images.push(img);
       const tag = el('span', 'slider-label slider-label-' + side, label);
@@ -341,10 +374,10 @@
     svg.append(path); handle.append(svg); line.append(handle); box.append(line);
     const range = el('input', 'comparison-range');
     range.type = 'range'; range.min = '0'; range.max = '100'; range.step = '1'; range.value = '50';
-    range.setAttribute('aria-label', 'Сравнить: ' + (block.title || 'изображения'));
+    range.setAttribute('aria-label', t('Сравнить: ') + (block.title || t('изображения')));
     function update() {
       box.style.setProperty('--split', range.value + '%');
-      range.setAttribute('aria-valuetext', range.value + '% — ' + (block.beforeLabel || 'Мир 1') + ', ' + (100 - Number(range.value)) + '% — ' + (block.afterLabel || 'Мир 2'));
+      range.setAttribute('aria-valuetext', range.value + '% — ' + (block.beforeLabel || t('Мир 1')) + ', ' + (100 - Number(range.value)) + '% — ' + (block.afterLabel || t('Мир 2')));
     }
     range.addEventListener('input', update); update();
     let activePointer = null;
@@ -380,10 +413,10 @@
   function comparison(block, hideTitle = false) {
     const section = el('section', 'world-switcher');
     const heading = el('div', 'world-heading');
-    if (!hideTitle) heading.append(el('h2', '', block.title || 'Два мира'));
-    const enlarge = el('button', 'comparison-enlarge', 'На весь экран');
+    if (!hideTitle) heading.append(el('h2', '', block.title || t('Два мира')));
+    const enlarge = el('button', 'comparison-enlarge', t('На весь экран'));
     enlarge.type = 'button';
-    enlarge.setAttribute('aria-label', 'Увеличить сравнение: ' + (block.title || 'Два мира'));
+    enlarge.setAttribute('aria-label', t('Увеличить сравнение: ') + (block.title || t('Два мира')));
     enlarge.addEventListener('click', () => openComparison(block));
     heading.append(enlarge);
     const frame = comparisonFrame(block);
@@ -413,7 +446,7 @@
   function schemeTabs(block) {
     const section = el('section', 'scheme-tabs-section');
     const prefix = 'scheme-' + (++schemeIndex);
-    const heading = el('h2', '', block.title || 'Схемы');
+    const heading = el('h2', '', block.title || t('Схемы'));
     heading.id = prefix + '-title';
     const layout = el('div', 'scheme-tabs-layout');
     const media = el('div', 'scheme-tabs-media');
@@ -462,7 +495,7 @@
     function orientation() { tabs.setAttribute('aria-orientation', mobile.matches ? 'horizontal' : 'vertical'); }
     mobile.addEventListener('change', orientation); orientation();
     if (views.length) select(0);
-    sidebar.append(tabs, description, el('p', 'media-note', 'Нажмите на схему, чтобы увеличить.'));
+    sidebar.append(tabs, description, el('p', 'media-note', t('Нажмите на схему, чтобы увеличить.')));
     layout.append(media, sidebar); section.append(heading, layout);
     return section;
   }
@@ -481,7 +514,7 @@
       const section = el('section', 'comparison-plan');
       section.append(comparison(block.comparison));
       const plan = el('div', 'comparison-plan-aside');
-      plan.append(el('h3', '', block.planTitle || 'Эскиз планировки'), figure(block.plan));
+      plan.append(el('h3', '', block.planTitle || t('Эскиз планировки')), figure(block.plan));
       section.append(plan); return section;
     }
     if (block.type === 'brand-overview') {
@@ -494,13 +527,13 @@
     }
     if (block.type === 'channel-overview') {
       const section = el('section', 'channel-overview');
-      const identity = picture(block.logo, 'Логотип Владислава Сурина');
+      const identity = picture(block.logo, t('Логотип Владислава Сурина'));
       identity.className = 'channel-overview-logo';
       const copy = el('div', 'channel-overview-copy');
       const name = el('div', 'channel-overview-name');
       const mark = el('span', 'youtube-mark'); mark.append(picture(block.youtubeLogo, 'YouTube'));
       name.append(mark, el('span', '', block.handle));
-      copy.append(name, link('Смотреть канал', block.url, 'channel-visit'));
+      copy.append(name, link(t('Смотреть канал'), block.url, 'channel-visit'));
       section.append(identity, copy); return section;
     }
     if (block.type === 'link-collection') {
@@ -512,7 +545,7 @@
         const copy = el('div');
         copy.append(el('p', 'eyebrow muted', item.kind), el('h3', '', item.title));
         if (item.description) copy.append(el('p', 'rubric-description', item.description));
-        entry.append(copy, el('span', 'rubric-action', item.action || 'Открыть плейлист'));
+        entry.append(copy, el('span', 'rubric-action', item.action || t('Открыть плейлист')));
         list.append(entry);
       });
       section.append(list); return section;
@@ -532,7 +565,7 @@
     }
     if (block.type === 'design-notes') {
       const section = el('section', 'design-notes');
-      section.append(el('p', 'eyebrow muted', block.eyebrow || 'Геймдизайн'), el('h2', '', block.title));
+      section.append(el('p', 'eyebrow muted', block.eyebrow || t('Геймдизайн')), el('h2', '', block.title));
       if (block.intro) section.append(el('p', 'design-intro', block.intro));
       const list = el('div', 'design-notes-grid');
       (block.items || []).forEach((item, index) => {
@@ -554,15 +587,15 @@
       const grouped = block.grouped === true;
       const section = el('section', grouped ? 'blog-video' : 'blog-band');
       const body = grouped ? section : el('div', 'blog-band-content');
-      const title = block.title || 'Выпуск блога';
+      const title = block.title || t('Выпуск блога');
       if (grouped) {
         if (block.kind) body.append(el('p', 'eyebrow blog-eyebrow', block.kind));
         body.append(el('h3', '', title));
       }
       else {
-        body.append(el('p', 'eyebrow blog-eyebrow', 'Видеоблог · ПРПР'));
-        body.append(el('h2', '', 'Разбор проекта в блоге'));
-        body.append(el('p', 'blog-intro', block.description || 'Видео с объяснением предложенных изменений.'));
+        body.append(el('p', 'eyebrow blog-eyebrow', t('Видеоблог · ПРПР')));
+        body.append(el('h2', '', t('Разбор проекта в блоге')));
+        body.append(el('p', 'blog-intro', block.description || t('Видео с объяснением предложенных изменений.')));
       }
       const videoId = String(block.videoId || '');
       const playlistId = String(block.playlistId || '');
@@ -586,7 +619,7 @@
       blogPlayers.set(frame, {mount, unmount});
       body.append(frame);
       if (grouped && block.description) body.append(el('p', 'episode-description', block.description));
-      body.append(link(playlist ? 'Открыть плейлист на YouTube' : 'Открыть на YouTube', playlist
+      body.append(link(playlist ? t('Открыть плейлист на YouTube') : t('Открыть на YouTube'), playlist
         ? 'https://www.youtube.com/playlist?list=' + encodeURIComponent(playlistId)
         : 'https://www.youtube.com/watch?v=' + videoId, 'blog-external'));
       if (!grouped) section.append(body);
@@ -595,9 +628,9 @@
     if (block.type === 'youtube-group') {
       const section = el('section', 'blog-band blog-band-group');
       const body = el('div', 'blog-band-content');
-      body.append(el('p', 'eyebrow blog-eyebrow', block.eyebrow || 'Видеоблог · ПРПР'));
-      body.append(el('h2', '', block.title || 'Разбор проекта в блоге'));
-      body.append(el('p', 'blog-intro', block.description || 'Отдельные выпуски о площади и примыкающей улице.'));
+      body.append(el('p', 'eyebrow blog-eyebrow', block.eyebrow || t('Видеоблог · ПРПР')));
+      body.append(el('h2', '', block.title || t('Разбор проекта в блоге')));
+      body.append(el('p', 'blog-intro', block.description || t('Отдельные выпуски о площади и примыкающей улице.')));
       const row = el('div', 'blog-grid');
       (block.videos || []).forEach(item => row.append(renderBlock({...item, type:'youtube', grouped:true})));
       body.append(row); section.append(body); return section;
@@ -623,12 +656,12 @@
       section.append(row); return section;
     }
     if (block.type === 'comparison-cards') {
-      const section = el('section', 'comparison-cards'); section.append(el('h2', '', block.title || 'Другие ракурсы'));
+      const section = el('section', 'comparison-cards'); section.append(el('h2', '', block.title || t('Другие ракурсы')));
       const row = el('div', 'comparison-cards-grid');
       (block.comparisons || []).forEach(item => {
         const button = el('button', 'comparison-card'); button.type = 'button';
-        button.setAttribute('aria-label', 'Сравнить: ' + item.title);
-        button.append(picture(item.after, item.title + ' — проект'), el('span', '', item.title + ' · До / Проект'));
+        button.setAttribute('aria-label', t('Сравнить: ') + item.title);
+        button.append(picture(item.after, item.title + t(' — проект')), el('span', '', item.title + t(' · До / Проект')));
         button.addEventListener('click', () => openComparison(item)); row.append(button);
       });
       section.append(row); return section;
@@ -671,7 +704,7 @@
     if (block.type === 'comparison') return comparison(block);
     if (block.type === 'comparison-group') {
       const section = el('section', 'comparison-grid-section');
-      section.append(el('h2', '', block.title || 'Сравнение миров'));
+      section.append(el('h2', '', block.title || t('Сравнение миров')));
       const row = el('div', 'comparison-grid');
       (block.comparisons || []).forEach(item => row.append(comparison(item, true)));
       section.append(row);
@@ -693,7 +726,7 @@
     }
     if (block.type === 'collage') {
       const section = el('section', 'process-section');
-      section.append(el('h2', '', block.title || 'Рабочие материалы'));
+      section.append(el('h2', '', block.title || t('Рабочие материалы')));
       const collage = el('div', 'process-collage');
       if (['board', 'landscape-portrait', 'pair', 'compact', 'panorama-posters', 'bresh-ui', 'bresh-identity', 'bresh-level', 'bresh-sketches'].includes(block.layout)) collage.classList.add('process-' + block.layout);
       (block.images || []).forEach(item => collage.append(figure(item)));
@@ -703,7 +736,7 @@
     }
     if (block.type === 'video-grid') {
       const section = el('section', 'video-grid-section');
-      section.append(el('h2', '', block.title || 'Видео'));
+      section.append(el('h2', '', block.title || t('Видео')));
       const gallery = el('div', 'video-grid');
       (block.videos || []).forEach(item => {
         const itemFigure = el('figure', 'video-item');
@@ -726,7 +759,7 @@
         if (block.poster) video.poster = safeUrl(block.poster);
         const badge = el('span', 'motion-state'); badge.setAttribute('aria-hidden', 'true');
         control.append(video, badge);
-        manageLoop(video, control, block.label || block.caption || 'Анимация проекта', block.src, badge);
+        manageLoop(video, control, block.label || block.caption || t('Анимация проекта'), block.src, badge);
         return control;
       }
       const video = el('video', 'project-video'); video.controls = true; video.preload = 'metadata'; video.playsInline = true;
@@ -752,7 +785,7 @@
   }
   document.querySelector('.brand').lastChild.textContent = data.site.name;
   document.querySelector('.footer span').textContent = data.site.name;
-  const footerLinks = el('nav', 'footer-links'); footerLinks.setAttribute('aria-label', 'Контакты');
+  const footerLinks = el('nav', 'footer-links'); footerLinks.setAttribute('aria-label', t('Контакты'));
   (data.site.footerLinks || []).forEach(item => footerLinks.append(link(item.label, item.url)));
   document.querySelector('.footer').lastElementChild.replaceWith(footerLinks);
   document.querySelector('meta[name="description"]').content = data.site.description || '';
@@ -775,7 +808,7 @@
     const pause = el('button', 'hero-motion-toggle'); pause.type = 'button';
     const label = el('span'); pause.append(label);
     hero.prepend(video, shade); hero.append(pause);
-    manageLoop(video, pause, 'Видео на главной', data.home.video.src, label);
+    manageLoop(video, pause, t('Видео на главной'), data.home.video.src, label);
   }
 
   const photo = document.getElementById('about-photo');
@@ -800,7 +833,7 @@
     const settings = project.cover || {};
     if (settings.aspectRatio) cover.style.aspectRatio = settings.aspectRatio;
     cover.style.background = settings.background || '#e1dfd5'; cover.style.color = settings.color || '#232624';
-    cover.append(el('span', 'cover-count', count(index + 1) + ' / ' + category.toUpperCase()), el('span', 'cover-word', project.coverTitle || project.title), el('span', 'cover-caption', 'Место для обложки проекта'));
+    cover.append(el('span', 'cover-count', count(index + 1) + ' / ' + category.toUpperCase()), el('span', 'cover-word', project.coverTitle || project.title), el('span', 'cover-caption', t('Место для обложки проекта')));
     if (settings.src) {
       const img = picture(settings.src, settings.alt, () => cover.classList.add('has-image'));
       img.className = 'cover-image'; img.style.objectPosition = settings.position || '50% 50%'; img.style.objectFit = settings.fit || 'cover';
@@ -824,7 +857,7 @@
     if (project.presentation === 'channel') article.classList.add('project-channel');
     if (project.logo?.wide) article.classList.add('project-wide-logo');
     article.setAttribute('aria-labelledby', project.id + '-title');
-    article.append(link(project.parent ? 'К проектам ПРПР' : 'К работам', project.parent ? '#' + project.parent : '#works', 'back'));
+    article.append(link(project.parent ? t('К проектам ПРПР') : t('К работам'), project.parent ? '#' + project.parent : '#works', 'back'));
     const head = el('div', 'project-head'); const h1 = el('h1', '', project.title);
     if (project.hero?.src) {
       article.classList.add('project-with-hero');
@@ -843,15 +876,15 @@
       icon.className = 'project-icon'; icon.width = 80; icon.height = 80;
       title.append(icon, h1);
     }
-    head.append(el('p', 'eyebrow muted', (project.parent ? 'ПРПР' : count(index + 1)) + ' / ' + (project.eyebrow || category)), title, el('p', 'project-lead', project.lead || project.summary || ''));
+    head.append(el('p', 'eyebrow muted', (project.parent ? t('ПРПР') : count(index + 1)) + ' / ' + (project.eyebrow || category)), title, el('p', 'project-lead', project.lead || project.summary || ''));
     article.append(head);
     if (project.links?.length) {
       const stores = el('nav', 'project-links');
-      stores.setAttribute('aria-label', project.linksLabel || 'Страницы игры в магазинах');
+      stores.setAttribute('aria-label', project.linksLabel || t('Страницы игры в магазинах'));
       project.links.forEach(item => stores.append(link(item.label, item.url, 'store-link')));
       if (project.hero?.src) {
         stores.classList.add('hero-store-links');
-        const storesLabel = el('p', 'eyebrow', project.hero.linksTitle || 'Играть');
+        const storesLabel = el('p', 'eyebrow', project.hero.linksTitle || t('Играть'));
         const storesRow = el('div', 'hero-store-row');
         storesRow.append(...Array.from(stores.children));
         stores.append(storesLabel, storesRow); head.append(stores);
@@ -863,7 +896,7 @@
       article.append(facts);
     }
     if (project.navigation?.length) {
-      const navigation = el('nav', 'project-jump-nav'); navigation.setAttribute('aria-label', 'Разделы проекта');
+      const navigation = el('nav', 'project-jump-nav'); navigation.setAttribute('aria-label', t('Разделы проекта'));
       project.navigation.forEach(item => navigation.append(link(item.label, '#' + item.target)));
       article.append(navigation);
     }
@@ -873,7 +906,7 @@
       article.append(section);
     });
     const end = el('div', 'project-end'); const next = projects[index + 1];
-    end.append(project.parent ? link('К проектам ПРПР', '#' + project.parent) : link(next ? 'Следующий проект — ' + next.title : 'Вернуться ко всем работам', next ? '#' + next.id : '#works'));
+    end.append(project.parent ? link(t('К проектам ПРПР'), '#' + project.parent) : link(next ? t('Следующий проект — ') + next.title : t('Вернуться ко всем работам'), next ? '#' + next.id : '#works'));
     article.append(end); pages.append(article); articles.set(project.id, {article, h1, project});
   });
   if (data.resume?.versions?.length) {
@@ -882,10 +915,8 @@
       ru: {back:'К работам', profile:'Профиль', download:'Скачать PDF', versions:'Версия резюме', languages:'Язык резюме', portfolio:'Портфолио', title:'Резюме', pages:'стр.'},
       en: {back:'Back to projects', profile:'Profile', download:'Download PDF', versions:'Resume version', languages:'Resume language', portfolio:'Portfolio', title:'Resume', pages:'pages'}
     };
-    const languages = ['ru', ...Object.keys(resume.translations || {})];
-    const requestedLanguage = new URLSearchParams(location.search).get('cvlang');
-    let activeLanguage = languages.includes(requestedLanguage) ? requestedLanguage : (resume.defaultLanguage || 'ru');
-    let activeVersion = resume.default || resume.versions[0].id;
+    const activeLanguage = language;
+    let activeVersion = resume.versions.some(version => version.id === query.get('cv')) ? query.get('cv') : (resume.default || resume.versions[0].id);
     let manifest;
     const article = el('article', 'project resume-page'); article.id = 'cv'; article.hidden = true;
     article.setAttribute('aria-labelledby', 'cv-title');
@@ -899,11 +930,10 @@
     intro.append(h1, role, contacts); profile.append(portrait, intro); article.append(profile);
     const toolbar = el('div', 'resume-toolbar');
     const tabs = el('div', 'resume-tabs'); tabs.setAttribute('role', 'tablist');
-    const languagePicker = el('div', 'resume-languages'); languagePicker.setAttribute('role', 'group');
     const download = el('a', 'resume-download');
     const size = el('span', 'resume-file-note');
     const action = el('div', 'resume-download-group'); action.append(download, size);
-    toolbar.append(tabs, languagePicker, action); article.append(toolbar);
+    toolbar.append(tabs, action); article.append(toolbar);
     const content = el('div', 'resume-content'); article.append(content);
     function currentLocale() {
       return activeLanguage === 'ru' ? resume : resume.translations[activeLanguage];
@@ -918,26 +948,13 @@
       download.setAttribute('aria-label', ui.download + ': ' + version.label + ' · ' + activeLanguage.toUpperCase());
       size.textContent = (metadata ? metadata.pages + ' ' + ui.pages + ' · ' : '') + activeLanguage.toUpperCase();
     }
-    languages.forEach(code => {
-      const button = el('button', 'resume-language', code.toUpperCase()); button.type = 'button';
-      button.lang = code;
-      button.setAttribute('aria-label', code === 'ru' ? 'Резюме на русском' : 'Resume in English');
-      button.dataset.language = code;
-      button.addEventListener('click', () => {
-        activeLanguage = code; renderResume();
-        const url = new URL(location.href); url.searchParams.set('cvlang', code);
-        history.replaceState(null, '', url);
-      });
-      languagePicker.append(button);
-    });
     function renderResume() {
       const locale = currentLocale();
       const person = locale.contact;
       const ui = localeUI[activeLanguage];
       article.lang = activeLanguage;
       back.textContent = ui.back; h1.textContent = person.name; portrait.alt = person.name;
-      tabs.setAttribute('aria-label', ui.versions); languagePicker.setAttribute('aria-label', ui.languages);
-      languagePicker.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === activeLanguage)));
+      tabs.setAttribute('aria-label', ui.versions);
       contacts.replaceChildren(el('span', '', person.city), link(person.email, 'mailto:' + person.email), link(person.telegram, 'https://t.me/' + person.telegram.replace(/^@/, '')), link(ui.portfolio, person.portfolio));
       tabs.replaceChildren(); content.replaceChildren();
       const panels = [], buttons = [];
@@ -990,6 +1007,7 @@
       });
       function selectResume(index) {
         const version = locale.versions[index]; activeVersion = version.id; role.textContent = version.title;
+        if (location.hash === '#cv') { const url = new URL(location.href); url.searchParams.set('cv', activeVersion); history.replaceState(null, '', url); }
         buttons.forEach((button, i) => { button.setAttribute('aria-selected', String(i === index)); button.tabIndex = i === index ? 0 : -1; panels[i].hidden = i !== index; });
         updateDownload();
       }
@@ -999,7 +1017,7 @@
     fetch('assets/cv/manifest.json', {cache:'no-cache'}).then(response => response.ok ? response.json() : null).then(value => {
       if (value) { manifest = value; updateDownload(); }
     }).catch(() => {});
-    pages.append(article); articles.set('cv', {article, h1, project:{title:'Резюме / Resume'}});
+    pages.append(article); articles.set('cv', {article, h1, project:{title:localeUI[activeLanguage].title}});
   }
   const desktopColumns = window.matchMedia('(min-width:721px)');
   let activeFilter = 'all';
@@ -1026,7 +1044,7 @@
   }
   desktopColumns.addEventListener('change', arrangeCards); arrangeCards();
   const filters = document.querySelector('.filters'); filters.replaceChildren();
-  const options = [{id:'all', label:'Все'}, ...data.categories];
+  const options = [{id:'all', label:t('Все')}, ...data.categories];
   options.forEach(option => {
     const button = el('button', 'filter', option.label); button.type = 'button'; button.dataset.filter = option.id;
     button.setAttribute('aria-pressed', String(option.id === 'all'));
@@ -1038,11 +1056,11 @@
       cards.forEach(({card, project}) => { card.hidden = option.id !== 'all' && !(project.categories || []).includes(option.id); if (!card.hidden) visible++; });
       arrangeCards();
       const empty = document.getElementById('empty'); empty.hidden = visible > 0;
-      empty.textContent = 'Проекты этой категории пока не добавлены.';
+      empty.textContent = t('Проекты этой категории пока не добавлены.');
     });
     filters.append(button);
   });
-  const toTop = el('button', 'to-top', 'Наверх'); toTop.type = 'button'; toTop.hidden = true;
+  const toTop = el('button', 'to-top', t('Наверх')); toTop.type = 'button'; toTop.hidden = true;
   toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:reducedMotion.matches ? 'auto' : 'smooth'}));
   document.body.append(toTop);
   function updateToTop() { toTop.hidden = window.scrollY < 500; }
