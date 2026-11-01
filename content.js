@@ -1681,7 +1681,7 @@ window.PORTFOLIO = {
       {
         "id": "games",
         "label": "Игровое",
-        "title": "Левел-дизайнер",
+        "title": "Левел-дизайн · левел-арт",
         "pdf": "assets/cv/Vladislav-Surin-Level-Designer.pdf",
         "summary": "Левел-дизайнер и архитектор. Проектирую игровые города и карты, собираю окружение в Unity и Unreal Engine. Работал над городом для Russian Car Drift; в собственной BRESH занимаюсь картами, геймдизайном и интерфейсом.",
         "sections": [
@@ -1835,7 +1835,7 @@ window.PORTFOLIO = {
       {
         "id": "architecture",
         "label": "Архитектурное",
-        "title": "Архитектор · транспортное планирование",
+        "title": "Архитектура · транспортное планирование",
         "pdf": "assets/cv/Vladislav-Surin-Architect.pdf",
         "summary": "Проектирую улицы, площади и городские пространства: планировку, транспортные и пешеходные связи. Готовлю схемы, эскизы и визуализации. Есть опыт создания игровых городов и видеопрезентаций транспортных проектов.",
         "sections": [
@@ -1996,7 +1996,7 @@ window.PORTFOLIO = {
           {
             "id": "games",
             "label": "Level Design",
-            "title": "Level Designer",
+            "title": "Level Design · Level Art",
             "pdf": "assets/cv/Vladislav-Surin-Level-Designer-EN.pdf",
             "summary": "Level designer and architect. I design playable cities and maps and assemble environments in Unity and Unreal Engine. I worked on the city for Russian Car Drift and develop maps, gameplay and UI for my own game, BRESH.",
             "sections": [
@@ -2150,7 +2150,7 @@ window.PORTFOLIO = {
           {
             "id": "architecture",
             "label": "Architecture",
-            "title": "Architect · Transport Planning",
+            "title": "Architecture · Transport Planning",
             "pdf": "assets/cv/Vladislav-Surin-Architect-EN.pdf",
             "summary": "I design streets, squares and urban spaces, including layouts, transport and pedestrian connections. I produce diagrams, sketches and visualisations, with additional experience in playable cities and transport project presentation films.",
             "sections": [
