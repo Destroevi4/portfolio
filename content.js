@@ -1170,7 +1170,9 @@ window.PORTFOLIO = {
       "cover": {
         "background": "#121816",
         "color": "#f5f4ef"
-      }
+      },
+      "column": "left",
+      "columnOrder": 5
     }
   ],
   "caseStudies": [
