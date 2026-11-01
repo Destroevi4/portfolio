@@ -795,25 +795,6 @@ window.PORTFOLIO = {
       "presentation": "channel"
     },
     {
-      "id": "filmmaking",
-      "visible": true,
-      "upcoming": true,
-      "title": "Режиссура и видеография",
-      "coverTitle": "Кино · Реклама · Видео",
-      "summary": "Клипы, реклама и видеопроекты.",
-      "status": "Раздел готовится",
-      "categories": [
-        "video"
-      ],
-      "tag": "",
-      "cover": {
-        "background": "#121816",
-        "color": "#f5f4ef"
-      },
-      "column": "left",
-      "columnOrder": 3
-    },
-    {
       "id": "prpr",
       "visible": true,
       "title": "ПРПР — Простое проектирование",
@@ -847,7 +828,7 @@ window.PORTFOLIO = {
         }
       ],
       "column": "left",
-      "columnOrder": 4,
+      "columnOrder": 3,
       "linksLabel": "Рубрика ПРПР на YouTube",
       "links": [
         {
@@ -1014,7 +995,7 @@ window.PORTFOLIO = {
         }
       ],
       "column": "left",
-      "columnOrder": 5
+      "columnOrder": 4
     },
     {
       "id": "krd",
@@ -1173,6 +1154,23 @@ window.PORTFOLIO = {
       ],
       "column": "right",
       "columnOrder": 5
+    },
+    {
+      "id": "filmmaking",
+      "visible": true,
+      "upcoming": true,
+      "title": "Режиссура и видеография",
+      "coverTitle": "Кино · Реклама · Видео",
+      "summary": "Клипы, реклама и видеопроекты.",
+      "status": "Раздел готовится",
+      "categories": [
+        "video"
+      ],
+      "tag": "",
+      "cover": {
+        "background": "#121816",
+        "color": "#f5f4ef"
+      }
     }
   ],
   "caseStudies": [

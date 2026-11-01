@@ -912,7 +912,7 @@
       if (block.id) { section.id = block.id; section.tabIndex = -1; }
       article.append(section);
     });
-    const end = el('div', 'project-end'); const next = projects[index + 1];
+    const end = el('div', 'project-end'); const next = projects.slice(index + 1).find(item => !item.upcoming);
     end.append(project.parent ? link(t('К проектам ПРПР'), '#' + project.parent) : link(next ? t('Следующий проект — ') + next.title : t('Вернуться ко всем работам'), next ? '#' + next.id : '#works'));
     article.append(end); pages.append(article); articles.set(project.id, {article, h1, project});
   });
@@ -1031,20 +1031,25 @@
   const leftColumn = el('div', 'portfolio-column');
   const rightColumn = el('div', 'portfolio-column');
   leftColumn.dataset.column = 'left'; rightColumn.dataset.column = 'right';
+  const upcomingRow = el('div', 'portfolio-upcoming');
   function arrangeCards() {
     if (!desktopColumns.matches) {
       grid.replaceChildren(...cards.map(item => item.card)); return;
     }
-    grid.replaceChildren(leftColumn, rightColumn);
+    grid.replaceChildren(leftColumn, rightColumn, upcomingRow);
+    const ready = cards.filter(item => !item.project.upcoming);
+    const upcoming = cards.filter(item => item.project.upcoming);
+    upcomingRow.replaceChildren(...upcoming.map(item => item.card));
+    upcomingRow.hidden = !upcoming.some(item => !item.card.hidden);
     if (activeFilter !== 'all') {
-      const selected = cards.filter(item => !item.card.hidden);
+      const selected = ready.filter(item => !item.card.hidden);
       leftColumn.replaceChildren(...selected.filter((_, index) => index % 2 === 0).map(item => item.card));
       rightColumn.replaceChildren(...selected.filter((_, index) => index % 2 === 1).map(item => item.card));
       return;
     }
     ['left', 'right'].forEach((side, sideIndex) => {
       const column = sideIndex ? rightColumn : leftColumn;
-      const selected = cards.filter(({project, index}) => (project.column || (index % 2 ? 'right' : 'left')) === side);
+      const selected = ready.filter(({project, index}) => (project.column || (index % 2 ? 'right' : 'left')) === side);
       selected.sort((a, b) => (a.project.columnOrder ?? a.index) - (b.project.columnOrder ?? b.index) || a.index - b.index);
       column.replaceChildren(...selected.map(item => item.card));
     });
