@@ -4585,3 +4585,13 @@
  #bresh .project-jump-nav a{font-size:14px;padding:11px 8px;min-height:46px}
  .card-metric{font-size:13px}
 }
+
+.resume-page .resume-job{padding-left:16px}
+@media(max-width:720px){.resume-page .resume-job{padding-left:12px}}
+
+.card-upcoming:hover .cover{filter:none}
+.cover-upcoming{padding:48px 30px;align-items:center;justify-content:flex-start}
+.cover-upcoming .cover-word{max-width:12em;font-size:clamp(26px,3.7vw,48px);line-height:1.2;letter-spacing:-.025em}
+.cover-upcoming .cover-count{opacity:.7}
+.cover-upcoming .cover-caption{opacity:1;font-family:Ubuntu,Arial,sans-serif;font-size:12px;letter-spacing:.03em;text-transform:none;border:1px solid #78847e;border-radius:999px;padding:7px 12px;bottom:20px}
+@media(max-width:720px){.cover-upcoming .cover-word{font-size:clamp(25px,6.5vw,38px)}}

@@ -828,7 +828,7 @@
   [...projects, ...caseStudies].forEach((project, index) => {
     const category = (project.categories || []).map(id => categoryNames.get(id) || id).join(' / ');
     if (!project.parent) {
-    const card = link('', '#' + project.id, 'card');
+    const card = project.upcoming ? el('article', 'card card-upcoming') : link('', '#' + project.id, 'card');
     const cover = el('div', 'cover' + (project.id === 'rcd' ? ' cover-rcd' : ''));
     const settings = project.cover || {};
     if (settings.aspectRatio) cover.style.aspectRatio = settings.aspectRatio;
@@ -851,9 +851,14 @@
     const meta = el('div', 'card-meta'); const copy = el('div');
     copy.append(el('h3', '', project.title), el('p', '', project.summary || ''));
     if (project.metric) copy.append(el('strong', 'card-metric', project.metric));
+    if (project.upcoming) {
+      cover.classList.add('cover-upcoming');
+      cover.querySelector('.cover-caption').textContent = project.status;
+    }
     meta.append(copy, el('span', 'card-tag', project.tag || ''));
     card.append(cover, meta); cards.push({card, project, index});
     }
+    if (project.upcoming) return;
     const article = el('article', 'project'); article.id = project.id; article.hidden = true;
     if (project.presentation === 'channel') article.classList.add('project-channel');
     if (project.logo?.wide) article.classList.add('project-wide-logo');

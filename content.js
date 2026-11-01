@@ -21,7 +21,7 @@ window.PORTFOLIO = {
       "и городские пространства"
     ],
     "intro": "Разрабатываю собственную игру BRESH, проектирую города и снимаю видео об архитектуре и играх.",
-    "about": "Я Владислав Сурин, левел-дизайнер и архитектор. В RCD спроектировал игровой город, в собственной BRESH работаю над геймдизайном, картами и интерфейсом.",
+    "about": "Я Владислав Сурин, левел-дизайнер, архитектор и видеограф. В RCD спроектировал игровой город, в собственной BRESH работаю над геймдизайном, картами и интерфейсом.",
     "aboutSmall": "По образованию — архитектор и режиссёр. Занимаюсь проектированием пространств, разработкой игр и видео: от планировки и эскизов до сборки окружения и монтажа.",
     "video": {
       "src": "assets/home/frontpage.mp4"
@@ -795,6 +795,25 @@ window.PORTFOLIO = {
       "presentation": "channel"
     },
     {
+      "id": "filmmaking",
+      "visible": true,
+      "upcoming": true,
+      "title": "Режиссура и видеография",
+      "coverTitle": "Кино · Реклама · Видео",
+      "summary": "Клипы, реклама и видеопроекты.",
+      "status": "Раздел готовится",
+      "categories": [
+        "video"
+      ],
+      "tag": "",
+      "cover": {
+        "background": "#121816",
+        "color": "#f5f4ef"
+      },
+      "column": "left",
+      "columnOrder": 3
+    },
+    {
       "id": "prpr",
       "visible": true,
       "title": "ПРПР — Простое проектирование",
@@ -828,7 +847,7 @@ window.PORTFOLIO = {
         }
       ],
       "column": "left",
-      "columnOrder": 3,
+      "columnOrder": 4,
       "linksLabel": "Рубрика ПРПР на YouTube",
       "links": [
         {
@@ -995,7 +1014,7 @@ window.PORTFOLIO = {
         }
       ],
       "column": "left",
-      "columnOrder": 4
+      "columnOrder": 5
     },
     {
       "id": "krd",
@@ -1683,7 +1702,7 @@ window.PORTFOLIO = {
         "label": "Игровое",
         "title": "Левел-дизайн · левел-арт",
         "pdf": "assets/cv/Vladislav-Surin-Level-Designer.pdf",
-        "summary": "Левел-дизайнер и архитектор. Проектирую игровые города и карты, собираю окружение в Unity и Unreal Engine. Работал над городом для Russian Car Drift; в собственной BRESH занимаюсь картами, геймдизайном и интерфейсом.",
+        "summary": "Левел-дизайнер, архитектор и видеограф. Проектирую игровые города и карты, собираю окружение в Unity и Unreal Engine. Работал над городом для Russian Car Drift; в собственной BRESH занимаюсь картами, геймдизайном и интерфейсом.",
         "sections": [
           {
             "key": "skills",
@@ -1703,7 +1722,7 @@ window.PORTFOLIO = {
               },
               {
                 "label": "3D и архитектура",
-                "text": "Rhino 3D, Grasshopper, Revit. Blender — начальный уровень: навигация, перемещение объектов, экспорт."
+                "text": "Rhino 3D, Grasshopper, Revit. Blender — начальный уровень."
               },
               {
                 "label": "Графика и видео",
@@ -1837,7 +1856,7 @@ window.PORTFOLIO = {
         "label": "Архитектурное",
         "title": "Архитектура · транспортное планирование",
         "pdf": "assets/cv/Vladislav-Surin-Architect.pdf",
-        "summary": "Проектирую улицы, площади и городские пространства: планировку, транспортные и пешеходные связи. Готовлю схемы, эскизы и визуализации. Есть опыт создания игровых городов и видеопрезентаций транспортных проектов.",
+        "summary": "Архитектор и видеограф. Проектирую улицы, площади и городские пространства: планировку, транспортные и пешеходные связи. Готовлю схемы, эскизы и визуализации. Есть опыт создания игровых городов и видеопрезентаций транспортных проектов.",
         "sections": [
           {
             "key": "skills",
@@ -1849,7 +1868,7 @@ window.PORTFOLIO = {
               },
               {
                 "label": "3D и BIM",
-                "text": "Rhino 3D, Grasshopper, Revit. Blender — начальный уровень: навигация, перемещение объектов, экспорт."
+                "text": "Rhino 3D, Grasshopper, Revit. Blender — начальный уровень."
               },
               {
                 "label": "Движки",
@@ -1998,7 +2017,7 @@ window.PORTFOLIO = {
             "label": "Level Design",
             "title": "Level Design · Level Art",
             "pdf": "assets/cv/Vladislav-Surin-Level-Designer-EN.pdf",
-            "summary": "Level designer and architect. I design playable cities and maps and assemble environments in Unity and Unreal Engine. I worked on the city for Russian Car Drift and develop maps, gameplay and UI for my own game, BRESH.",
+            "summary": "Level designer, architect and videographer. I design playable cities and maps and assemble environments in Unity and Unreal Engine. I worked on the city for Russian Car Drift and develop maps, gameplay and UI for my own game, BRESH.",
             "sections": [
               {
                 "key": "skills",
@@ -2018,7 +2037,7 @@ window.PORTFOLIO = {
                   },
                   {
                     "label": "3D & architecture",
-                    "text": "Rhino 3D, Grasshopper, Revit. Blender — beginner: viewport navigation, moving objects and exporting."
+                    "text": "Rhino 3D, Grasshopper, Revit. Blender — beginner level."
                   },
                   {
                     "label": "Graphics & video",
@@ -2152,7 +2171,7 @@ window.PORTFOLIO = {
             "label": "Architecture",
             "title": "Architecture · Transport Planning",
             "pdf": "assets/cv/Vladislav-Surin-Architect-EN.pdf",
-            "summary": "I design streets, squares and urban spaces, including layouts, transport and pedestrian connections. I produce diagrams, sketches and visualisations, with additional experience in playable cities and transport project presentation films.",
+            "summary": "Architect and videographer. I design streets, squares and urban spaces, including layouts, transport and pedestrian connections. I produce diagrams, sketches and visualisations, with additional experience in playable cities and transport project presentation films.",
             "sections": [
               {
                 "key": "skills",
@@ -2164,7 +2183,7 @@ window.PORTFOLIO = {
                   },
                   {
                     "label": "3D & BIM",
-                    "text": "Rhino 3D, Grasshopper, Revit. Blender — beginner: viewport navigation, moving objects and exporting."
+                    "text": "Rhino 3D, Grasshopper, Revit. Blender — beginner level."
                   },
                   {
                     "label": "Engines",
@@ -2310,7 +2329,6 @@ window.PORTFOLIO = {
         "Проектирую игровые": "I design game worlds",
         "и городские пространства": "and urban spaces",
         "Разрабатываю собственную игру BRESH, проектирую города и снимаю видео об архитектуре и играх.": "I develop my own game, BRESH, design urban spaces, and make videos about architecture and games.",
-        "Я Владислав Сурин, левел-дизайнер и архитектор. В RCD спроектировал игровой город, в собственной BRESH работаю над геймдизайном, картами и интерфейсом.": "I'm Vladislav Surin, a level designer and architect. I designed a playable city for RCD and work on game design, maps and UI for my own game, BRESH.",
         "По образованию — архитектор и режиссёр. Занимаюсь проектированием пространств, разработкой игр и видео: от планировки и эскизов до сборки окружения и монтажа.": "I trained as an architect and filmmaker. My work spans spatial design, game development and video, from layouts and sketches to environment assembly and editing.",
         "Резюме и опыт работы": "Resume and experience",
         "Связаться в Telegram": "Contact me on Telegram",
@@ -2721,7 +2739,12 @@ window.PORTFOLIO = {
         "Расширение карты: сокращённая версия Москвы рядом с существующим городом.": "Map expansion: a condensed version of Moscow next to the existing city.",
         "Точки доставки для активности «Работы».": "Delivery points for the Jobs activity.",
         "Дорожные знаки: варианты через UV-смещение.": "Road sign variants using UV offsets.",
-        "Расширение карты, точки доставки и дорожные знаки не были завершены на момент окончания моего участия в проекте.": "The map expansion, delivery points and road signs were unfinished when my involvement in the project ended."
+        "Расширение карты, точки доставки и дорожные знаки не были завершены на момент окончания моего участия в проекте.": "The map expansion, delivery points and road signs were unfinished when my involvement in the project ended.",
+        "Я Владислав Сурин, левел-дизайнер, архитектор и видеограф. В RCD спроектировал игровой город, в собственной BRESH работаю над геймдизайном, картами и интерфейсом.": "I'm Vladislav Surin, a level designer, architect and videographer. I designed a playable city for RCD and work on game design, maps and UI for my own game, BRESH.",
+        "Режиссура и видеография": "Directing & videography",
+        "Кино · Реклама · Видео": "Film · Commercials · Video",
+        "Клипы, реклама и видеопроекты.": "Music videos, commercials and video projects.",
+        "Раздел готовится": "Section coming soon"
       }
     }
   }

@@ -48,12 +48,13 @@ def styles():
     body = ParagraphStyle('Body', fontName='Ubuntu', fontSize=10.8, leading=14.8, textColor=INK, spaceAfter=4, alignment=TA_LEFT)
     return {
         'body': body,
+        'jobBody': ParagraphStyle('JobBody', parent=body, leftIndent=12),
         'summary': ParagraphStyle('Summary', parent=body, fontSize=11, leading=15, spaceAfter=9),
         'section': ParagraphStyle('Section', parent=body, fontName='Ubuntu-Bold', fontSize=12.5, leading=16, spaceBefore=12, spaceAfter=9, keepWithNext=True),
-        'job': ParagraphStyle('Job', parent=body, fontName='Ubuntu-Bold', fontSize=11.3, leading=14.5, spaceAfter=2, keepWithNext=True),
-        'meta': ParagraphStyle('Meta', parent=body, fontSize=9.4, leading=12.8, textColor=MUTED, spaceAfter=4, keepWithNext=True),
-        'bullet': ParagraphStyle('Bullet', parent=body, leftIndent=10, firstLineIndent=-9, spaceAfter=3),
-        'compact': ParagraphStyle('Compact', parent=body, fontSize=10.3, leading=14, leftIndent=10, firstLineIndent=-9, spaceAfter=2),
+        'job': ParagraphStyle('Job', parent=body, fontName='Ubuntu-Bold', fontSize=11.3, leading=14.5, leftIndent=12, spaceAfter=2, keepWithNext=True),
+        'meta': ParagraphStyle('Meta', parent=body, fontSize=9.4, leading=12.8, textColor=MUTED, leftIndent=12, spaceAfter=4, keepWithNext=True),
+        'bullet': ParagraphStyle('Bullet', parent=body, leftIndent=22, firstLineIndent=-9, spaceAfter=3),
+        'compact': ParagraphStyle('Compact', parent=body, fontSize=10.3, leading=14, leftIndent=22, firstLineIndent=-9, spaceAfter=2),
         'group': ParagraphStyle('Group', parent=body, fontSize=10.5, leading=14.5, spaceAfter=4),
     }
 
@@ -134,7 +135,7 @@ def render_pdf(person, version, language, destination, sheet):
             for entry in job.get('bullets', []):
                 chunks.append(Paragraph('• ' + text(entry), bullet_style))
             for entry in job.get('paragraphs', []):
-                chunks.append(Paragraph(text(entry), sheet['body']))
+                chunks.append(Paragraph(text(entry), sheet['jobBody']))
             chunks.append(Spacer(1, 6 if job.get('compact') else 8))
             story.append(KeepTogether(chunks))
         for entry in part.get('paragraphs', []):
