@@ -311,11 +311,11 @@ window.PORTFOLIO = {
         {
           "type": "comparison-plan",
           "comparison": {
-            "title": "Monument: блокаут и концепт",
+            "title": "Monument: оверпейнты двух миров",
             "before": "assets/bresh/game/monument1-1.jpg",
             "after": "assets/bresh/game/monument1.jpg",
-            "beforeLabel": "Блокаут",
-            "afterLabel": "Концепт",
+            "beforeLabel": "Мир 1",
+            "afterLabel": "Мир 2",
             "aspectRatio": "2556 / 1612"
           },
           "planTitle": "Эскиз планировки",
@@ -472,8 +472,8 @@ window.PORTFOLIO = {
           "images": [
             {
               "src": "assets/rcd/racingPath.jpg",
-              "alt": "Рабочая схема городских маршрутов с цветными пометками",
-              "caption": "Рабочая схема маршрутов."
+              "alt": "Схема гоночных маршрутов в городе RCD с цветными пометками",
+              "caption": "Рабочая схема гоночных маршрутов."
             },
             {
               "src": "assets/rcd/above.jpg",
@@ -482,26 +482,26 @@ window.PORTFOLIO = {
             },
             {
               "src": "assets/rcd/terrainWork.jpg",
-              "alt": "Сетка рельефа и уличная сеть в рабочем проекте",
-              "caption": "Рабочий материал: сетка рельефа и уличная сеть."
+              "alt": "Лоуполи-сетка рельефа RCD, оптимизированная в Grasshopper",
+              "caption": "Оптимизация сетки рельефа в Grasshopper: лоуполи-геометрия."
             },
             {
               "src": "assets/rcd/planningMoscow.jpg",
               "alt": "Рабочая схема расширения карты с сокращённой версией Москвы",
-              "caption": "Незавершённое расширение: сокращённая версия Москвы рядом с существующим городом."
+              "caption": "Расширение карты: сокращённая версия Москвы рядом с существующим городом."
             },
             {
               "src": "assets/rcd/delivery.jpg",
               "alt": "Рабочая расстановка точек доставки вдоль городских улиц",
-              "caption": "Точки доставки для активности «Работы». В разработке."
+              "caption": "Точки доставки для активности «Работы»."
             },
             {
               "src": "assets/rcd/signs.jpg",
               "alt": "Набор вариантов дорожных знаков в рабочем проекте",
-              "caption": "Дорожные знаки: варианты через UV-смещение. В разработке."
+              "caption": "Дорожные знаки: варианты через UV-смещение."
             }
           ],
-          "caption": "Нажмите на отдельное изображение, чтобы рассмотреть его крупнее."
+          "caption": "Расширение карты, точки доставки и дорожные знаки не были завершены на момент окончания моего участия в проекте."
         },
         {
           "type": "collage",
@@ -571,7 +571,9 @@ window.PORTFOLIO = {
         }
       ],
       "column": "right",
-      "columnOrder": 1
+      "columnOrder": 1,
+      "metric": "10 млн+ скачиваний в Google Play",
+      "metricUrl": "https://play.google.com/store/apps/details?id=com.carlovers.ladadrift"
     },
     {
       "id": "ytchannel",
@@ -640,7 +642,9 @@ window.PORTFOLIO = {
           ]
         }
       ],
-      "presentation": "channel"
+      "presentation": "channel",
+      "metric": "≈148 тыс. подписчиков на YouTube",
+      "metricUrl": "https://www.youtube.com/@vlSurin"
     },
     {
       "id": "game-concepts",
@@ -1679,7 +1683,7 @@ window.PORTFOLIO = {
         "label": "Игровое",
         "title": "Левел-дизайнер",
         "pdf": "assets/cv/Vladislav-Surin-Level-Designer.pdf",
-        "summary": "Проектирую игровые города и карты. Работал над городом для Russian Car Drift в Unity; разрабатываю собственный сетевой шутер BRESH в Unreal Engine. В левел-дизайне использую опыт архитектурного и транспортного проектирования.",
+        "summary": "Левел-дизайнер и архитектор. Проектирую игровые города и карты, собираю окружение в Unity и Unreal Engine. Работал над городом для Russian Car Drift; в собственной BRESH занимаюсь картами, геймдизайном и интерфейсом.",
         "sections": [
           {
             "key": "skills",
@@ -1690,12 +1694,16 @@ window.PORTFOLIO = {
                 "text": "Проектирование игровых городов и карт, блокинг, маршруты и навигация, масштаб и линии видимости, сборка окружения."
               },
               {
+                "label": "Окружение",
+                "text": "Понимание лоуполи-геометрии, тримов, тайлов и текстурных карт."
+              },
+              {
                 "label": "Движки",
                 "text": "Unreal Engine, Blueprints, UMG; Unity."
               },
               {
                 "label": "3D и архитектура",
-                "text": "Rhino 3D, Grasshopper, Revit."
+                "text": "Rhino 3D, Grasshopper, Revit. Blender — начальный уровень: навигация, перемещение объектов, экспорт."
               },
               {
                 "label": "Графика и видео",
@@ -1724,7 +1732,7 @@ window.PORTFOLIO = {
                 "role": "Левел-дизайнер · Unity",
                 "bullets": [
                   "Спроектировал и собрал игровой город: кварталы, дорожную сеть, дворы, рельеф и систему ориентиров.",
-                  "Подбирал масштаб улиц и геометрию поворотов, проверял маршруты при вождении и дрифте. Использовал Grasshopper для создания рельефа.",
+                  "Подбирал масштаб улиц и геометрию поворотов, проверял маршруты при вождении и дрифте. Оптимизировал сетку рельефа в Grasshopper.",
                   "Работал над зимним окружением, освещением и второй картой с деревней и мостом, соединённой с городом."
                 ],
                 "url": "#rcd"
@@ -1841,7 +1849,7 @@ window.PORTFOLIO = {
               },
               {
                 "label": "3D и BIM",
-                "text": "Rhino 3D, Grasshopper, Revit."
+                "text": "Rhino 3D, Grasshopper, Revit. Blender — начальный уровень: навигация, перемещение объектов, экспорт."
               },
               {
                 "label": "Движки",
@@ -1990,7 +1998,7 @@ window.PORTFOLIO = {
             "label": "Level Design",
             "title": "Level Designer",
             "pdf": "assets/cv/Vladislav-Surin-Level-Designer-EN.pdf",
-            "summary": "I design playable cities and maps. I worked on the city for Russian Car Drift in Unity and develop BRESH, my own multiplayer FPS, in Unreal Engine. My level-design approach draws on experience in architecture and transport planning.",
+            "summary": "Level designer and architect. I design playable cities and maps and assemble environments in Unity and Unreal Engine. I worked on the city for Russian Car Drift and develop maps, gameplay and UI for my own game, BRESH.",
             "sections": [
               {
                 "key": "skills",
@@ -2001,12 +2009,16 @@ window.PORTFOLIO = {
                     "text": "Design of playable cities and maps, blockouts, routes and navigation, scale and sightlines, environment assembly."
                   },
                   {
+                    "label": "Environments",
+                    "text": "Understanding of low-poly geometry, trim sheets, tiling textures and texture maps."
+                  },
+                  {
                     "label": "Engines",
                     "text": "Unreal Engine, Blueprints, UMG; Unity."
                   },
                   {
                     "label": "3D & architecture",
-                    "text": "Rhino 3D, Grasshopper, Revit."
+                    "text": "Rhino 3D, Grasshopper, Revit. Blender — beginner: viewport navigation, moving objects and exporting."
                   },
                   {
                     "label": "Graphics & video",
@@ -2035,7 +2047,7 @@ window.PORTFOLIO = {
                     "role": "Level Designer · Unity",
                     "bullets": [
                       "Designed and assembled a playable city: urban blocks, road network, courtyards, terrain and landmarks.",
-                      "Set street dimensions and corner geometry, testing routes through driving and drifting. Used Grasshopper to create terrain.",
+                      "Set street dimensions and corner geometry, testing routes through driving and drifting. Optimised terrain meshes in Grasshopper.",
                       "Worked on winter environments, lighting and a second map featuring a village and bridge connected to the city."
                     ],
                     "url": "#rcd"
@@ -2152,7 +2164,7 @@ window.PORTFOLIO = {
                   },
                   {
                     "label": "3D & BIM",
-                    "text": "Rhino 3D, Grasshopper, Revit."
+                    "text": "Rhino 3D, Grasshopper, Revit. Blender — beginner: viewport navigation, moving objects and exporting."
                   },
                   {
                     "label": "Engines",
@@ -2698,7 +2710,18 @@ window.PORTFOLIO = {
         "Обо мне": "About",
         "Главное меню": "Main navigation",
         "Направления работ": "Project categories",
-        "Язык сайта": "Site language"
+        "Язык сайта": "Site language",
+        "Monument: оверпейнты двух миров": "Monument: overpaints of two worlds",
+        "≈148 тыс. подписчиков на YouTube": "≈148K subscribers on YouTube",
+        "10 млн+ скачиваний в Google Play": "10M+ downloads on Google Play",
+        "Рабочая схема гоночных маршрутов.": "Working diagram of racing routes.",
+        "Схема гоночных маршрутов в городе RCD с цветными пометками": "Diagram of racing routes in the RCD city with colour annotations",
+        "Оптимизация сетки рельефа в Grasshopper: лоуполи-геометрия.": "Terrain mesh optimisation in Grasshopper: low-poly geometry.",
+        "Лоуполи-сетка рельефа RCD, оптимизированная в Grasshopper": "Low-poly terrain mesh for RCD, optimised in Grasshopper",
+        "Расширение карты: сокращённая версия Москвы рядом с существующим городом.": "Map expansion: a condensed version of Moscow next to the existing city.",
+        "Точки доставки для активности «Работы».": "Delivery points for the Jobs activity.",
+        "Дорожные знаки: варианты через UV-смещение.": "Road sign variants using UV offsets.",
+        "Расширение карты, точки доставки и дорожные знаки не были завершены на момент окончания моего участия в проекте.": "The map expansion, delivery points and road signs were unfinished when my involvement in the project ended."
       }
     }
   }

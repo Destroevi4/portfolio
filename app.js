@@ -25,16 +25,16 @@
     location.assign(url.href);
   }
   const siteLanguages = document.querySelector('.site-languages');
-  siteLanguages.setAttribute('aria-label', t(t('Язык сайта')));
+  siteLanguages.setAttribute('aria-label', t('Язык сайта'));
   siteLanguages.querySelectorAll('button').forEach(button => {
     button.setAttribute('aria-pressed', String(button.dataset.language === language));
     button.addEventListener('click', () => setLanguage(button.dataset.language));
   });
-  document.querySelector('.navigation').setAttribute('aria-label', t(t('Главное меню')));
+  document.querySelector('.navigation').setAttribute('aria-label', t('Главное меню'));
   document.querySelectorAll('.navigation a').forEach(item => { item.textContent = t(item.textContent); });
-  document.querySelector('.filters').setAttribute('aria-label', t(t('Направления работ')));
-  document.getElementById('works-title').textContent = t(t('Работы'));
-  document.getElementById('about-title').textContent = t(t('Обо мне'));
+  document.querySelector('.filters').setAttribute('aria-label', t('Направления работ'));
+  document.getElementById('works-title').textContent = t('Работы');
+  document.getElementById('about-title').textContent = t('Обо мне');
   const home = document.getElementById('home');
   const grid = document.getElementById('projects');
   const pages = document.getElementById('project-pages');
@@ -850,6 +850,7 @@
     }
     const meta = el('div', 'card-meta'); const copy = el('div');
     copy.append(el('h3', '', project.title), el('p', '', project.summary || ''));
+    if (project.metric) copy.append(el('strong', 'card-metric', project.metric));
     meta.append(copy, el('span', 'card-tag', project.tag || ''));
     card.append(cover, meta); cards.push({card, project, index});
     }
@@ -877,6 +878,7 @@
       title.append(icon, h1);
     }
     head.append(el('p', 'eyebrow muted', (project.parent ? t('ПРПР') : count(index + 1)) + ' / ' + (project.eyebrow || category)), title, el('p', 'project-lead', project.lead || project.summary || ''));
+    if (project.metric) head.append(link(project.metric, project.metricUrl, 'project-scale'));
     article.append(head);
     if (project.links?.length) {
       const stores = el('nav', 'project-links');
@@ -1020,7 +1022,7 @@
     pages.append(article); articles.set('cv', {article, h1, project:{title:localeUI[activeLanguage].title}});
   }
   const desktopColumns = window.matchMedia('(min-width:721px)');
-  let activeFilter = 'all';
+  let activeFilter = data.categories.some(category => category.id === query.get('filter')) ? query.get('filter') : 'all';
   const leftColumn = el('div', 'portfolio-column');
   const rightColumn = el('div', 'portfolio-column');
   leftColumn.dataset.column = 'left'; rightColumn.dataset.column = 'right';
@@ -1045,21 +1047,31 @@
   desktopColumns.addEventListener('change', arrangeCards); arrangeCards();
   const filters = document.querySelector('.filters'); filters.replaceChildren();
   const options = [{id:'all', label:t('Все')}, ...data.categories];
+  function selectFilter(id, updateUrl = false) {
+    activeFilter = id;
+    filters.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === id)));
+    let visible = 0;
+    cards.forEach(({card, project}) => {
+      card.hidden = id !== 'all' && !(project.categories || []).includes(id);
+      if (!card.hidden) visible++;
+    });
+    arrangeCards();
+    const empty = document.getElementById('empty'); empty.hidden = visible > 0;
+    empty.textContent = t('Проекты этой категории пока не добавлены.');
+    if (updateUrl) {
+      const url = new URL(location.href);
+      if (id === 'all') url.searchParams.delete('filter'); else url.searchParams.set('filter', id);
+      history.replaceState(null, '', url);
+    }
+  }
   options.forEach(option => {
     const button = el('button', 'filter', option.label); button.type = 'button'; button.dataset.filter = option.id;
-    button.setAttribute('aria-pressed', String(option.id === 'all'));
+    button.setAttribute('aria-pressed', String(option.id === activeFilter));
     button.append(el('span', '', count(projects.filter(project => option.id === 'all' || (project.categories || []).includes(option.id)).length)));
-    button.addEventListener('click', () => {
-      activeFilter = option.id;
-      filters.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-      let visible = 0;
-      cards.forEach(({card, project}) => { card.hidden = option.id !== 'all' && !(project.categories || []).includes(option.id); if (!card.hidden) visible++; });
-      arrangeCards();
-      const empty = document.getElementById('empty'); empty.hidden = visible > 0;
-      empty.textContent = t('Проекты этой категории пока не добавлены.');
-    });
+    button.addEventListener('click', () => selectFilter(option.id, true));
     filters.append(button);
   });
+  selectFilter(activeFilter);
   const toTop = el('button', 'to-top', t('Наверх')); toTop.type = 'button'; toTop.hidden = true;
   toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:reducedMotion.matches ? 'auto' : 'smooth'}));
   document.body.append(toTop);
